@@ -1,0 +1,93 @@
+@font-face {
+    font-family: 'uppereastsideregular';
+    src: url('UpperEastSide-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+}
+
+header:nth-of-type(1){
+	height: 60px;
+	background-color: #7477BF;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+header > h1{
+	color: #fff;
+	font-family: 'uppereastsideregular';
+	font-size: 54px;
+	letter-spacing: 0.05em;
+	padding-left: 0.125em;
+}
+header > div{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 45%;
+	/* padding-right: 0.5em; */
+
+}
+
+header > div > p:first-of-type{
+	font-size: 45px;
+	padding-bottom: 8px;
+}
+
+header > div > p:last-of-type{
+	color: #fff;
+	/* padding-left: 4px; */
+}
+
+header:nth-of-type(2){
+	background-color: green;
+	
+	
+}
+
+nav{
+	height: 30px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.nav{
+	height: 25px;
+}
+
+
+
+.bell{
+	background-color: blue;
+	height: 22px;
+	/* display: inline; */
+}
+.main-top{
+	display: flex;
+	justify-content: space-between;
+}
+
+.nav-destination{
+	font-size: 20px;
+	display: inline;
+}
+.search-div{
+	/* width: 66%; */
+	display: inline;
+}
+
+/* dark purple: #4D4C72 */
+/* alert bar, buttons: #7377BF */
+/* gray button: #B2B2B2 */
+
+
+
