@@ -122,23 +122,129 @@ main > div:first-child{
 	justify-content: space-around;
 	align-items: center;
 	margin-bottom: 1em;
+	padding-bottom: 0.5em;
+	border-bottom: 1px solid #dbdbdb;
 }
 
 main > div:first-child > h1{
 	/* padding-left: */
 	font-family: 'uppereastsideregular';
+	color: #676666;
 	font-size: 30px;
 	letter-spacing: 0.15em;
 	/* display: inline; */
 }
-.search-div{
+main > div > div{
 	width: 40%;
+	position: relative;
 	/* display: inline; */
 }
 
 input[type="search"]{
 	width: 100%;
+	height: 30px;
+	color: #676666;
+	border: 1px solid #dbdbdb;
+	border-radius: 5px;
+	padding-left: 1em;
+	/* background-image: url('mag2.jpg'); */
+	/* background-repeat: no-repeat; */
+	/* background-position: right; */
 }
+
+main > div > div > img{
+	position: absolute;
+	right: 13px;
+	top: 7px;
+}
+
+input[type="search"]:focus{
+	outline: none;
+	border-color: #4D4C72;
+	color: #676666;
+	/* background-image: none; */
+	
+}
+
+input[type="search"]:hover{
+	/* background-image: none; */
+}
+
+input[type="search"]::-webkit-input-placeholder { 
+	/* padding-left: 1em; */
+	color: #b9b9b9;
+	letter-spacing: 0.02em;
+	font-size: 14px;
+}
+input[type="search"]::-moz-placeholder { 
+	color: #b9b9b9;
+	letter-spacing: 0.02em;
+	font-size: 14px;
+}
+main > div:nth-of-type(2){
+	/* height: 42px; */
+	/* display: none; */
+	display: flex;
+	justify-content: flex-start;
+	width: 90%;
+	margin: 0 auto;
+	background-color: #7377BF;
+	line-height: 42px;
+	border-radius: 3px;
+	position: relative;
+}
+
+main > div:nth-of-type(2) > p{
+	font-family: 'Alegreya Sans', sans-serif;
+	color: #fff;
+	/* width: 88%; */
+	padding: 0 23px 0 18px;
+	/* display: inline; */
+	font-size: 17px;
+}
+
+main > div:nth-of-type(2) > p span{
+	/* font-family: 'uppereastsideregular'; */
+	font-family: 'Alegreya Sans SC', sans-serif;
+	/* color: #fff; */
+	/* padding: 0 16px; */
+	letter-spacing: 0.1em;
+	/* font-size: 17px; */
+	
+}
+
+main > div:nth-of-type(3){
+	height: 233px;
+	margin-top: 1em;
+	background-color: crimson;
+}
+
+main > div:nth-of-type(2) > button{
+	position: absolute;
+	font-family: 'Alegreya Sans SC', sans-serif;
+	width: 18px;
+	height: 30px;
+	font-size: 18px;
+	background-color: #7377BF;
+	right: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #fff;
+	border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* dark purple: #4D4C72 */
 /* alert bar, buttons: #7377BF */
