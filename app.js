@@ -1,9 +1,10 @@
 
 
-const links = document.querySelectorAll('header li a');
-const appName = document.querySelector('main > div:first-child > h1');
-const alertButton = document.querySelector('main > div:nth-of-type(2) > button');
-const alertDiv = document.querySelector('main > div:nth-of-type(2)');
+const links = document.querySelectorAll('div > header li a');
+const appName = document.querySelector('div > main > div:first-child > h1');
+const alertButton = document.querySelector('div > main > div:nth-of-type(2) > button');
+const alertDiv = document.querySelector('div > main > div:nth-of-type(2)');
+const alertDivKids = Array.from(alertDiv.children);
 
 links.forEach(li => {
 	li.addEventListener('click', function(){
@@ -17,7 +18,25 @@ links.forEach(li => {
 	});
 });
 
-alertButton.addEventListener('click', () => alertDiv.style.display = 'none');
+alertButton.addEventListener('click', () => {
+	
+	
+	// console.log(alertDiv.children);
+	alertDiv.style.opacity = '0';
+	
+	
+	window.setTimeout(() => {
+		// alertDivKids.forEach(k => k.style.fontSize = '0px');
+		alertDiv.style.lineHeight = '0px';
+		alertButton.style.height = '0px';
+		// alertDiv.addEventListener('transitionend', () => alertDiv.style.display = 'none');
+	}, 1501);
+	
+	
+	
+	
+	
+});
 
 
 
