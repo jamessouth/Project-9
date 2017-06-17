@@ -155,7 +155,7 @@ div > main > div:nth-of-type(2){
 	line-height: 42px;
 	border-radius: 3px;
 	position: relative;
-	transition: opacity 1.5s cubic-bezier(.4,.17,.79,.11), line-height 1.5s;
+	transition: opacity 1.5s cubic-bezier(.36, .33, 1, .68), line-height 1.5s;
 	
 }
 
@@ -194,7 +194,7 @@ div > main > div:nth-of-type(2) > button{
 }
 
 @media screen and (min-width: 400px){
-
+	
 	body > header > h1{
 		padding-left: 0.4em;
 	}
@@ -204,6 +204,9 @@ div > main > div:nth-of-type(2) > button{
 		padding-right: 1em;
 	}
 
+	div > header > nav ul li a{
+		padding: 19px 27px 0;
+	}
 
 
 }
@@ -259,12 +262,27 @@ div > main > div:nth-of-type(2) > button{
 	div > main > div > div{
 		width: 66%;
 		height: 100%;
-		background-color: #eee;
-		border-bottom: 1px solid #888;
-		border-left: 1px solid #888;
+		background-color: #fbfbfb;
+		border-bottom: 1px solid #dfdfdf;
+		border-left: 1px solid #dfdfdf;
 	}
-	
-	
+	input[type="search"]{
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 25px;
+		width: 54%;
+		height: 38px;
+		
+		
+		
+	}
+	div > main > div > div > img{
+		right: 40px;
+		top: 50%;
+		transform: translateY(-50%);
+		
+	}
 	
 
 }
