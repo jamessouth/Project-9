@@ -5,6 +5,7 @@ const appName = document.querySelector('div > main > div:first-child > h1');
 const alertButton = document.querySelector('div > main > div:nth-of-type(2) > button');
 const alertDiv = document.querySelector('div > main > div:nth-of-type(2)');
 const alertDivKids = Array.from(alertDiv.children);
+const lineChart = document.querySelector('div > main > div:nth-of-type(3) > canvas:nth-of-type(1)').getContext('2d');
 
 links.forEach(li => {
 	li.addEventListener('click', function(){
@@ -19,23 +20,12 @@ links.forEach(li => {
 });
 
 alertButton.addEventListener('click', () => {
-	
-	
-	// console.log(alertDiv.children);
 	alertDiv.style.opacity = '0';
-	
-	
 	window.setTimeout(() => {
-		// alertDivKids.forEach(k => k.style.fontSize = '0px');
 		alertDiv.style.lineHeight = '0px';
 		alertButton.style.height = '0px';
 		// alertDiv.addEventListener('transitionend', () => alertDiv.style.display = 'none');
 	}, 1501);
-	
-	
-	
-	
-	
 });
 
 
