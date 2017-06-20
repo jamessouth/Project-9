@@ -95,7 +95,7 @@ div > header > nav ul li a:hover:not(.selected){
 	opacity: 0.7;
 }
 
-div > main > div:first-child{
+.main-title{
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -105,13 +105,13 @@ div > main > div:first-child{
 	border-bottom: 1px solid #dbdbdb;
 }
 
-div > main > div:first-child > h1{
+.main-title > h1{
 	font-family: 'uppereastsideregular';
 	color: #676666;
 	font-size: 30px;
 	letter-spacing: 0.15em;
 }
-div > main > div > div{
+.main-title > div{
 	width: 40%;
 	position: relative;
 }
@@ -125,7 +125,7 @@ input[type="search"]{
 	padding-left: 1em;
 }
 
-div > main > div > div > img{
+.main-title > div > img{
 	position: absolute;
 	right: 13px;
 	top: 7px;
@@ -173,14 +173,16 @@ div > main > div:nth-of-type(2) > p span{
 	letter-spacing: 0.1em;
 }
 
-div > main > div:nth-of-type(3){
+div > main > div:nth-of-type(4){
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	height: 233px;
-	margin-top: 1em;
-	background-color: crimson;
+	/* height: 233px; */
+	width: 96%;
+	margin: 1em auto;
+	/* padding-bottom: 20em; */
+	/* background-color: crimson; */
 }
 
 div > main > div:nth-of-type(2) > button{
@@ -198,13 +200,31 @@ div > main > div:nth-of-type(2) > button{
 	transition: font-size 1.5s;
 }
 
-div > main > div:nth-of-type(3) > canvas:nth-of-type(1){
-	height: 230px;
-	width: 90%;
+div > main > div:nth-of-type(5) > ul{
+	/* background-color: pink; */
+	display: flex;
+	justify-content: center;
 	
 }
 
+div > main > div:nth-of-type(5) > ul li{
+	padding: 0 10px;
+	font-family: 'Alegreya Sans', sans-serif;
+}
 
+div > main > div:nth-of-type(5) > ul li p{
+	display: inline;
+}
+
+div > main > div:nth-of-type(5) > ul li div{
+	display: inline-block;
+	margin-right: 5px;
+	
+}
+
+body > div:last-of-type{
+	padding-bottom: 20em;
+}
 
 
 
@@ -239,7 +259,7 @@ div > main > div:nth-of-type(3) > canvas:nth-of-type(1){
 
 	body > div:nth-of-type(1){
 		display: flex;
-		height: 100vh;
+		/* height: 100vh; */
 		
 	}
 	
@@ -277,19 +297,19 @@ div > main > div:nth-of-type(3) > canvas:nth-of-type(1){
 		flex-grow: 1;
 	}
 	
-	div > main > div:first-child{
+	.main-title{
 		padding-bottom: 0;
 		height: 63px;
 		justify-content: space-between;
 		border-bottom: none;
 	}
 	
-	div > main > div:first-child > h1{
+	.main-title > h1{
 		padding-left: 0.65em;
 		padding-right: 0.55em;
 	}
 	
-	div > main > div > div{
+	.main-title > div{
 		/* width: 66%; */
 		flex-grow: 1;
 		height: 100%;
@@ -309,7 +329,7 @@ div > main > div:nth-of-type(3) > canvas:nth-of-type(1){
 		
 		
 	}
-	div > main > div > div > img{
+	.main-title > div > img{
 		right: 34px;
 		top: 50%;
 		transform: translateY(-50%);
@@ -321,6 +341,9 @@ div > main > div:nth-of-type(3) > canvas:nth-of-type(1){
 		
 	}
 	
+	div > main > div:nth-of-type(4){
+		width: 94%;
+	}
 	
 	
 }
