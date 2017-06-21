@@ -2,13 +2,27 @@ let ptRadius = 4;
 
 const links = document.querySelectorAll('div > header li a');
 const appName = document.querySelector('div > main > div:first-child > h1');
-const alertButton = document.querySelector('div > main > div:nth-of-type(2) > button');
-const alertDiv = document.querySelector('div > main > div:nth-of-type(2)');
-const alertDivKids = Array.from(alertDiv.children);
-const lineChartCtx = document.querySelector('div > main > div:nth-of-type(4) > canvas:nth-of-type(1)').getContext('2d');
+const alertButton = document.querySelector('.alert-div > button');
+const alertDiv = document.querySelector('.alert-div');
+// const alertDivKids = Array.from(alertDiv.children);
+const lineChartCtx = document.querySelector('.line-chart > canvas:nth-of-type(1)').getContext('2d');
 
-let main = document.querySelector('main');
+let lineLegendDiv = document.querySelector('.line-legend');
 
+
+let lineLabels = [];
+for(let i = 0; i < 13; i++){
+	lineLabels.push(moment().startOf('year').add(22+i, 'weeks'));
+	
+}
+
+let allData = function randData(x){
+	let datArray = [];
+	for(let i = 0; i < x; i++){
+		datArray.push(Math.floor(Math.random() * 6000) + 50);
+	}
+	return datArray;
+}(13);
 
 
 
@@ -37,16 +51,21 @@ let lineChart = new Chart(lineChartCtx, {
 	type: 'line',
 	
 	data: {
-		labels: ['28-3','4-10','11-17','18-24','25-1','2-8','9-15','16-22', '23-29', '30-5', '6-12', '13-19','20-26'],
+		// labels: ['28-3','4-10','11-17','18-24','25-1','2-8','9-15','16-22', '23-29', '30-5', '6-12', '13-19','20-26'],
 		months: ['June','July','August'],
-		
+		labels: lineLabels,
 	
 	// [1132,2952,1384,3548,3910,4810,4111,5102,3105,4791,4666,5342,5741]
+	
+	// [1132,2952,1384,3548,3910]
+	
+		
+	
 	
 		datasets: [{
 			
 			label: '',
-			data: [1132,2952,1384,3548,3910],
+			data: allData.slice(0,5),
 			backgroundColor: 'rgba(115,119,191,0.3)',
 			lineTension: 0,
 			borderColor: '#7377BF',
@@ -61,7 +80,7 @@ let lineChart = new Chart(lineChartCtx, {
 		
 		{
 			label: '',
-			data: [,,,,3910,4810,4111,5102,3105,4791],
+			data: [,,,,].concat(allData.slice(4,9)),
 			backgroundColor: 'rgba(119,191,115,0.3)',
 			lineTension: 0,
 			borderColor: '#7377BF',
@@ -79,7 +98,7 @@ let lineChart = new Chart(lineChartCtx, {
 		
 		{
 			label: '',
-			data: [,,,,,,,,,4791,4666,5342,5741],
+			data: [,,,,,,,,].concat(allData.slice(8)),
 			backgroundColor: 'rgba(191,115,119,0.3)',
 			lineTension: 0,
 			borderColor: '#7377BF',
@@ -103,7 +122,7 @@ let lineChart = new Chart(lineChartCtx, {
 	options: {
 		
 		legendCallback: function(lineChart){
-			let div = document.createElement('div');
+			// let div = document.createElement('div');
 			let ul = document.createElement('ul');
 			let selfConfig = lineChart.config.data.datasets;
 			
@@ -130,12 +149,12 @@ let lineChart = new Chart(lineChartCtx, {
 			
 			// li.textContent = 'yo';
 			// ul.appendChild(li);
-			div.appendChild(ul);
+			// div.appendChild(ul);
 			
 			
 			
 			
-			return div;
+			return ul;
 			
 			
 		},
@@ -164,7 +183,7 @@ let lineChart = new Chart(lineChartCtx, {
 				left: 0,
 				right: 0,
 				top: 0,
-				bottom: -10
+				bottom: 0
 				
 				
 			}
@@ -180,9 +199,21 @@ let lineChart = new Chart(lineChartCtx, {
 				ticks: {
 					min: 0
 				}
+			}],
+		
+			xAxes: [{
+				type: 'time',
+				time: {
+					displayFormats: {
+						week: 'MMM-DD'
+					}
+					// min: '2017W221',
+					// max: '2017W357'
+			
+			
+				}
+			
 			}]
-		
-		
 		
 		}
 	}
@@ -191,7 +222,11 @@ let lineChart = new Chart(lineChartCtx, {
 });
 
 let lineChartLegend = lineChart.generateLegend();
-main.appendChild(lineChartLegend);
+lineLegendDiv.appendChild(lineChartLegend);
+
+
+
+
 
 
 
