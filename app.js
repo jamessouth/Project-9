@@ -10,19 +10,8 @@ const lineChartCtx = document.querySelector('.line-chart > canvas:nth-of-type(1)
 let lineLegendDiv = document.querySelector('.line-legend');
 
 
-let lineLabels = [];
-for(let i = 0; i < 13; i++){
-	lineLabels.push(moment().startOf('year').add(22+i, 'weeks'));
-	
-}
 
-let allData = function randData(x){
-	let datArray = [];
-	for(let i = 0; i < x; i++){
-		datArray.push(Math.floor(Math.random() * 6000) + 50);
-	}
-	return datArray;
-}(13);
+
 
 
 
@@ -47,185 +36,243 @@ alertButton.addEventListener('click', () => {
 	}, 1501);
 });
 
-let lineChart = new Chart(lineChartCtx, {
-	type: 'line',
+
+
+let chartFactory = function(timeUnits, duration, toolTipFormat){
 	
-	data: {
-		// labels: ['28-3','4-10','11-17','18-24','25-1','2-8','9-15','16-22', '23-29', '30-5', '6-12', '13-19','20-26'],
-		months: ['June','July','August'],
-		labels: lineLabels,
-	
-	// [1132,2952,1384,3548,3910,4810,4111,5102,3105,4791,4666,5342,5741]
-	
-	// [1132,2952,1384,3548,3910]
-	
-		
-	
-	
-		datasets: [{
-			
-			label: '',
-			data: allData.slice(0,5),
-			backgroundColor: 'rgba(115,119,191,0.3)',
-			lineTension: 0,
-			borderColor: '#7377BF',
-			borderWidth: 1,
-			pointRadius: ptRadius,
-			pointBorderWidth: 2,
-			pointBorderColor: '#7377BF',
-			pointBackgroundColor: '#fbfbfb',
-			pointHoverRadius: ptRadius
-	
-		},
-		
-		{
-			label: '',
-			data: [,,,,].concat(allData.slice(4,9)),
-			backgroundColor: 'rgba(119,191,115,0.3)',
-			lineTension: 0,
-			borderColor: '#7377BF',
-			borderWidth: 1,
-			pointRadius: ptRadius,
-			pointBorderWidth: 2,
-			pointBorderColor: '#7377BF',
-			pointBackgroundColor: '#fbfbfb',
-			pointHoverRadius: ptRadius
-		
-		
-		
-		
-		},
-		
-		{
-			label: '',
-			data: [,,,,,,,,].concat(allData.slice(8)),
-			backgroundColor: 'rgba(191,115,119,0.3)',
-			lineTension: 0,
-			borderColor: '#7377BF',
-			borderWidth: 1,
-			pointRadius: ptRadius,
-			pointBorderWidth: 2,
-			pointBorderColor: '#7377BF',
-			pointBackgroundColor: '#fbfbfb',
-			pointHoverRadius: ptRadius
-		
-		
-		
-		
-		}]
-	
-	
-	
-	
-	},
-	
-	options: {
-		
-		legendCallback: function(lineChart){
-			// let div = document.createElement('div');
-			let ul = document.createElement('ul');
-			let selfConfig = lineChart.config.data.datasets;
-			
-			
-			for(let i = 0; i < selfConfig.length; i++){
-				let miniDiv = document.createElement('div');
-				let color = selfConfig[i].backgroundColor;
-				let li = document.createElement('li');
-				let p = document.createElement('p');
-				miniDiv.style.width = '14px';
-				miniDiv.style.height = '12px';
-				miniDiv.style.backgroundColor = color;
-				p.textContent = lineChart.data.months[i];
-				li.appendChild(miniDiv);
-				li.appendChild(p);
-				ul.appendChild(li);
-			}
-			
-			
-			
-			
-			
-			
-			
-			// li.textContent = 'yo';
-			// ul.appendChild(li);
-			// div.appendChild(ul);
-			
-			
-			
-			
-			return ul;
-			
-			
-		},
-		
-		
-		legend: {
-			display: false,
-			position: 'bottom'
-			
-		},
-		
-		
-		title: {
-			
-			display: false,
-			position: 'top',
-			padding: 0,
-			text: 'Traffic'
-			
-			
-		},
-		
-		layout: {
-			
-			padding: {
-				left: 0,
-				right: 0,
-				top: 0,
-				bottom: 0
-				
-				
-			}
-			
-			
-			
-		},
-		
-		scales: {
-		
-			yAxes: [{
-				
-				ticks: {
-					min: 0
-				}
-			}],
-		
-			xAxes: [{
-				type: 'time',
-				time: {
-					displayFormats: {
-						week: 'MMM-DD'
-					}
-					// min: '2017W221',
-					// max: '2017W357'
-			
-			
-				}
-			
-			}]
-		
+	function labelAndDataFactory(){
+		let lineLabels = [];
+		let datArray = [];
+		for(let i = 0; i < duration; i++){
+			lineLabels.push(moment('2017-01-01 00').add(i, timeUnits));
+			datArray.push(Math.floor(Math.random() * 6000) + 50);
 		}
+		return [lineLabels, datArray];
 	}
 	
 	
-});
 
-let lineChartLegend = lineChart.generateLegend();
-lineLegendDiv.appendChild(lineChartLegend);
+	let lineChart = new Chart(lineChartCtx, {
+		type: 'line',
+		data: {
+			
+			labels: labelAndDataFactory()[0],
+			datasets: [{
+				label: '',
+				data: labelAndDataFactory()[1],
+				backgroundColor: 'rgba(115,119,191,0.3)',
+				lineTension: 0,
+				borderColor: '#7377BF',
+				borderWidth: 1,
+				pointRadius: ptRadius,
+				pointBorderWidth: 2,
+				pointBorderColor: '#7377BF',
+				pointBackgroundColor: '#fbfbfb',
+				pointHoverRadius: ptRadius
+			}]
+		},
+		options: {
+			
+			tooltips: {
+				displayColors: false
+			},
+			
+			legend: {
+				display: false,
+				position: 'bottom'
+			},
+			title: {
+				display: false,
+				position: 'top',
+				padding: 0,
+				text: 'Traffic'
+			},
+			layout: {
+				padding: {
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						min: 0
+					}
+				}],
+				xAxes: [{
+					type: 'time',
+					time: {
+						displayFormats: {
+							hour: `H:00`,
+							day: 'MMM D',
+							week: 'MMM D',
+							month: 'MMM YY'
+						},
+						tooltipFormat: toolTipFormat,
+						max: labelAndDataFactory()[0][duration - 1],
+						unit: timeUnits.substring(0, timeUnits.length - 1)
+					},
+					ticks: {
+						// callback: function(){
+							// console.log();
+						// }
+						
+						
+						
+					}
+					
+					
+				}]
+			}
+		}
+	});
+
+
+	// let lineChartLegend = lineChart.generateLegend();
+	// lineLegendDiv.appendChild(lineChartLegend);
 
 
 
+
+	return lineChart;
+
+
+
+
+}
+
+
+chartFactory('hours',31,`H:00  MMM D`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ,
+			// {
+				// label: '',
+				// data: [,,,,].concat(allData.slice(4,9)),
+				// backgroundColor: 'rgba(119,191,115,0.3)',
+				// lineTension: 0,
+				// borderColor: '#7377BF',
+				// borderWidth: 1,
+				// pointRadius: ptRadius,
+				// pointBorderWidth: 2,
+				// pointBorderColor: '#7377BF',
+				// pointBackgroundColor: '#fbfbfb',
+				// pointHoverRadius: ptRadius
+			// },
+			// {
+				// label: '',
+				// data: [,,,,,,,,].concat(allData.slice(8)),
+				// backgroundColor: 'rgba(191,115,119,0.3)',
+				// lineTension: 0,
+				// borderColor: '#7377BF',
+				// borderWidth: 1,
+				// pointRadius: ptRadius,
+				// pointBorderWidth: 2,
+				// pointBorderColor: '#7377BF',
+				// pointBackgroundColor: '#fbfbfb',
+				// pointHoverRadius: ptRadius
+			// }
+
+// months: ['June','July','August'],
+
+// legendCallback: function(lineChart){
+				// let ul = document.createElement('ul');
+				// let selfConfig = lineChart.config.data.datasets;
+				// for(let i = 0; i < selfConfig.length; i++){
+					// let miniDiv = document.createElement('div');
+					// let color = selfConfig[i].backgroundColor;
+					// let li = document.createElement('li');
+					// let p = document.createElement('p');
+					// miniDiv.style.width = '14px';
+					// miniDiv.style.height = '12px';
+					// miniDiv.style.backgroundColor = color;
+					// p.textContent = lineChart.data.months[i];
+					// li.appendChild(miniDiv);
+					// li.appendChild(p);
+					// ul.appendChild(li);
+				// }
+				// return ul;
+			// },
 
 
 
