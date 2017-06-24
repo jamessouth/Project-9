@@ -239,6 +239,11 @@ input[type="search"]::-moz-placeholder {
 	/* margin-left: 10px; */
 }
 
+
+.line-buttons > ul li:hover{
+	cursor: pointer;
+}
+
 .line-buttons > ul li:not(.line-selected){
 	color: #676666;
 }
