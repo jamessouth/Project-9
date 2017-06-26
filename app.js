@@ -72,7 +72,9 @@ function makeLegend(lineChart){
 function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultiplier){
 	
 	let ptRadius = 3;
-	let easingStyles = ['linear', 'easeOutBounce', 'easeInBounce', 'easeOutBack', 'easeInBack', 'easeInOutElastic', 'easeOutCirc', 'easeOutSine', 'easeOutQuint', 'easeOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutExpo'];
+	let easingStyles = ['linear', 'easeOutBounce','easeOutBack', 'easeInOutElastic', 'easeOutCirc', 'easeOutSine', 'easeOutQuint', 'easeOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutExpo'];
+	
+	
 	let info = function labelAndDataFactory(){
 		let lineLabels = [];
 		let datArray = [];
@@ -85,6 +87,7 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 			datum *= dataMultiplier;
 			datum = Math.round(datum);
 			lineLabels.push(moment('2017-01-01 00').add(i, timeUnits));
+			
 			datArray.push(datum);
 			
 			totals += datum;
@@ -325,14 +328,112 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 	}
 	
 	if(chartType === 'bar'){
+		
 		return{
+			
 			type: 'bar',
 			data: {
+				labels: info[0],
+				datasets: [{
+					label: '',
+					data: info[1],
+					backgroundColor: '#7377BF'
+					
+				}]
+				
+				
 				
 			},
 			options: {
 				
-			}	
+				tooltips: {
+					displayColors: false,
+					callbacks: {
+						title: function(tooltipItem, data){
+							return data.labels[tooltipItem[0].index].format('dddd');
+							
+						},
+						
+						
+						label: function(tooltipItem, data){
+							
+							
+							return 'Users: ' + data.datasets[0].data[tooltipItem.index].toLocaleString();
+						}
+					}
+				},
+				
+				animation: {
+					easing: easingStyles[Math.max(...info[1]) % easingStyles.length]
+				},
+				
+				legend: {
+					display: false,
+					position: 'bottom'
+				},
+				
+				title: {
+					display: false,
+					position: 'top',
+					padding: 0,
+					text: 'Traffic'
+				},
+				
+				layout: {
+					padding: {
+						left: 0,
+						right: 0,
+						top: 0,
+						bottom: 0
+					}
+				},
+				scales: {
+					
+					
+					
+					yAxes: [{
+						ticks: {
+							min: 0,
+							
+							callback: function(value){
+								
+								if(value > 0){
+									if(value >= 1000000){
+										return value / 1000000 + 'MM';
+									} else if(value >= 1000){
+										return value / 1000 + 'k';
+									} else{
+										return value;
+									}
+									
+								} else{
+									return 0;
+								}
+								
+								
+							}
+						}
+						
+					}],
+					
+					xAxes: [{
+						ticks: {
+							callback: function(value){
+								let dayName = value.format('dddd');
+								if(dayName[1] === 'h'){
+									return dayName.substring(0,2);
+								} else {
+									return dayName[0];
+								}
+							}
+						}
+					}]
+					
+					
+					
+					
+				}
+			}
 		
 		};
 	}
@@ -345,23 +446,24 @@ let lineTypesArray = [];
 
 	
 	
-let ho = chartFactory('line', 'hours', 2, `H:00  MMM D`, 1);
-let da = chartFactory('line', 'days', 2, `MMM D`, 24);
-let we = chartFactory('line', 'weeks', 2, `MMM D`, 24*7);
-let mo = chartFactory('line', 'months', 2, `MMM YYYY`, 24*7*4.34);
+let hourLine = chartFactory('line', 'hours', 2, `H:00  MMM D`, 1);
+let dayLine = chartFactory('line', 'days', 20, `MMM D`, 24);
+let weekLine = chartFactory('line', 'weeks', 2, `MMM D`, 24*7);
+let monthLine = chartFactory('line', 'months', 2, `MMM YYYY`, 24*7*4.34);
+let dayBar = chartFactory('bar', 'days', 6, `MMM D`, 24);
 
-lineTypesArray.push(ho);
-lineTypesArray.push(da);
-lineTypesArray.push(we);
-lineTypesArray.push(mo);
+lineTypesArray.push(hourLine);
+lineTypesArray.push(dayLine);
+lineTypesArray.push(weekLine);
+lineTypesArray.push(monthLine);
 
 
 
-lineChart = new Chart(lineChartCtx, ho);
+lineChart = new Chart(lineChartCtx, hourLine);
 
 makeLegend(lineChart);
 
-
+barChart = new Chart(barChartCtx, dayBar);
 
 
 

@@ -181,7 +181,7 @@ input[type="search"]::-moz-placeholder {
 	/* align-items: center; */
 	/* height: 233px; */
 	width: 96%;
-	margin: 1em auto;
+	margin: 1.5em auto 1em;
 	/* padding-bottom: 20em; */
 	/* background-color: crimson; */
 }
@@ -235,7 +235,7 @@ input[type="search"]::-moz-placeholder {
 	font-family: 'Alegreya Sans', sans-serif;
 	text-transform: uppercase;
 	left: 50%;
-	top: 27px;
+	top: 30px;
 	transform: translateX(-50%);
 	
 }
