@@ -12,7 +12,8 @@ const lineTypes = document.querySelectorAll('.line-buttons button');
 let lineChart;
 
 const barChartCtx = document.querySelector('.bar-chart > canvas').getContext('2d');
-
+const dailyTraffic = document.querySelector('.bar_donut > p:first-of-type');
+const dailyTrafficButton = document.querySelector('.bar_donut > button');
 
 
 links.forEach(li => {
@@ -350,8 +351,15 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 					displayColors: false,
 					callbacks: {
 						title: function(tooltipItem, data){
-							return data.labels[tooltipItem[0].index].format('dddd');
 							
+							if(timeUnits === 'months'){
+							
+								return data.labels[tooltipItem[0].index].format('MMMM YYYY');
+							} else if(timeUnits === 'weeks'){
+								return `Week of: ${data.labels[tooltipItem[0].index].format('MMMM D')}`;
+							} else {
+								return data.labels[tooltipItem[0].index].format(toolTipFormat);
+							}
 						},
 						
 						
@@ -380,6 +388,7 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 				},
 				
 				layout: {
+					
 					padding: {
 						left: 0,
 						right: 0,
@@ -412,18 +421,37 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 								
 								
 							}
-						}
+						},
+						position: 'left'
 						
+					},
+					{
+						ticks: {
+							callback: function(value){
+								return '';
+							}
+						},
+						position: 'right',
+						gridLines:{
+							drawOnChartArea: false,
+							drawTicks: false
+						}
 					}],
 					
 					xAxes: [{
+						barPercentage: 0.7,
 						ticks: {
 							callback: function(value){
-								let dayName = value.format('dddd');
-								if(dayName[1] === 'h'){
-									return dayName.substring(0,2);
+								let tickName = value.format(toolTipFormat);
+								
+								if(timeUnits === 'days'){
+									if(tickName[1] === 'h'){
+										return tickName.substring(0,2);
+									} else {
+										return tickName[0];
+									}
 								} else {
-									return dayName[0];
+									return tickName;
 								}
 							}
 						}
@@ -440,7 +468,7 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 
 }
 let lineTypesArray = [];
-
+let barTypesArray = [];
 
 
 
@@ -450,14 +478,17 @@ let hourLine = chartFactory('line', 'hours', 2, `H:00  MMM D`, 1);
 let dayLine = chartFactory('line', 'days', 20, `MMM D`, 24);
 let weekLine = chartFactory('line', 'weeks', 2, `MMM D`, 24*7);
 let monthLine = chartFactory('line', 'months', 2, `MMM YYYY`, 24*7*4.34);
-let dayBar = chartFactory('bar', 'days', 6, `MMM D`, 24);
+let dayBar = chartFactory('bar', 'days', 7, `dddd`, 24);
+let weekBar = chartFactory('bar', 'weeks', 8, `MMM D`, 24*7);
+let monthBar = chartFactory('bar', 'months', 6, `MMM 'YY`, 24*7*4.34);
 
 lineTypesArray.push(hourLine);
 lineTypesArray.push(dayLine);
 lineTypesArray.push(weekLine);
 lineTypesArray.push(monthLine);
-
-
+barTypesArray.push(dayBar);
+barTypesArray.push(weekBar);
+barTypesArray.push(monthBar);
 
 lineChart = new Chart(lineChartCtx, hourLine);
 
@@ -468,10 +499,37 @@ barChart = new Chart(barChartCtx, dayBar);
 
 
 
+document.addEventListener('DOMContentLoaded', function(){
+	
+	let cnt = 1;
+	let times = ['daily', 'weekly', 'monthly'];
+	
+	window.setInterval(() => {
+		
+		
+		barChart.destroy();
+		
+		// let barObjectIndex = Array.from(barTypes).indexOf();
+		
+		
+		
+		barChart = new Chart(barChartCtx, barTypesArray[cnt % 3]);
+		dailyTraffic.textContent = times[cnt % 3] + ' traffic';
+		
+		
+		cnt++;
+		
+		
+	}, 5000);
+	
+	
+});
 
 
-
-
+dailyTrafficButton.addEventListener('click', function(){
+	
+	this.innerHTML === 'pause' ? this.innerHTML = 'play' : this.innerHTML = 'pause';
+});
 
 
 
