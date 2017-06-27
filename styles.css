@@ -268,10 +268,11 @@ input[type="search"]::-moz-placeholder {
 }
 
 .bar_donut{
+	position: relative;
 	margin-top: 1em;
 	display: flex;
 	flex-direction: column;
-	
+	border-top: 1px solid #cecece;
 }
 
 
@@ -281,11 +282,28 @@ input[type="search"]::-moz-placeholder {
 	margin: 1em auto;
 }
 
+.donut-chart{
+	border-top: 1px solid #cecece;
+	
+}
 
+.bar_donut > p:first-of-type{
+	position: absolute;
+	font-family: 'Alegreya Sans', sans-serif;
+	text-transform: uppercase;
+	left: 50%;
+	top: 2px;
+	transform: translateX(-50%);
+}
 
-
-
-
+.bar_donut > button{
+	font-family: 'Alegreya Sans SC', sans-serif;
+	position: absolute;
+	width: 50px;
+	top: 2px;
+	right: 33px;
+	
+}
 
 
 
