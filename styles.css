@@ -273,6 +273,7 @@ input[type="search"]::-moz-placeholder {
 	display: flex;
 	flex-direction: column;
 	border-top: 1px solid #cecece;
+	border-bottom: 1px solid #cecece;
 }
 
 
@@ -283,7 +284,10 @@ input[type="search"]::-moz-placeholder {
 }
 
 .donut-chart{
+	position: relative;
 	border-top: 1px solid #cecece;
+	width: 96%;
+	margin: 1em auto;
 	
 }
 
@@ -298,11 +302,15 @@ input[type="search"]::-moz-placeholder {
 
 .bar_donut > button{
 	font-family: 'Alegreya Sans SC', sans-serif;
+	font-size: 16px;
 	position: absolute;
-	width: 50px;
+	width: 40px;
 	top: 2px;
-	right: 33px;
-	
+	right: 3%;
+	border: none;
+	background-color: transparent;
+	color: #7377bf;
+	cursor: pointer;
 }
 
 

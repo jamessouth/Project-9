@@ -15,6 +15,8 @@ const barChartCtx = document.querySelector('.bar-chart > canvas').getContext('2d
 const dailyTraffic = document.querySelector('.bar_donut > p:first-of-type');
 const dailyTrafficButton = document.querySelector('.bar_donut > button');
 
+const donutChartCtx = document.querySelector('.donut-chart > canvas').getContext('2d');
+
 
 links.forEach(li => {
 	li.addEventListener('click', function(){
@@ -466,6 +468,61 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 		};
 	}
 
+	if(chartType === 'doughnut'){
+		
+		return {
+			
+			type: 'doughnut',
+			data: {
+				labels: ['Phones', 'Tablets', 'Desktop'],
+				datasets: [{
+					label: '',
+					data: info[1],
+					borderWidth: [0,0,0],
+					backgroundColor: ['#74B1BF', '#81C98F', '#7377BF']
+					
+				}]
+			},
+			options: {
+				
+				rotation: Math.floor(Math.random() * 100)/10 * Math.PI,
+				cutoutPercentage: 55,
+				animation: {
+					animateScale: true
+				},
+				
+				legend: {
+					labels: {
+						boxWidth: 20
+					}
+				},
+				
+				tooltips: {
+					displayColors: false,
+					callbacks: {
+						label: function(tooltipItem, data){
+							
+							let dataSet = data.datasets[0].data;
+							// console.log(dataSet);
+							let dataPoint = dataSet[tooltipItem.index].toLocaleString();
+							// console.log(typeof dataPoint);
+							let sum = dataSet.reduce((a,b) => {return a+b;},0);
+							
+							// console.log(typeof sum);
+							
+							
+							return data.labels[tooltipItem.index] + ': ' + dataPoint + `  (${(Math.round((dataSet[tooltipItem.index] / sum)*10000))/100}%)`;
+						}
+					}
+				}
+			}
+			
+			
+		};
+	
+	
+	}
+	
 }
 let lineTypesArray = [];
 let barTypesArray = [];
@@ -482,6 +539,8 @@ let dayBar = chartFactory('bar', 'days', 7, `dddd`, 24);
 let weekBar = chartFactory('bar', 'weeks', 8, `MMM D`, 24*7);
 let monthBar = chartFactory('bar', 'months', 6, `MMM 'YY`, 24*7*4.34);
 
+let donut = chartFactory('doughnut', 'days', 3, 'dddd', 24);
+
 lineTypesArray.push(hourLine);
 lineTypesArray.push(dayLine);
 lineTypesArray.push(weekLine);
@@ -495,41 +554,54 @@ lineChart = new Chart(lineChartCtx, hourLine);
 makeLegend(lineChart);
 
 barChart = new Chart(barChartCtx, dayBar);
-
+donutChart = new Chart(donutChartCtx, donut);
 
 
 
 document.addEventListener('DOMContentLoaded', function(){
-	
+	let timer = null;
 	let cnt = 1;
 	let times = ['daily', 'weekly', 'monthly'];
 	
-	window.setInterval(() => {
-		
-		
+	function nextChart(){
 		barChart.destroy();
-		
-		// let barObjectIndex = Array.from(barTypes).indexOf();
-		
-		
 		
 		barChart = new Chart(barChartCtx, barTypesArray[cnt % 3]);
 		dailyTraffic.textContent = times[cnt % 3] + ' traffic';
-		
-		
 		cnt++;
-		
-		
-	}, 5000);
+		start();
+	};
 	
+	function start(){
+		timer = setTimeout(nextChart, 5000);
+	};
+	
+	function stop(){
+		clearTimeout(timer);
+	};
+	
+	dailyTrafficButton.addEventListener('click', function(){
+		
+		
+		
+		if(this.innerHTML === 'pause'){
+			this.innerHTML = 'play';
+			stop();
+		} else {
+			this.innerHTML = 'pause';
+			start();
+		}
+		
+		
+		
+	});
+	
+	start();
 	
 });
 
 
-dailyTrafficButton.addEventListener('click', function(){
-	
-	this.innerHTML === 'pause' ? this.innerHTML = 'play' : this.innerHTML = 'pause';
-});
+
 
 
 
