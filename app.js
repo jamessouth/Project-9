@@ -18,6 +18,13 @@ const dailyTrafficButton = document.querySelector('.bar_donut > button');
 const donutChartCtx = document.querySelector('.donut-chart > canvas').getContext('2d');
 
 
+let donutCtrX;
+let donutCtrY;
+let donutInnerRadius;
+let donutOuterRadius;
+let gradientGreen;
+
+
 links.forEach(li => {
 	li.addEventListener('click', function(){
 		for(let i = 0; i < links.length; i++){
@@ -477,15 +484,79 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 				labels: ['Phones', 'Tablets', 'Desktop'],
 				datasets: [{
 					label: '',
-					data: info[1],
-					borderWidth: [0,0,0],
-					backgroundColor: ['#74B1BF', '#81C98F', '#7377BF']
+					data: [3,2,1],//info[1],
+					borderWidth: [0,0,0]
 					
 				}]
 			},
 			options: {
 				
-				rotation: Math.floor(Math.random() * 100)/10 * Math.PI,
+				onResize: function(chart, size){
+					
+					donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2);
+					donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2) + 16;
+					donutInnerRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.4879725)/2);
+					donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2);
+					
+					
+					gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+					gradientBlue.addColorStop(0, '#5b98a6');
+					gradientBlue.addColorStop(0.15, '#74B1BF');
+					gradientBlue.addColorStop(0.35, 'white');
+					gradientBlue.addColorStop(0.4, 'white');
+					gradientBlue.addColorStop(0.85, '#74B1BF');
+					gradientBlue.addColorStop(1, '#5b98a6');
+
+					gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+					gradientGreen.addColorStop(0, '#68B076');
+					gradientGreen.addColorStop(0.15, '#81C98F');
+					gradientGreen.addColorStop(0.35, 'white');
+					gradientGreen.addColorStop(0.4, 'white');
+					gradientGreen.addColorStop(0.85, '#81C98F');
+					gradientGreen.addColorStop(1, '#68B076');
+
+					gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+					gradientPurple.addColorStop(0, '#5a5ea6');
+					gradientPurple.addColorStop(0.15, '#7377BF');
+					gradientPurple.addColorStop(0.35, 'white');
+					gradientPurple.addColorStop(0.4, 'white');
+					gradientPurple.addColorStop(0.85, '#7377BF');
+					gradientPurple.addColorStop(1, '#5a5ea6');
+					
+					
+					gradientBlue2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+					gradientBlue2.addColorStop(0, '#427f8d');
+					gradientBlue2.addColorStop(0.15, '#5b98a6');
+					gradientBlue2.addColorStop(0.35, '#e6e6e6');
+					gradientBlue2.addColorStop(0.4, '#e6e6e6');
+					gradientBlue2.addColorStop(0.85, '#5b98a6');
+					gradientBlue2.addColorStop(1, '#427f8d');
+
+					gradientGreen2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+					gradientGreen2.addColorStop(0, '#4f975d');
+					gradientGreen2.addColorStop(0.15, '#68B076');
+					gradientGreen2.addColorStop(0.35, '#e6e6e6');
+					gradientGreen2.addColorStop(0.4, '#e6e6e6');
+					gradientGreen2.addColorStop(0.85, '#68B076');
+					gradientGreen2.addColorStop(1, '#4f975d');
+
+					gradientPurple2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+					gradientPurple2.addColorStop(0, '#40448c');
+					gradientPurple2.addColorStop(0.15, '#5a5ea6');
+					gradientPurple2.addColorStop(0.35, '#e6e6e6');
+					gradientPurple2.addColorStop(0.4, '#e6e6e6');
+					gradientPurple2.addColorStop(0.85, '#5a5ea6');
+					gradientPurple2.addColorStop(1, '#40448c');
+					
+					
+					chart.config.data.datasets[0].backgroundColor = [gradientBlue, gradientGreen, gradientPurple];
+					
+					chart.config.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
+					
+					chart.update();
+				},
+				
+				// rotation: Math.floor(Math.random() * 100)/10 * Math.PI,
 				cutoutPercentage: 55,
 				animation: {
 					animateScale: true
@@ -541,6 +612,9 @@ let monthBar = chartFactory('bar', 'months', 6, `MMM 'YY`, 24*7*4.34);
 
 let donut = chartFactory('doughnut', 'days', 3, 'dddd', 24);
 
+
+
+
 lineTypesArray.push(hourLine);
 lineTypesArray.push(dayLine);
 lineTypesArray.push(weekLine);
@@ -555,6 +629,72 @@ makeLegend(lineChart);
 
 barChart = new Chart(barChartCtx, dayBar);
 donutChart = new Chart(donutChartCtx, donut);
+
+
+
+donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2);
+donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2) + 16;
+donutInnerRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.4879725)/2);
+donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2);
+
+gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+gradientBlue.addColorStop(0, '#5b98a6');
+gradientBlue.addColorStop(0.15, '#74B1BF');
+gradientBlue.addColorStop(0.35, 'white');
+gradientBlue.addColorStop(0.4, 'white');
+gradientBlue.addColorStop(0.85, '#74B1BF');
+gradientBlue.addColorStop(1, '#5b98a6');
+
+gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+gradientGreen.addColorStop(0, '#68B076');
+gradientGreen.addColorStop(0.15, '#81C98F');
+gradientGreen.addColorStop(0.35, 'white');
+gradientGreen.addColorStop(0.4, 'white');
+gradientGreen.addColorStop(0.85, '#81C98F');
+gradientGreen.addColorStop(1, '#68B076');
+
+gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+gradientPurple.addColorStop(0, '#5a5ea6');
+gradientPurple.addColorStop(0.15, '#7377BF');
+gradientPurple.addColorStop(0.35, 'white');
+gradientPurple.addColorStop(0.4, 'white');
+gradientPurple.addColorStop(0.85, '#7377BF');
+gradientPurple.addColorStop(1, '#5a5ea6');
+
+
+
+gradientBlue2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+gradientBlue2.addColorStop(0, '#427f8d');
+gradientBlue2.addColorStop(0.15, '#5b98a6');
+gradientBlue2.addColorStop(0.35, '#e6e6e6');
+gradientBlue2.addColorStop(0.4, '#e6e6e6');
+gradientBlue2.addColorStop(0.85, '#5b98a6');
+gradientBlue2.addColorStop(1, '#427f8d');
+
+gradientGreen2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+gradientGreen2.addColorStop(0, '#4f975d');
+gradientGreen2.addColorStop(0.15, '#68B076');
+gradientGreen2.addColorStop(0.35, '#e6e6e6');
+gradientGreen2.addColorStop(0.4, '#e6e6e6');
+gradientGreen2.addColorStop(0.85, '#68B076');
+gradientGreen2.addColorStop(1, '#4f975d');
+
+gradientPurple2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+gradientPurple2.addColorStop(0, '#40448c');
+gradientPurple2.addColorStop(0.15, '#5a5ea6');
+gradientPurple2.addColorStop(0.35, '#e6e6e6');
+gradientPurple2.addColorStop(0.4, '#e6e6e6');
+gradientPurple2.addColorStop(0.85, '#5a5ea6');
+gradientPurple2.addColorStop(1, '#40448c');
+
+
+
+donut.data.datasets[0].backgroundColor = [gradientBlue, gradientGreen, gradientPurple];
+
+
+donut.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
+
+donutChart.update();
 
 
 
@@ -596,7 +736,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		
 	});
 	
-	start();
+	// start();
 	
 });
 
