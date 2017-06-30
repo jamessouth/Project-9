@@ -284,12 +284,55 @@ input[type="search"]::-moz-placeholder {
 }
 
 .donut-chart{
-	position: relative;
+	/* position: relative; */
 	border-top: 1px solid #cecece;
 	width: 96%;
 	margin: 1em auto;
 	
 }
+
+
+.donut-chart > canvas{
+	width: 297px;
+	height: 297px;
+	margin: auto;
+}
+
+.donut-legend{
+	margin-bottom: 1em;
+}
+
+
+.donut-legend > ul{
+	/* background-color: pink; */
+	display: flex;
+	justify-content: center;
+	
+}
+
+.donut-legend > ul li{
+	padding: 0 10px;
+	display: flex;
+	align-items: center;
+	font-family: 'Alegreya Sans', sans-serif;
+}
+
+.donut-legend > ul li p{
+	display: inline;
+}
+
+.donut-legend > ul li div{
+	display: inline-block;
+	margin-right: 5px;
+}
+
+
+
+
+
+
+
+
 
 .bar_donut > p:first-of-type{
 	position: absolute;
