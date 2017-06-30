@@ -8,6 +8,7 @@ const lineChartDiv = document.querySelector('.line-chart');
 const lineChartCtx = document.querySelector('.line-chart > canvas:nth-of-type(1)').getContext('2d');
 
 const lineLegendDiv = document.querySelector('.line-legend');
+const donutLegendDiv = document.querySelector('.donut-legend');
 const lineTypes = document.querySelectorAll('.line-buttons button');
 let lineChart;
 
@@ -63,7 +64,7 @@ lineTypes.forEach(li => {
 		
 		
 		lineChart = new Chart(lineChartCtx, lineTypesArray[lineObjectIndex]);
-		makeLegend(lineChart);
+		makeLegend(lineChart, lineLegendDiv);
 		
 		
 		
@@ -72,10 +73,10 @@ lineTypes.forEach(li => {
 });
 
 
-function makeLegend(lineChart){
+function makeLegend(chart, div){
 	
-	let lineChartLegend = lineChart.generateLegend();
-	lineLegendDiv.appendChild(lineChartLegend);
+	let chartLegend = chart.generateLegend();
+	div.appendChild(chartLegend);
 };
 
 
@@ -484,85 +485,57 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 				labels: ['Phones', 'Tablets', 'Desktop'],
 				datasets: [{
 					label: '',
-					data: [3,2,1],//info[1],
+					data: info[1],
 					borderWidth: [0,0,0]
 					
 				}]
 			},
 			options: {
+				responsive: false,
 				
-				onResize: function(chart, size){
+				layout: {
+					padding: {
+						
+						left: 15,
+						right: 15,
+						top: 0,
+						bottom: 0
+						
+					}
 					
-					donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2);
-					donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2) + 16;
-					donutInnerRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.4879725)/2);
-					donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2);
-					
-					
-					gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-					gradientBlue.addColorStop(0, '#5b98a6');
-					gradientBlue.addColorStop(0.15, '#74B1BF');
-					gradientBlue.addColorStop(0.35, 'white');
-					gradientBlue.addColorStop(0.4, 'white');
-					gradientBlue.addColorStop(0.85, '#74B1BF');
-					gradientBlue.addColorStop(1, '#5b98a6');
-
-					gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-					gradientGreen.addColorStop(0, '#68B076');
-					gradientGreen.addColorStop(0.15, '#81C98F');
-					gradientGreen.addColorStop(0.35, 'white');
-					gradientGreen.addColorStop(0.4, 'white');
-					gradientGreen.addColorStop(0.85, '#81C98F');
-					gradientGreen.addColorStop(1, '#68B076');
-
-					gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-					gradientPurple.addColorStop(0, '#5a5ea6');
-					gradientPurple.addColorStop(0.15, '#7377BF');
-					gradientPurple.addColorStop(0.35, 'white');
-					gradientPurple.addColorStop(0.4, 'white');
-					gradientPurple.addColorStop(0.85, '#7377BF');
-					gradientPurple.addColorStop(1, '#5a5ea6');
-					
-					
-					gradientBlue2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-					gradientBlue2.addColorStop(0, '#427f8d');
-					gradientBlue2.addColorStop(0.15, '#5b98a6');
-					gradientBlue2.addColorStop(0.35, '#e6e6e6');
-					gradientBlue2.addColorStop(0.4, '#e6e6e6');
-					gradientBlue2.addColorStop(0.85, '#5b98a6');
-					gradientBlue2.addColorStop(1, '#427f8d');
-
-					gradientGreen2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-					gradientGreen2.addColorStop(0, '#4f975d');
-					gradientGreen2.addColorStop(0.15, '#68B076');
-					gradientGreen2.addColorStop(0.35, '#e6e6e6');
-					gradientGreen2.addColorStop(0.4, '#e6e6e6');
-					gradientGreen2.addColorStop(0.85, '#68B076');
-					gradientGreen2.addColorStop(1, '#4f975d');
-
-					gradientPurple2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-					gradientPurple2.addColorStop(0, '#40448c');
-					gradientPurple2.addColorStop(0.15, '#5a5ea6');
-					gradientPurple2.addColorStop(0.35, '#e6e6e6');
-					gradientPurple2.addColorStop(0.4, '#e6e6e6');
-					gradientPurple2.addColorStop(0.85, '#5a5ea6');
-					gradientPurple2.addColorStop(1, '#40448c');
-					
-					
-					chart.config.data.datasets[0].backgroundColor = [gradientBlue, gradientGreen, gradientPurple];
-					
-					chart.config.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
-					
-					chart.update();
 				},
 				
-				// rotation: Math.floor(Math.random() * 100)/10 * Math.PI,
-				cutoutPercentage: 55,
+				
+				legendCallback: function(donutChart){
+					let ul = document.createElement('ul');
+					let selfConfig = donutChart.config.data.datasets;
+					let colors = ['#73B1BF', '#81C98F', '#7377BF'];
+					for(let i = 0; i < selfConfig[0].data.length; i++){
+						let miniDiv = document.createElement('div');
+						let color = colors[i];
+						let li = document.createElement('li');
+						let p = document.createElement('p');
+						miniDiv.style.width = '26px';
+						miniDiv.style.height = '26px';
+						miniDiv.style.borderRadius = '4px';
+						miniDiv.style.backgroundColor = color;
+						p.textContent = donutChart.data.labels[i];
+						li.appendChild(miniDiv);
+						li.appendChild(p);
+						ul.appendChild(li);
+					}
+					return ul;
+				},
+				
+				
+				rotation: Math.floor(Math.random() * 100)/10 * Math.PI,
+				cutoutPercentage: 54,
 				animation: {
 					animateScale: true
 				},
 				
 				legend: {
+					display: false,
 					labels: {
 						boxWidth: 20
 					}
@@ -572,6 +545,7 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 					displayColors: false,
 					callbacks: {
 						label: function(tooltipItem, data){
+							
 							
 							let dataSet = data.datasets[0].data;
 							// console.log(dataSet);
@@ -625,67 +599,58 @@ barTypesArray.push(monthBar);
 
 lineChart = new Chart(lineChartCtx, hourLine);
 
-makeLegend(lineChart);
+makeLegend(lineChart, lineLegendDiv);
 
 barChart = new Chart(barChartCtx, dayBar);
 donutChart = new Chart(donutChartCtx, donut);
 
 
 
-donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2);
-donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2) + 16;
+donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2)-7;
+donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2)-5;
 donutInnerRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.4879725)/2);
-donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2);
+donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2)+5;
+
 
 gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+
 gradientBlue.addColorStop(0, '#5b98a6');
-gradientBlue.addColorStop(0.15, '#74B1BF');
-gradientBlue.addColorStop(0.35, 'white');
-gradientBlue.addColorStop(0.4, 'white');
-gradientBlue.addColorStop(0.85, '#74B1BF');
-gradientBlue.addColorStop(1, '#5b98a6');
+gradientBlue.addColorStop(0.45, 'white');
+gradientBlue.addColorStop(0.99, '#286573');
+
 
 gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+
 gradientGreen.addColorStop(0, '#68B076');
-gradientGreen.addColorStop(0.15, '#81C98F');
-gradientGreen.addColorStop(0.35, 'white');
-gradientGreen.addColorStop(0.4, 'white');
-gradientGreen.addColorStop(0.85, '#81C98F');
-gradientGreen.addColorStop(1, '#68B076');
+gradientGreen.addColorStop(0.45, 'white');
+gradientGreen.addColorStop(0.99, '#357D43');
+
 
 gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+
 gradientPurple.addColorStop(0, '#5a5ea6');
-gradientPurple.addColorStop(0.15, '#7377BF');
-gradientPurple.addColorStop(0.35, 'white');
-gradientPurple.addColorStop(0.4, 'white');
-gradientPurple.addColorStop(0.85, '#7377BF');
-gradientPurple.addColorStop(1, '#5a5ea6');
+gradientPurple.addColorStop(0.45, 'white');
+gradientPurple.addColorStop(0.99, '#272b73');
 
-
+//-----------------------------------------------------------------------------
 
 gradientBlue2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-gradientBlue2.addColorStop(0, '#427f8d');
-gradientBlue2.addColorStop(0.15, '#5b98a6');
-gradientBlue2.addColorStop(0.35, '#e6e6e6');
-gradientBlue2.addColorStop(0.4, '#e6e6e6');
-gradientBlue2.addColorStop(0.85, '#5b98a6');
-gradientBlue2.addColorStop(1, '#427f8d');
+
+gradientBlue2.addColorStop(0, '#286573');
+gradientBlue2.addColorStop(0.45, '#e6e6e6');
+gradientBlue2.addColorStop(0.99, '#0f4c5a');
 
 gradientGreen2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-gradientGreen2.addColorStop(0, '#4f975d');
-gradientGreen2.addColorStop(0.15, '#68B076');
-gradientGreen2.addColorStop(0.35, '#e6e6e6');
-gradientGreen2.addColorStop(0.4, '#e6e6e6');
-gradientGreen2.addColorStop(0.85, '#68B076');
-gradientGreen2.addColorStop(1, '#4f975d');
+
+gradientGreen2.addColorStop(0, '#357d43');
+gradientGreen2.addColorStop(0.45, '#e6e6e6');
+gradientGreen2.addColorStop(0.99, '#1c642a');
 
 gradientPurple2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
-gradientPurple2.addColorStop(0, '#40448c');
-gradientPurple2.addColorStop(0.15, '#5a5ea6');
-gradientPurple2.addColorStop(0.35, '#e6e6e6');
-gradientPurple2.addColorStop(0.4, '#e6e6e6');
-gradientPurple2.addColorStop(0.85, '#5a5ea6');
-gradientPurple2.addColorStop(1, '#40448c');
+
+gradientPurple2.addColorStop(0, '#272b73');
+gradientPurple2.addColorStop(0.45, '#e6e6e6');
+gradientPurple2.addColorStop(0.99, '#0e125a');
 
 
 
@@ -695,6 +660,57 @@ donut.data.datasets[0].backgroundColor = [gradientBlue, gradientGreen, gradientP
 donut.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
 
 donutChart.update();
+makeLegend(donutChart, donutLegendDiv);
+
+const legItems = donutLegendDiv.querySelectorAll('ul li');
+let swappedColor;
+
+legItems.forEach(li => {
+	li.addEventListener('mouseenter', (e) => {
+		
+		// console.log(e);
+		
+		let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
+		
+		swappedColor = donut.data.datasets[0].backgroundColor[liIndex];
+		
+		donut.data.datasets[0].backgroundColor[liIndex] = donut.data.datasets[0].hoverBackgroundColor[liIndex];
+		
+		
+		donutChart.update();
+		
+		
+	}),
+	
+	li.addEventListener('mouseleave', (e) => {
+		
+		// console.log();
+		
+		let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
+		
+		donut.data.datasets[0].backgroundColor[liIndex] = swappedColor;
+		
+		donutChart.update();
+		
+		
+	})
+	
+	
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
