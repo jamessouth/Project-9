@@ -16,14 +16,23 @@ const barChartCtx = document.querySelector('.bar-chart > canvas').getContext('2d
 const dailyTraffic = document.querySelector('.bar_donut > p:first-of-type');
 const dailyTrafficButton = document.querySelector('.bar_donut > button');
 
-const donutChartCtx = document.querySelector('.donut-chart > canvas').getContext('2d');
 
+
+const donutChartCtx = document.querySelector('.donut-chart > canvas').getContext('2d');
+const donutChartP = document.querySelector('.donut-chart > p');
 
 let donutCtrX;
 let donutCtrY;
 let donutInnerRadius;
 let donutOuterRadius;
 let gradientGreen;
+
+
+
+
+
+
+
 
 
 links.forEach(li => {
@@ -496,8 +505,8 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 				layout: {
 					padding: {
 						
-						left: 15,
-						right: 15,
+						left: 10,
+						right: 20,
 						top: 0,
 						bottom: 0
 						
@@ -532,6 +541,7 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 				cutoutPercentage: 54,
 				animation: {
 					animateScale: true
+					
 				},
 				
 				legend: {
@@ -548,12 +558,12 @@ function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultipl
 							
 							
 							let dataSet = data.datasets[0].data;
-							// console.log(dataSet);
+							
 							let dataPoint = dataSet[tooltipItem.index].toLocaleString();
-							// console.log(typeof dataPoint);
+							
 							let sum = dataSet.reduce((a,b) => {return a+b;},0);
 							
-							// console.log(typeof sum);
+							
 							
 							
 							return data.labels[tooltipItem.index] + ': ' + dataPoint + `  (${(Math.round((dataSet[tooltipItem.index] / sum)*10000))/100}%)`;
@@ -606,8 +616,8 @@ donutChart = new Chart(donutChartCtx, donut);
 
 
 
-donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2)-7;
-donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2)-5;
+donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2)-8;
+donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2)-7;
 donutInnerRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.4879725)/2);
 donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2)+5;
 
@@ -662,37 +672,62 @@ donut.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gr
 donutChart.update();
 makeLegend(donutChart, donutLegendDiv);
 
+
+
+
+
+
+
+
+
 const legItems = donutLegendDiv.querySelectorAll('ul li');
 let swappedColor;
 
 legItems.forEach(li => {
 	li.addEventListener('mouseenter', (e) => {
 		
-		// console.log(e);
-		
 		let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
-		
 		swappedColor = donut.data.datasets[0].backgroundColor[liIndex];
-		
 		donut.data.datasets[0].backgroundColor[liIndex] = donut.data.datasets[0].hoverBackgroundColor[liIndex];
 		
 		
+		
+		
+		
+		
+		let dataSet = donut.data.datasets[0].data;
+							
+		let dataPoint = dataSet[liIndex].toLocaleString();
+							
+		let sum = dataSet.reduce((a,b) => {return a+b;},0);
+							
+		let toolTipText = donut.data.labels[liIndex] + ':\n' + dataPoint + '\n' + `(${(Math.round((dataSet[liIndex] / sum)*10000))/100}%)`;
+		
+		
+		
+		
+		
+		donutChartP.textContent = toolTipText;
+		
+		
+		
+		
+		
 		donutChart.update();
-		
-		
 	}),
 	
 	li.addEventListener('mouseleave', (e) => {
 		
-		// console.log();
-		
 		let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
-		
 		donut.data.datasets[0].backgroundColor[liIndex] = swappedColor;
+
+		
+		
+		donutChartP.textContent = '';
+		
+		
 		
 		donutChart.update();
-		
-		
 	})
 	
 	
