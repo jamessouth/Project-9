@@ -284,22 +284,49 @@ input[type="search"]::-moz-placeholder {
 }
 
 .donut-chart{
-	/* position: relative; */
+	position: relative;
 	border-top: 1px solid #cecece;
 	width: 96%;
-	margin: 1em auto;
+	padding-top: 1em;
+	margin: 0 auto 1em;
 	
 }
+
+
+.donut-chart > span{
+	position: absolute;
+	font-family: 'Alegreya Sans', sans-serif;
+	text-transform: uppercase;
+	left: 50%;
+	top: 2px;
+	transform: translateX(-50%);
+	
+}
+
+
+.donut-chart > p{
+	position: absolute;
+	font-family: 'Josefin Slab', serif;
+	font-size: 22px;
+	white-space: pre;
+	bottom: 50%;
+	left: 50%;
+	transform: translateY(50%) translateX(-50%);
+
+}
+
 
 
 .donut-chart > canvas{
 	width: 297px;
 	height: 297px;
 	margin: auto;
+	background: url('shadow2.jpg') no-repeat;
 }
 
 .donut-legend{
 	margin-bottom: 1em;
+	position: relative;
 }
 
 
@@ -325,7 +352,6 @@ input[type="search"]::-moz-placeholder {
 	display: inline-block;
 	margin-right: 5px;
 }
-
 
 
 
