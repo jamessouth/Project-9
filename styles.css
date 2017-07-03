@@ -321,7 +321,9 @@ input[type="search"]::-moz-placeholder {
 	width: 297px;
 	height: 297px;
 	margin: auto;
-	background: url('shadow2.jpg') no-repeat;
+	opacity: 0;
+	background: url("shadow2.jpg") no-repeat;
+	transition: opacity 0.5s linear;
 }
 
 .donut-legend{
@@ -458,10 +460,22 @@ input[type="search"]::-moz-placeholder {
 
 
 .social{
+	position: relative;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	flex-wrap: wrap;
+	margin: 1em 0;
+}
+
+.social > p{
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: 'Alegreya Sans', sans-serif;
+	text-transform: uppercase;
+	
 }
 
 
@@ -470,7 +484,93 @@ input[type="search"]::-moz-placeholder {
 
 
 
+.members_activity{
+	border-top: 1px solid #cecece;
+	border-bottom: 1px solid #cecece;
+	margin: 1em 0;
+	
+}
 
+
+
+
+.new-members,
+.rec-activity{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 1em;
+	border-bottom: 1px solid #cecece;
+}
+
+.new-members > p,
+.rec-activity > p{
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: 'Alegreya Sans', sans-serif;
+	text-transform: uppercase;
+	
+}
+
+.m-a-imgs{
+	height: 40px;
+	border-radius: 50%;
+	/* display: inline-block; */
+	margin-right: 0.5em;
+	
+}
+
+.member,
+.activity{
+	margin: 1em 0;
+	display: flex;
+	width: 90%;
+	justify-content: flex-start;
+	border-bottom: 1px solid #cecece;
+	padding-bottom: 1em;
+}
+
+.mem-out,
+.act-out{
+	display: flex;
+	flex-wrap: wrap;
+	width: 90%;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+
+.mem-out > div > p:nth-of-type(1),
+.act-out > div > p:nth-of-type(1){
+	color: #676666;
+	font-family: 'Alegreya Sans SC', sans-serif;
+	/* font-weight: 600; */
+}
+
+
+.mem-out > div > p:nth-of-type(2),
+.act-out > div > p:nth-of-type(2){
+	color: #7377bf;
+	font-family: 'Josefin Slab', serif;
+	font-weight: 600;
+}
+
+.mem-out > div > p:nth-of-type(2):hover,
+.act-out > div > p:nth-of-type(2):hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+
+.mem-out > p,
+.act-out > p{
+	font-family: 'Alegreya Sans', sans-serif;
+}
 
 
 
