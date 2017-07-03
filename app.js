@@ -16,9 +16,9 @@ const barChartCtx = document.querySelector('.bar-chart > canvas').getContext('2d
 const dailyTraffic = document.querySelector('.bar_donut > p:first-of-type');
 const dailyTrafficButton = document.querySelector('.bar_donut > button');
 
+const donutChartCanvas = document.querySelector('.donut-chart > canvas');
 
-
-const donutChartCtx = document.querySelector('.donut-chart > canvas').getContext('2d');
+const donutChartCtx = donutChartCanvas.getContext('2d');
 const donutChartP = document.querySelector('.donut-chart > p');
 
 let donutCtrX;
@@ -28,7 +28,9 @@ let donutOuterRadius;
 let gradientGreen;
 
 
-
+window.setTimeout(function(){
+	donutChartCanvas.style.opacity = '1';
+}, 500);
 
 
 
@@ -624,21 +626,21 @@ donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2)+
 
 gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 
-gradientBlue.addColorStop(0, '#5b98a6');
+gradientBlue.addColorStop(0, '#286573');
 gradientBlue.addColorStop(0.45, 'white');
 gradientBlue.addColorStop(0.99, '#286573');
 
 
 gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 
-gradientGreen.addColorStop(0, '#68B076');
+gradientGreen.addColorStop(0, '#357D43');
 gradientGreen.addColorStop(0.45, 'white');
 gradientGreen.addColorStop(0.99, '#357D43');
 
 
 gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 
-gradientPurple.addColorStop(0, '#5a5ea6');
+gradientPurple.addColorStop(0, '#272b73');
 gradientPurple.addColorStop(0.45, 'white');
 gradientPurple.addColorStop(0.99, '#272b73');
 
