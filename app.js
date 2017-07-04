@@ -21,6 +21,19 @@ const donutChartCanvas = document.querySelector('.donut-chart > canvas');
 const donutChartCtx = donutChartCanvas.getContext('2d');
 const donutChartP = document.querySelector('.donut-chart > p');
 
+const newMemberDates = document.querySelectorAll('.new-members .mem-out > p');
+
+const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > div p:nth-of-type(2)');
+
+const slideButton = document.querySelector('.rec-activity .activity:nth-of-type(3) .act-out > p');
+
+const actout = document.querySelector('.rec-activity .activity:nth-of-type(3) .act-out');
+
+const hidden = document.querySelector('.rec-activity .activity:nth-of-type(3) .hidden');
+
+
+
+
 let donutCtrX;
 let donutCtrY;
 let donutInnerRadius;
@@ -796,30 +809,73 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
+function makeDates(a){
+	
+	let dt = moment();
+	
+	for(let i = 0; i < a.length; i++){
+		let rand = Math.round(Math.random()*5);
+		// console.log(rand);
+		// console.log(a[i]);
+		let newDt = dt.subtract(rand, 'days').format('M/D/YY');
+		
+		// console.log();
+		a[i].textContent = newDt;
+	};
+};
+
+makeDates(newMemberDates);
 
 
 
 
+function makeTimes(a){
+	
+	let acts = ['commented', 'posted', 'liked a post', 'shared a post', 'tweeted a post', 'retweeted a post'];
+	let dt = moment();
+	// console.log(dt);
+	for(let i = 0; i < a.length; i++){
+		let rand = Math.round(Math.random()*1615);
+		let action = rand % acts.length;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// console.log(rand);
+		// console.log(a[i]);
+		let newTi = dt.subtract(rand, 'minutes');
+		// console.log(newTi);
+		let timeAgo = newTi.from(moment());
+		// console.log(timeAgo);
+		a[i].textContent = acts[action] + ' ' + timeAgo;
+	};
+};
+
+makeTimes(recentActivityTimes);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+slideButton.addEventListener('click', function(){
+	// actout.style.opacity = '0';
+	// hidden.style.display = 'initial';
+	actout.style.transform = 'translateX(-100%)';
+	hidden.style.transform = 'translateX(20%)';
+	
+	window.setTimeout(() => {
+		// actout.style.display = 'none';
+		
+	}, 1001);
+	
+	
+	
+});
 
 
 

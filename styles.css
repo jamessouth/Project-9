@@ -486,7 +486,7 @@ input[type="search"]::-moz-placeholder {
 
 .members_activity{
 	border-top: 1px solid #cecece;
-	border-bottom: 1px solid #cecece;
+	/* border-bottom: 1px solid #cecece; */
 	margin: 1em 0;
 	
 }
@@ -503,6 +503,7 @@ input[type="search"]::-moz-placeholder {
 	flex-direction: column;
 	margin-top: 1em;
 	border-bottom: 1px solid #cecece;
+	padding-bottom: 1em;
 }
 
 .new-members > p,
@@ -527,6 +528,8 @@ input[type="search"]::-moz-placeholder {
 .member,
 .activity{
 	margin: 1em 0;
+	position: relative;
+	overflow: hidden;
 	display: flex;
 	width: 90%;
 	justify-content: flex-start;
@@ -537,13 +540,29 @@ input[type="search"]::-moz-placeholder {
 .mem-out,
 .act-out{
 	display: flex;
+	
 	flex-wrap: wrap;
 	width: 90%;
+	opacity: 1;
 	justify-content: space-between;
 	align-items: center;
+	transform: translateX(0%);
+	transition: all 1s;
 }
 
 
+.hidden{
+	/* display: none; */
+	position: absolute;
+	transform: translateX(1120%);
+	transition: all 1s;
+}
+
+
+
+.rec-activity .activity:nth-of-type(3) .act-out > p{
+	cursor: pointer;
+}
 
 .mem-out > div > p:nth-of-type(1),
 .act-out > div > p:nth-of-type(1){
@@ -560,17 +579,38 @@ input[type="search"]::-moz-placeholder {
 	font-weight: 600;
 }
 
-.mem-out > div > p:nth-of-type(2):hover,
-.act-out > div > p:nth-of-type(2):hover{
+.act-out > div > p:nth-of-type(2){
+	color: #676666;
+}
+
+.mem-out > div > p:nth-of-type(2):hover{
 	text-decoration: underline;
 	cursor: pointer;
 }
 
 
-.mem-out > p,
-.act-out > p{
+.mem-out > p{
 	font-family: 'Alegreya Sans', sans-serif;
 }
+
+.act-out > p{
+	font-family: 'Alegreya Sans SC', sans-serif;
+	color: #7377bf;
+	font-size: 33px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
