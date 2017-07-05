@@ -23,13 +23,11 @@ const donutChartP = document.querySelector('.donut-chart > p');
 
 const newMemberDates = document.querySelectorAll('.new-members .mem-out > p');
 
-const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > div p:nth-of-type(2)');
+const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(2)');
 
-const slideButton = document.querySelector('.rec-activity .activity:nth-of-type(3) .act-out > p');
+const slideButtons = document.querySelectorAll('.rec-activity .activity > p');
 
-const actout = document.querySelector('.rec-activity .activity:nth-of-type(3) .act-out');
 
-const hidden = document.querySelector('.rec-activity .activity:nth-of-type(3) .hidden');
 
 
 
@@ -838,16 +836,6 @@ function makeTimes(a){
 		let rand = Math.round(Math.random()*1615);
 		let action = rand % acts.length;
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		// console.log(rand);
 		// console.log(a[i]);
 		let newTi = dt.subtract(rand, 'minutes');
@@ -862,20 +850,55 @@ makeTimes(recentActivityTimes);
 
 
 
-slideButton.addEventListener('click', function(){
-	// actout.style.opacity = '0';
-	// hidden.style.display = 'initial';
-	actout.style.transform = 'translateX(-100%)';
-	hidden.style.transform = 'translateX(20%)';
+
+
+
+slideButtons.forEach(sb => {
+
+	let flag = false;
 	
-	window.setTimeout(() => {
-		// actout.style.display = 'none';
+	
+	let actout = sb.parentNode.querySelector('.act-out');
+
+	let hidden = sb.parentNode.querySelector('.hidden');
+	
+	
+	// console.log(flag, sb, actout, hidden);
+	
+	
+	sb.addEventListener('click', function(){
 		
-	}, 1001);
+		if(!flag){
+			// console.log(flag);
+			actout.style.transform = 'translateX(-150%)';
+			hidden.style.transform = 'translateX(25%)';
+			// hidden.style.left = '20px';
+			sb.style.position = 'absolute';
+			sb.style.color = 'red';
+			sb.style.left = '45px';
+			flag = true;
+		
+		} else if(flag){
+			// console.log(flag);
+			actout.style.transform = 'translateX(0%)';
+			hidden.style.transform = 'translateX(500%)';
+			// hidden.style.left = '20px';
+			sb.style.position = 'static';
+			sb.style.color = '#7377bf';
+			sb.style.left = 'auto';
+			flag = false;
+		
+		};
 	
-	
-	
+	});
+
 });
+
+
+
+
+
+
 
 
 
