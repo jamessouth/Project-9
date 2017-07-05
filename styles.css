@@ -550,22 +550,31 @@ input[type="search"]::-moz-placeholder {
 	transition: all 1s;
 }
 
+/* .act-out{ */
+	/* flex-wrap: nowrap; */
+/* } */
+
 
 .hidden{
-	/* display: none; */
+	/* display: flex; */
+	font-family: 'Josefin Slab', serif;
+	width: 75%;
+	margin-left: 1.25em;
 	position: absolute;
-	transform: translateX(1120%);
+	transform: translateX(500%);
 	transition: all 1s;
 }
 
 
 
-.rec-activity .activity:nth-of-type(3) .act-out > p{
+.rec-activity .activity > p{
 	cursor: pointer;
+	/* position: absolute; */
+	transition: all 1s;
 }
 
 .mem-out > div > p:nth-of-type(1),
-.act-out > div > p:nth-of-type(1){
+.act-out > p:nth-of-type(1){
 	color: #676666;
 	font-family: 'Alegreya Sans SC', sans-serif;
 	/* font-weight: 600; */
@@ -573,13 +582,13 @@ input[type="search"]::-moz-placeholder {
 
 
 .mem-out > div > p:nth-of-type(2),
-.act-out > div > p:nth-of-type(2){
+.act-out > p:nth-of-type(2){
 	color: #7377bf;
 	font-family: 'Josefin Slab', serif;
 	font-weight: 600;
 }
 
-.act-out > div > p:nth-of-type(2){
+.act-out > p:nth-of-type(2){
 	color: #676666;
 }
 
@@ -593,7 +602,7 @@ input[type="search"]::-moz-placeholder {
 	font-family: 'Alegreya Sans', sans-serif;
 }
 
-.act-out > p{
+.activity > p{
 	font-family: 'Alegreya Sans SC', sans-serif;
 	color: #7377bf;
 	font-size: 33px;
