@@ -33,6 +33,7 @@ body > header > h1 > span{
 }
 
 body > header > div{
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
@@ -52,8 +53,83 @@ body > header > div > p:last-of-type{
 }
 
 body > header > div > img:first-child{
+	cursor: pointer;
 	height: 22px;
+	opacity: 0.7;
 }
+
+body > header > div > img:first-child:hover{
+	
+	opacity: 1;
+}
+
+body > header > div > span{
+	display: none;
+	position: absolute;
+	color: #85DB81;
+	font-size: 55px;
+	left: 15px;
+	bottom: 28px;
+	cursor: default;
+	animation: blink 0.75s linear infinite;
+}
+
+@keyframes blink{
+	0%{color: #85db81;}
+	100%{color: #64ff5c;}
+}
+
+.dropdown{
+	position: absolute;
+	background-color: #fbfbfb;
+	width: 250px;
+	top: 55px;
+	left: -136px;
+	z-index: 11;
+	border-radius: 4px;
+	/* border: 2px solid #4d4c72; */
+	box-shadow: 12px 14px 15px 3px #0a0a0f;
+	
+}
+
+.dropdown ul{
+	padding: 1em;
+}
+
+.dropdown ul li{
+	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 20px;
+	color: #676666;
+	border-bottom: 1px solid #676666;
+	/* background-color: #81c98f; */
+	margin-bottom: 0.25em;
+	text-align: left;
+}
+
+.dropdown ul li span{
+	font-family: 'Alegreya Sans SC', sans-serif;
+	font-size: 25px;
+	color: #81c98f;
+	
+	
+	
+}
+
+
+.triangle{
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: 38px;
+	left: -6px;
+	border-left: 17px solid transparent;
+	border-right: 17px solid transparent;
+	border-bottom: 17px solid #fbfbfb;
+	
+
+}
+
+
 
 body > header > div > img:last-of-type{
 	height: 30px;
