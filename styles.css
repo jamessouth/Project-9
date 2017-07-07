@@ -52,14 +52,21 @@ body > header > div > p:last-of-type{
 	font-family: 'Alegreya Sans', sans-serif;
 }
 
-body > header > div > img:first-child{
+
+body > header > div > button{
 	cursor: pointer;
-	height: 22px;
 	opacity: 0.7;
+	background-color: transparent;
+	border: none;
+	width: 22px;
+	height: 22px;
 }
 
-body > header > div > img:first-child:hover{
-	
+.st0{
+	fill: #fbfbfb;
+}
+
+body > header > div > button:hover{
 	opacity: 1;
 }
 
@@ -80,6 +87,7 @@ body > header > div > span{
 }
 
 .dropdown{
+	display: none;
 	position: absolute;
 	background-color: #fbfbfb;
 	width: 250px;
@@ -117,14 +125,15 @@ body > header > div > span{
 
 
 .triangle{
+	display: none;
 	position: absolute;
 	width: 0;
 	height: 0;
-	top: 38px;
-	left: -6px;
+	top: 36px;
+	left: -3px;
 	border-left: 17px solid transparent;
 	border-right: 17px solid transparent;
-	border-bottom: 17px solid #fbfbfb;
+	border-bottom: 19px solid #fbfbfb;
 	
 
 }
@@ -167,7 +176,8 @@ div > header > nav ul li a{
 	border-right: 3px solid transparent;
 }
 
-div > header > nav ul li a:hover:not(.selected){
+div > header > nav ul li a:hover:not(.selected),
+div > header > nav ul li a:focus:not(.selected){
 	opacity: 0.7;
 }
 
@@ -616,37 +626,39 @@ input[type="search"]::-moz-placeholder {
 .mem-out,
 .act-out{
 	display: flex;
-	
 	flex-wrap: wrap;
 	width: 90%;
 	opacity: 1;
 	justify-content: space-between;
 	align-items: center;
 	transform: translateX(0%);
-	transition: all 1s;
+	transition: transform 1s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-/* .act-out{ */
-	/* flex-wrap: nowrap; */
-/* } */
-
-
 .hidden{
-	/* display: flex; */
 	font-family: 'Josefin Slab', serif;
 	width: 75%;
+	opacity: 0;
 	margin-left: 1.25em;
 	position: absolute;
 	transform: translateX(500%);
-	transition: all 1s;
+	transition: transform 0.7s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 
 
-.rec-activity .activity > p{
+.rec-activity .activity > button{
+	border: none;
+	background-color: transparent;
 	cursor: pointer;
-	/* position: absolute; */
+	font-family: 'Alegreya Sans SC', sans-serif;
+	color: #7377bf;
+	font-size: 33px;
 	transition: all 1s;
+}
+
+.rec-activity .activity > button:hover{
+	color: #ff0000;
 }
 
 .mem-out > div > p:nth-of-type(1),
@@ -678,11 +690,6 @@ input[type="search"]::-moz-placeholder {
 	font-family: 'Alegreya Sans', sans-serif;
 }
 
-.activity > p{
-	font-family: 'Alegreya Sans SC', sans-serif;
-	color: #7377bf;
-	font-size: 33px;
-}
 
 
 
