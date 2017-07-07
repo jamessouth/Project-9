@@ -25,11 +25,12 @@ const newMemberDates = document.querySelectorAll('.new-members .mem-out > p');
 
 const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(2)');
 
-const slideButtons = document.querySelectorAll('.rec-activity .activity > p');
+const slideButtons = document.querySelectorAll('.rec-activity .activity > button');
 
+const alertBell = document.querySelector('body > header > div > button');
 
-
-
+const triangle = document.querySelector('.triangle');
+const dropdown = document.querySelector('.dropdown');
 
 
 let donutCtrX;
@@ -46,6 +47,31 @@ window.setTimeout(function(){
 
 
 
+alertBell.addEventListener('click', showAlerts);
+
+
+function showAlerts(){
+	triangle.style.display = 'block';
+	dropdown.style.display = 'block';
+	window.setTimeout(() => {
+		document.addEventListener('click', hideAlerts);
+		alertBell.removeEventListener('click', showAlerts);
+	}, 1);
+};
+
+
+function hideAlerts(e){
+	if(!dropdown.contains(e.target)){
+		triangle.style.display = 'none';
+		dropdown.style.display = 'none';
+		alertBell.addEventListener('click', showAlerts);
+		document.removeEventListener('click', hideAlerts);
+	};
+};
+
+
+	
+	
 
 
 links.forEach(li => {
@@ -807,18 +833,18 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-function makeDates(a){
+function makeDates(memberDates){
 	
 	let dt = moment();
 	
-	for(let i = 0; i < a.length; i++){
+	for(let i = 0; i < memberDates.length; i++){
 		let rand = Math.round(Math.random()*5);
 		// console.log(rand);
 		// console.log(a[i]);
 		let newDt = dt.subtract(rand, 'days').format('M/D/YY');
 		
 		// console.log();
-		a[i].textContent = newDt;
+		memberDates[i].textContent = newDt;
 	};
 };
 
@@ -827,12 +853,12 @@ makeDates(newMemberDates);
 
 
 
-function makeTimes(a){
+function makeTimes(actTimes){
 	
 	let acts = ['commented', 'posted', 'liked a post', 'shared a post', 'tweeted a post', 'retweeted a post'];
 	let dt = moment();
 	// console.log(dt);
-	for(let i = 0; i < a.length; i++){
+	for(let i = 0; i < actTimes.length; i++){
 		let rand = Math.round(Math.random()*1615);
 		let action = rand % acts.length;
 		
@@ -842,7 +868,7 @@ function makeTimes(a){
 		// console.log(newTi);
 		let timeAgo = newTi.from(moment());
 		// console.log(timeAgo);
-		a[i].textContent = acts[action] + ' ' + timeAgo;
+		actTimes[i].textContent = acts[action] + ' ' + timeAgo;
 	};
 };
 
@@ -871,18 +897,20 @@ slideButtons.forEach(sb => {
 		if(!flag){
 			// console.log(flag);
 			actout.style.transform = 'translateX(-150%)';
+			actout.style.opacity = '0';
 			hidden.style.transform = 'translateX(25%)';
-			// hidden.style.left = '20px';
+			hidden.style.opacity = '1';
 			sb.style.position = 'absolute';
-			sb.style.color = 'red';
+			sb.style.color = '#ff0000';
 			sb.style.left = '45px';
 			flag = true;
 		
 		} else if(flag){
 			// console.log(flag);
 			actout.style.transform = 'translateX(0%)';
+			actout.style.opacity = '1';
 			hidden.style.transform = 'translateX(500%)';
-			// hidden.style.left = '20px';
+			hidden.style.opacity = '0';
 			sb.style.position = 'static';
 			sb.style.color = '#7377bf';
 			sb.style.left = 'auto';
