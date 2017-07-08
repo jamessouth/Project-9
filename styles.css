@@ -632,7 +632,7 @@ input[type="search"]::-moz-placeholder {
 	justify-content: space-between;
 	align-items: center;
 	transform: translateX(0%);
-	transition: transform 1s ease-in-out, opacity 0.2s ease-in-out;
+	transition: transform 1s ease-in-out 0.5s, opacity 0.3s ease-in-out 0.5s;
 }
 
 .hidden{
@@ -642,7 +642,7 @@ input[type="search"]::-moz-placeholder {
 	margin-left: 1.25em;
 	position: absolute;
 	transform: translateX(500%);
-	transition: transform 0.7s ease-in-out, opacity 0.2s ease-in-out;
+	transition: transform 0.7s cubic-bezier(0.68,-0.02, 0.79, 0.75) 0.05s, opacity 0.3s ease-in-out 0.5s;
 }
 
 
@@ -654,7 +654,7 @@ input[type="search"]::-moz-placeholder {
 	font-family: 'Alegreya Sans SC', sans-serif;
 	color: #7377bf;
 	font-size: 33px;
-	transition: all 1s;
+	transition: all 1s initial 0.5s;
 }
 
 .rec-activity .activity > button:hover{
@@ -665,7 +665,11 @@ input[type="search"]::-moz-placeholder {
 .act-out > p:nth-of-type(1){
 	color: #676666;
 	font-family: 'Alegreya Sans SC', sans-serif;
-	/* font-weight: 600; */
+}
+
+.act-out > p:nth-of-type(1){
+	/* margin-left: 0.5em; */
+	transition: all 0.5s;
 }
 
 
@@ -677,7 +681,9 @@ input[type="search"]::-moz-placeholder {
 }
 
 .act-out > p:nth-of-type(2){
+	/* margin-left: 0.5em; */
 	color: #676666;
+	transition: all 0.5s;
 }
 
 .mem-out > div > p:nth-of-type(2):hover{
