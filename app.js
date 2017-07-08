@@ -831,48 +831,59 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 
+const hiddenText = document.querySelectorAll('.hidden');
 
-
-function makeDates(memberDates){
+function makeDatesAndTimes(memberDates, actTimes, hidText){
+	let rand;
+	let rand2;
+	let newDt;
+	let action;
+	let post;
+	let newTi;
+	let timeAgo;
+	let postText;
+	let acts = ['commented', 'posted', 'liked a post', 'shared a post', 'tweeted a post', 'retweeted a post'];
+	
+	let posts = [
+		'SEO Tips',
+		'Facebook\'s Changes for 2017',
+		'Moving to AWS',
+		'Mobile Web Update'
+	];
+	
+	
 	
 	let dt = moment();
+	let ti = moment();
 	
 	for(let i = 0; i < memberDates.length; i++){
-		let rand = Math.round(Math.random()*5);
-		// console.log(rand);
-		// console.log(a[i]);
-		let newDt = dt.subtract(rand, 'days').format('M/D/YY');
+		rand = Math.round(Math.random()*5) + 1;
+		newDt = dt.subtract(rand, 'days');
+		memberDates[i].textContent = newDt.format('M/D/YY');
+		rand2 = Math.round(Math.random()*1139);
+		newTi = ti.subtract(rand2, 'minutes');
+		action = rand2 % acts.length;
+		post = rand2 % posts.length;
 		
-		// console.log();
-		memberDates[i].textContent = newDt;
-	};
-};
-
-makeDates(newMemberDates);
-
-
-
-
-function makeTimes(actTimes){
-	
-	let acts = ['commented', 'posted', 'liked a post', 'shared a post', 'tweeted a post', 'retweeted a post'];
-	let dt = moment();
-	// console.log(dt);
-	for(let i = 0; i < actTimes.length; i++){
-		let rand = Math.round(Math.random()*1615);
-		let action = rand % acts.length;
-		
-		// console.log(rand);
-		// console.log(a[i]);
-		let newTi = dt.subtract(rand, 'minutes');
-		// console.log(newTi);
-		let timeAgo = newTi.from(moment());
-		// console.log(timeAgo);
+		timeAgo = newTi.from(moment());
+		console.log(newTi);
 		actTimes[i].textContent = acts[action] + ' ' + timeAgo;
+		
+		postText = posts[post];
+		// postText.style.textDecoration = 'underline';
+		
+		
+		hidText[i].textContent = newTi.format('M/D/YY') + ' at ' + newTi.format('H:m:s') + ' ' + postText + ' ' + acts[action];
 	};
+	
 };
 
-makeTimes(recentActivityTimes);
+makeDatesAndTimes(newMemberDates, recentActivityTimes, hiddenText);
+
+
+
+
+
 
 
 
@@ -895,25 +906,43 @@ slideButtons.forEach(sb => {
 	sb.addEventListener('click', function(){
 		
 		if(!flag){
-			// console.log(flag);
+			
+			
+			
+			actout.children[0].style.marginLeft = '0.5em';
+			actout.children[1].style.marginLeft = '0.5em';
+			
+			
 			actout.style.transform = 'translateX(-150%)';
 			actout.style.opacity = '0';
 			hidden.style.transform = 'translateX(25%)';
 			hidden.style.opacity = '1';
-			sb.style.position = 'absolute';
-			sb.style.color = '#ff0000';
-			sb.style.left = '45px';
+			
+			
+			window.setTimeout(function(){
+				sb.style.position = 'absolute';
+				sb.style.color = '#ff0000';
+				sb.style.left = '45px';
+			}, 600);
+			
+			
 			flag = true;
 		
 		} else if(flag){
-			// console.log(flag);
+			
+			actout.children[0].style.marginLeft = '0';
+			actout.children[1].style.marginLeft = '0';
+			// console.log(actout.offsetWidth);
+			
 			actout.style.transform = 'translateX(0%)';
 			actout.style.opacity = '1';
 			hidden.style.transform = 'translateX(500%)';
 			hidden.style.opacity = '0';
-			sb.style.position = 'static';
-			sb.style.color = '#7377bf';
-			sb.style.left = 'auto';
+			window.setTimeout(function(){
+				sb.style.position = 'static';
+				sb.style.color = '#7377bf';
+				sb.style.left = 'auto';
+			}, 1100);
 			flag = false;
 		
 		};
