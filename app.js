@@ -777,17 +777,6 @@ legItems.forEach(li => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function(){
 	let timer = null;
 	let cnt = 1;
@@ -841,7 +830,11 @@ function makeDatesAndTimes(memberDates, actTimes, hidText){
 	let post;
 	let newTi;
 	let timeAgo;
-	let postText;
+	
+	let remPost;
+	
+	let dateTime = '';
+	let postText = '';
 	let acts = ['commented', 'posted', 'liked a post', 'shared a post', 'tweeted a post', 'retweeted a post'];
 	
 	let posts = [
@@ -851,6 +844,13 @@ function makeDatesAndTimes(memberDates, actTimes, hidText){
 		'Mobile Web Update'
 	];
 	
+	let comments = [
+		'Awesome!',
+		'Excellent!',
+		'Wow! This is great!',
+		'Nice work!',
+		'Sweet!'	
+	];
 	
 	
 	let dt = moment();
@@ -866,14 +866,60 @@ function makeDatesAndTimes(memberDates, actTimes, hidText){
 		post = rand2 % posts.length;
 		
 		timeAgo = newTi.from(moment());
-		console.log(newTi);
+		// console.log(newTi);
 		actTimes[i].textContent = acts[action] + ' ' + timeAgo;
 		
-		postText = posts[post];
+		// postText = posts[post];
 		// postText.style.textDecoration = 'underline';
+		// console.log(action);
+		dateTime = '<p><span>' + newTi.format('M/D/YY') + ' at ' + newTi.format('HH:mm') + ' -> </span>';
+		
+		if(action == 1){
+			remPost = post;
+		};
+		
+		// console.log(remPost);
+		// console.log(posts);
+		
+		switch(action){
+			
+			case 0: postText =  dateTime + 'commented on the post <span>' + posts[post] + '</span>: ' + comments[Math.round(rand * rand2 / 7) % comments.length] + '</p>';
+			break;
+			
+			case 1: postText = dateTime + 'posted an article: <span>' + posts[post] + '</span></p>';
+			break;
+		
+			case 2: postText = dateTime + 'liked the post <span>' + posts[post] + '</span></p>';
+			break;
+		
+			case 3: postText = dateTime + 'shared the post <span>' + posts[post] + '</span></p>';
+			break;
+		
+			case 4: postText = dateTime + 'tweeted a link to the post <span>' + posts[post] + '</span></p>';
+			break;
+		
+			case 5: postText = dateTime + 'retweeted the post <span>' + posts[post] + '</span></p>';
+			break;
+		}
+		
+		if(remPost){
+			posts.splice(remPost, 1);
+			remPost = null;
+		}
 		
 		
-		hidText[i].textContent = newTi.format('M/D/YY') + ' at ' + newTi.format('H:m:s') + ' ' + postText + ' ' + acts[action];
+		
+		
+		hidText[i].innerHTML = postText;
+		
+		hidText[i].lastChild.children[0].style.fontWeight = '600';
+		hidText[i].lastChild.children[0].style.fontSize = '14px';
+		hidText[i].lastChild.children[0].style.letterSpacing = '1px';
+		
+		hidText[i].lastChild.children[1].style.textDecoration = 'underline';
+		hidText[i].lastChild.children[1].style.fontSize = '15px';
+		
+		
 	};
 	
 };
@@ -930,8 +976,7 @@ slideButtons.forEach(sb => {
 		
 		} else if(flag){
 			
-			actout.children[0].style.marginLeft = '0';
-			actout.children[1].style.marginLeft = '0';
+			
 			// console.log(actout.offsetWidth);
 			
 			actout.style.transform = 'translateX(0%)';
@@ -939,6 +984,8 @@ slideButtons.forEach(sb => {
 			hidden.style.transform = 'translateX(500%)';
 			hidden.style.opacity = '0';
 			window.setTimeout(function(){
+				actout.children[0].style.marginLeft = '0';
+				actout.children[1].style.marginLeft = '0';
 				sb.style.position = 'static';
 				sb.style.color = '#7377bf';
 				sb.style.left = 'auto';
