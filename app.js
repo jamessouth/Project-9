@@ -32,6 +32,67 @@ const alertBell = document.querySelector('body > header > div > button');
 const triangle = document.querySelector('.triangle');
 const dropdown = document.querySelector('.dropdown');
 
+const emailOnOffSwitch = document.querySelector('.email_notify div div');
+
+const emailOnLabel = document.querySelector('.email_notify label:first-of-type');
+
+const emailOffLabel = document.querySelector('.email_notify label:last-of-type');
+
+const emailSwitchDiv = document.querySelector('.email_notify div');
+
+const emailRadioOn = document.querySelector('.email_notify input[id="on"]');
+
+const emailRadioOff = document.querySelector('.email_notify input[id="off"]');
+
+// document.querySelector('.email_notify input:checked')
+
+
+
+
+
+
+let emailSwitch = true;
+
+emailSwitchDiv.addEventListener('click', function(e){
+	
+	if(e.target.tagName === 'LABEL'){
+		e.preventDefault();
+	}
+	
+	if(emailSwitch){
+		emailOnLabel.style.display = 'none';
+		emailOffLabel.style.display = 'block';
+		emailOffLabel.style.marginLeft = '10px';
+		emailOnOffSwitch.style.marginRight = '0';
+		this.style.backgroundColor = '#b71b1e';
+		emailRadioOff.checked = true;
+		emailSwitch = false;
+		
+	} else {
+		emailOnLabel.style.display = 'block';
+		emailOnOffSwitch.style.marginRight = '-10px';
+		emailOffLabel.style.display = 'none';
+		this.style.backgroundColor = '#7377bf';
+		emailRadioOn.checked = true;
+		emailSwitch = true;
+		
+	}
+	
+});
+
+[emailRadioOff, emailRadioOn].forEach(rb => {
+	rb.addEventListener('change', function(e){
+		let clickEvent = new Event('click');
+		emailSwitchDiv.dispatchEvent(clickEvent);
+	});
+});
+
+
+
+
+
+
+
 
 let donutCtrX;
 let donutCtrY;
