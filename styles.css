@@ -712,18 +712,21 @@ div > header > nav ul li a:focus:not(.selected){
 	
 }
 
-.messages fieldset{
+.messages fieldset,
+.settings fieldset{
 	border: none;
 	
 }
 
-.messages legend{
+.messages legend,
+.settings legend{
 	text-transform: uppercase;
 	font-family: 'Alegreya Sans', sans-serif;
 	padding-top: 1em;
 }
 
-.messages form{
+.messages form,
+.settings form{
 	width: 90%;
 	margin: auto;
 	border-top: 1px solid #cecece;
@@ -819,6 +822,89 @@ div > header > nav ul li a:focus:not(.selected){
 	border: 5px solid #4D4C72;
 	
 }
+
+
+.email_notify{
+	position: relative;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.email_notify div{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: #7377bf;
+	width: 95px;
+	height: 37px;
+	border: 2px solid #cecece;
+	border-radius: 50px;
+	transition: background-color 1.5s;
+}
+
+.email_notify div div{
+	width: 25px;
+	margin-right: -10px;
+	/* margin-bottom: 1px; */
+	height: 25px;
+	border-radius: 50%;
+	background-color: #fff;
+	border: 2px solid #cecece;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.email_notify input[name="email_notify"]{
+	position: absolute;
+	right: 10px;
+	width: 23px;
+	height: 23px;
+	margin: 0 1em;
+}
+
+.email_notify input[name="email_notify"]:last-of-type{
+	right: 50px;
+}
+
+.email_notify label{
+	/* position: absolute; */
+	/* left: 10px; */
+	margin-left: -10px;
+	margin-bottom: 1px;
+	color: #fff;
+	font-size: 22px;
+	font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+.email_notify label:last-of-type{
+	/* left: 32px; */
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
