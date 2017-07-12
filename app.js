@@ -85,6 +85,15 @@ emailSwitchDiv.addEventListener('click', function(e){
 		let clickEvent = new Event('click');
 		emailSwitchDiv.dispatchEvent(clickEvent);
 	});
+	
+	rb.addEventListener('focus', function(e){
+		emailSwitchDiv.style.outline = '2px solid rgb(229,151,0)';
+	});
+	
+	rb.addEventListener('blur', function(e){
+		emailSwitchDiv.style.outline = 'none';
+	});
+	
 });
 
 

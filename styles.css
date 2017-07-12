@@ -829,7 +829,7 @@ div > header > nav ul li a:focus:not(.selected){
 	height: 50px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 }
 
 .email_notify div{
@@ -841,7 +841,7 @@ div > header > nav ul li a:focus:not(.selected){
 	height: 37px;
 	border: 2px solid #cecece;
 	border-radius: 50px;
-	transition: background-color 1.5s;
+	transition: background-color 1.25s;
 }
 
 .email_notify div div{
@@ -855,26 +855,21 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 
-
-
-
-
-
-
-
-
-
-
 .email_notify input[name="email_notify"]{
 	position: absolute;
-	right: 10px;
-	width: 23px;
-	height: 23px;
-	margin: 0 1em;
+	right: 3%;
+	/* transform: translateX(50%); */
+	width: 2px;
+	height: 2px;
+	z-index: -156;
+	/* margin: 0 1em; */
+	/* -webkit-appearance: none; */
+	/* -moz-appearance: none; */
+	outline: none;
 }
 
-.email_notify input[name="email_notify"]:last-of-type{
-	right: 50px;
+.email_notify > p{
+	font-family: 'Alegreya Sans', sans-serif;	
 }
 
 .email_notify label{
