@@ -715,6 +715,7 @@ div > header > nav ul li a:focus:not(.selected){
 .messages fieldset,
 .settings fieldset{
 	border: none;
+	margin-bottom: 2em;
 	
 }
 
@@ -780,7 +781,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-size: 18px;
 	font-family: 'Alegreya Sans', sans-serif;
 	height: 8em;
-	margin-bottom: 1em;
+	
 	border-radius: 5px;
 	background-color: #fbfbfb;
 	border: 1px solid #cecece;
@@ -801,7 +802,8 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 
-.messages button{
+.messages button,
+.settings form button{
 	width: 100%;
 	color: #fff;
 	font-family: 'uppereastsideregular';
@@ -817,14 +819,15 @@ div > header > nav ul li a:focus:not(.selected){
 
 .messages input[name="search"]:focus,
 .messages textarea:focus,
-.messages button:focus{
-	
-	border: 5px solid #4D4C72;
-	
+.messages button:focus,
+.settings form button:focus{
+	border: 3px solid #4D4C72;
 }
 
 
-.email_notify{
+.email_notify,
+.public_profile,
+.barchart_autoplay{
 	position: relative;
 	height: 50px;
 	display: flex;
@@ -832,7 +835,9 @@ div > header > nav ul li a:focus:not(.selected){
 	justify-content: space-between;
 }
 
-.email_notify div{
+.email_notify div,
+.public_profile div,
+.barchart_autoplay div{
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
@@ -844,7 +849,9 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: background-color 1.25s;
 }
 
-.email_notify div div{
+.email_notify div div,
+.public_profile div div,
+.barchart_autoplay div div{
 	width: 25px;
 	margin-right: -10px;
 	/* margin-bottom: 1px; */
@@ -855,7 +862,9 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 
-.email_notify input[name="email_notify"]{
+.email_notify input[name="email_notify"],
+.public_profile input[name="public_profile"],
+.barchart_autoplay input[name="barchart_autoplay"]{
 	position: absolute;
 	right: 3%;
 	/* transform: translateX(50%); */
@@ -868,11 +877,15 @@ div > header > nav ul li a:focus:not(.selected){
 	outline: none;
 }
 
-.email_notify > p{
+.email_notify > p,
+.public_profile > p,
+.barchart_autoplay > p{
 	font-family: 'Alegreya Sans', sans-serif;	
 }
 
-.email_notify label{
+.email_notify label,
+.public_profile label,
+.barchart_autoplay label{
 	/* position: absolute; */
 	/* left: 10px; */
 	margin-left: -10px;
@@ -882,14 +895,28 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans SC', sans-serif;
 }
 
-.email_notify label:last-of-type{
+.email_notify label:last-of-type,
+.public_profile label:last-of-type,
+.barchart_autoplay label:last-of-type{
 	/* left: 32px; */
 	display: none;
 }
 
+.settings form > div{
+	display: flex;
+	justify-content: space-between;
+}
 
+.settings form button{
+	
+	width: 45%;
+	
+	
+}
 
-
+.settings form button:last-of-type{
+	background-color: #B2B2B2;
+}
 
 
 
