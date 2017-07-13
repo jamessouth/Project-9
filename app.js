@@ -32,69 +32,135 @@ const alertBell = document.querySelector('body > header > div > button');
 const triangle = document.querySelector('.triangle');
 const dropdown = document.querySelector('.dropdown');
 
+
+
 const emailOnOffSwitch = document.querySelector('.email_notify div div');
-
 const emailOnLabel = document.querySelector('.email_notify label:first-of-type');
-
 const emailOffLabel = document.querySelector('.email_notify label:last-of-type');
-
 const emailSwitchDiv = document.querySelector('.email_notify div');
-
 const emailRadioOn = document.querySelector('.email_notify input[id="on"]');
-
 const emailRadioOff = document.querySelector('.email_notify input[id="off"]');
 
 // document.querySelector('.email_notify input:checked')
 
 
 
+const profileOnOffSwitch = document.querySelector('.public_profile div div');
+const profileOnLabel = document.querySelector('.public_profile label:first-of-type');
+const profileOffLabel = document.querySelector('.public_profile label:last-of-type');
+const profileSwitchDiv = document.querySelector('.public_profile div');
+const profileRadioOn = document.querySelector('.public_profile input[id="on"]');
+const profileRadioOff = document.querySelector('.public_profile input[id="off"]');
 
 
 
-let emailSwitch = true;
+const autoplayOnOffSwitch = document.querySelector('.barchart_autoplay div div');
+const autoplayOnLabel = document.querySelector('.barchart_autoplay label:first-of-type');
+const autoplayOffLabel = document.querySelector('.barchart_autoplay label:last-of-type');
+const autoplaySwitchDiv = document.querySelector('.barchart_autoplay div');
+const autoplayRadioOn = document.querySelector('.barchart_autoplay input[id="on"]');
+const autoplayRadioOff = document.querySelector('.barchart_autoplay input[id="off"]');
 
-emailSwitchDiv.addEventListener('click', function(e){
+
+
+
+
+
+
+const saveButton = document.querySelector('.settings form > div button:first-of-type');
+
+const cancelButton = document.querySelector('.settings form > div button:last-of-type');
+
+
+
+
+saveButton.addEventListener('click', function(e){
 	
-	if(e.target.tagName === 'LABEL'){
-		e.preventDefault();
-	}
 	
-	if(emailSwitch){
-		emailOnLabel.style.display = 'none';
-		emailOffLabel.style.display = 'block';
-		emailOffLabel.style.marginLeft = '10px';
-		emailOnOffSwitch.style.marginRight = '0';
-		this.style.backgroundColor = '#b71b1e';
-		emailRadioOff.checked = true;
-		emailSwitch = false;
-		
-	} else {
-		emailOnLabel.style.display = 'block';
-		emailOnOffSwitch.style.marginRight = '-10px';
-		emailOffLabel.style.display = 'none';
-		this.style.backgroundColor = '#7377bf';
-		emailRadioOn.checked = true;
-		emailSwitch = true;
-		
-	}
 	
+	console.log(e);
 });
 
-[emailRadioOff, emailRadioOn].forEach(rb => {
-	rb.addEventListener('change', function(e){
-		let clickEvent = new Event('click');
-		emailSwitchDiv.dispatchEvent(clickEvent);
+// cancelButton.addEventListener('click', function(e){
+	
+	// // profileRadioOff.checked = 'false';
+	// // profileRadioOn.checked = true;
+	
+	
+// });
+
+
+
+function switchClick(div, onLabel, offLabel, onOffSwitch, radioOn, radioOff){
+	
+	
+	[radioOff, radioOn].forEach(rb => {
+		
+		rb.addEventListener('change', function(e){
+			let clickEvent = new Event('click');
+			div.dispatchEvent(clickEvent);
+		});
+		
+		rb.addEventListener('focus', function(e){
+			div.style.outline = '2px solid rgb(229,151,0)';
+		});
+		
+		rb.addEventListener('blur', function(e){
+			div.style.outline = 'none';
+		});
+	
 	});
 	
-	rb.addEventListener('focus', function(e){
-		emailSwitchDiv.style.outline = '2px solid rgb(229,151,0)';
-	});
 	
-	rb.addEventListener('blur', function(e){
-		emailSwitchDiv.style.outline = 'none';
-	});
 	
-});
+	
+	
+	// return function(){
+
+		let switchFlag = true;
+
+		div.addEventListener('click', function(e){
+			
+			if(e.target.tagName === 'LABEL'){
+				e.preventDefault();
+			}
+			
+			if(switchFlag){
+				onLabel.style.display = 'none';
+				offLabel.style.display = 'block';
+				offLabel.style.marginLeft = '10px';
+				onOffSwitch.style.marginRight = '0';
+				this.style.backgroundColor = '#b71b1e';
+				radioOff.checked = true;
+				switchFlag = false;
+				
+			} else {
+				onLabel.style.display = 'block';
+				onOffSwitch.style.marginRight = '-10px';
+				offLabel.style.display = 'none';
+				this.style.backgroundColor = '#7377bf';
+				radioOn.checked = true;
+				switchFlag = true;
+				
+			}
+			
+		});
+	
+	
+	// }();
+	
+
+};
+
+
+switchClick(emailSwitchDiv, emailOnLabel, emailOffLabel, emailOnOffSwitch, emailRadioOn, emailRadioOff);
+
+switchClick(profileSwitchDiv, profileOnLabel, profileOffLabel, profileOnOffSwitch, profileRadioOn, profileRadioOff);
+
+switchClick(autoplaySwitchDiv, autoplayOnLabel, autoplayOffLabel, autoplayOnOffSwitch, autoplayRadioOn, autoplayRadioOff);
+
+
+
 
 
 
