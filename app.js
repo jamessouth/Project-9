@@ -41,7 +41,6 @@ const emailSwitchDiv = document.querySelector('.email_notify div');
 const emailRadioOn = document.querySelector('.email_notify input[id="on"]');
 const emailRadioOff = document.querySelector('.email_notify input[id="off"]');
 
-// document.querySelector('.email_notify input:checked')
 
 
 
@@ -77,17 +76,37 @@ const cancelButton = document.querySelector('.settings form > div button:last-of
 saveButton.addEventListener('click', function(e){
 	
 	
+	[emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv].forEach(div => {
 	
-	console.log(e);
+		// console.log();
+	
+		let locStoKey = div.dataset.setting;
+	
+		let locStoVal = div.parentNode.querySelector('input:checked').value;
+	
+		localStorage.setItem(locStoKey, locStoVal);
+		
+	});
+	
+	// console.log(localStorage);
+	
+	
 });
 
-// cancelButton.addEventListener('click', function(e){
+cancelButton.addEventListener('click', function(e){
 	
-	// // profileRadioOff.checked = 'false';
-	// // profileRadioOn.checked = true;
+	[emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv].forEach(div => {
 	
+		
 	
-// });
+		if(!div.nextElementSibling.checked){
+			let clickEvent = new Event('click');
+			div.dispatchEvent(clickEvent);
+		}
+		
+	});
+	
+});
 
 
 
@@ -914,6 +933,50 @@ legItems.forEach(li => {
 
 
 document.addEventListener('DOMContentLoaded', function(){
+	
+	
+	
+	// let emailNotifyTurnedOn = localStorage.email === 'on';
+	
+	// let publicProfileTurnedOn = localStorage.profile === 'on';
+	
+	let barChartAutoplayTurnedOn = localStorage.autoplay === 'on';
+		
+	let settingsDiv = document.getElementsByClassName('settings')[0];
+	
+	
+	
+	let switchDivs = Array.from(settingsDiv.querySelectorAll('[data-setting]')).map(sd => {return sd.dataset.setting;});
+	
+	
+	for(let setting in localStorage){
+		
+		
+		
+		if(switchDivs.includes(setting)){
+			
+			let queryString = '[data-setting=' + setting + ']';
+			
+			let ourSwitch = settingsDiv.querySelector(queryString);
+			
+			
+			
+			
+			console.log(ourSwitch);
+		};
+		
+	};
+	
+	
+	
+	
+	if(barChartAutoplayTurnedOn){
+		dailyTrafficButton.innerHTML = 'pause';
+	} else {
+		dailyTrafficButton.innerHTML = 'play';
+	};
+	
+	
 	let timer = null;
 	let cnt = 1;
 	let times = ['daily', 'weekly', 'monthly'];
@@ -928,7 +991,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	};
 	
 	function start(){
-		timer = setTimeout(nextChart, 5000);
+		timer = setTimeout(nextChart, 1500);
 	};
 	
 	function stop(){
@@ -936,7 +999,6 @@ document.addEventListener('DOMContentLoaded', function(){
 	};
 	
 	dailyTrafficButton.addEventListener('click', function(){
-		
 		
 		
 		if(this.innerHTML === 'pause'){
@@ -951,8 +1013,10 @@ document.addEventListener('DOMContentLoaded', function(){
 		
 	});
 	
-	// start();
 	
+	if(!barChartAutoplayTurnedOn){
+		start();
+	}
 });
 
 
