@@ -71,6 +71,41 @@ const saveButton = document.querySelector('.settings form > div button:first-of-
 const cancelButton = document.querySelector('.settings form > div button:last-of-type');
 
 
+const settingsDiv = document.getElementsByClassName('settings')[0];
+
+
+const switchDivs = Array.from(settingsDiv.querySelectorAll('[data-setting]')).map(sd => {return sd.dataset.setting;});
+
+
+function restoreSettings(){
+	
+	console.log('run');
+	
+	if(localStorage.length > 0){
+	console.log('run2');
+		for(let setting in localStorage){
+		console.log('run ' + setting);	
+			if(switchDivs.includes(setting)){
+				console.log('run3');
+				let queryString = '[data-setting=' + setting + ']';
+				
+				let ourSwitch = settingsDiv.querySelector(queryString);
+				
+				let settingValue = localStorage.getItem(setting);
+				console.log(ourSwitch.nextElementSibling.checked);
+				if((settingValue === 'on' && ourSwitch.nextElementSibling.checked) || ((settingValue === 'off' && !ourSwitch.nextElementSibling.checked))){
+					
+					// here
+				} else {
+					let clickEvent = new Event('click');
+					ourSwitch.dispatchEvent(clickEvent);
+				};
+			};
+		};
+	};
+
+};
+
 
 
 saveButton.addEventListener('click', function(e){
@@ -88,25 +123,15 @@ saveButton.addEventListener('click', function(e){
 		
 	});
 	
-	// console.log(localStorage);
-	
+	cancelButton.style.backgroundColor = '#B2B2B2';
+	cancelButton.disabled = true;
 	
 });
 
-cancelButton.addEventListener('click', function(e){
+
+
 	
-	[emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv].forEach(div => {
 	
-		
-	
-		if(!div.nextElementSibling.checked){
-			let clickEvent = new Event('click');
-			div.dispatchEvent(clickEvent);
-		}
-		
-	});
-	
-});
 
 
 
@@ -143,6 +168,40 @@ function switchClick(div, onLabel, offLabel, onOffSwitch, radioOn, radioOff){
 			if(e.target.tagName === 'LABEL'){
 				e.preventDefault();
 			}
+			
+			// safari?????????????
+			
+			if(e.isTrusted){
+			
+				cancelButton.disabled = false;
+			
+				cancelButton.style.backgroundColor = '#7377bf';
+		
+				cancelButton.addEventListener('click', function(e){
+					
+					if(localStorage.length == 0){
+			
+						[emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv].forEach(div => {
+				
+							if(!div.nextElementSibling.checked){
+								let clickEvent = new Event('click');
+								div.dispatchEvent(clickEvent);
+							}
+					
+						});
+					
+					} else {
+						
+						restoreSettings();
+						
+					}
+					
+					cancelButton.style.backgroundColor = '#B2B2B2';
+					cancelButton.disabled = true;
+					
+				});
+
+			};
 			
 			if(switchFlag){
 				onLabel.style.display = 'none';
@@ -820,21 +879,21 @@ gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuter
 
 gradientBlue.addColorStop(0, '#286573');
 gradientBlue.addColorStop(0.45, 'white');
-gradientBlue.addColorStop(0.99, '#286573');
+gradientBlue.addColorStop(1, '#286573');
 
 
 gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 
 gradientGreen.addColorStop(0, '#357D43');
 gradientGreen.addColorStop(0.45, 'white');
-gradientGreen.addColorStop(0.99, '#357D43');
+gradientGreen.addColorStop(1, '#357D43');
 
 
 gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 
 gradientPurple.addColorStop(0, '#272b73');
 gradientPurple.addColorStop(0.45, 'white');
-gradientPurple.addColorStop(0.99, '#272b73');
+gradientPurple.addColorStop(1, '#272b73');
 
 //-----------------------------------------------------------------------------
 
@@ -842,19 +901,19 @@ gradientBlue2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOute
 
 gradientBlue2.addColorStop(0, '#286573');
 gradientBlue2.addColorStop(0.45, '#e6e6e6');
-gradientBlue2.addColorStop(0.99, '#0f4c5a');
+gradientBlue2.addColorStop(1, '#0f4c5a');
 
 gradientGreen2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 
 gradientGreen2.addColorStop(0, '#357d43');
 gradientGreen2.addColorStop(0.45, '#e6e6e6');
-gradientGreen2.addColorStop(0.99, '#1c642a');
+gradientGreen2.addColorStop(1, '#1c642a');
 
 gradientPurple2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 
 gradientPurple2.addColorStop(0, '#272b73');
 gradientPurple2.addColorStop(0.45, '#e6e6e6');
-gradientPurple2.addColorStop(0.99, '#0e125a');
+gradientPurple2.addColorStop(1, '#0e125a');
 
 
 
@@ -934,38 +993,17 @@ legItems.forEach(li => {
 
 document.addEventListener('DOMContentLoaded', function(){
 	
-	
+	console.log('fired');
 	
 	// let emailNotifyTurnedOn = localStorage.email === 'on';
 	
 	// let publicProfileTurnedOn = localStorage.profile === 'on';
 	
 	let barChartAutoplayTurnedOn = localStorage.autoplay === 'on';
-		
-	let settingsDiv = document.getElementsByClassName('settings')[0];
 	
 	
 	
-	let switchDivs = Array.from(settingsDiv.querySelectorAll('[data-setting]')).map(sd => {return sd.dataset.setting;});
-	
-	
-	for(let setting in localStorage){
-		
-		
-		
-		if(switchDivs.includes(setting)){
-			
-			let queryString = '[data-setting=' + setting + ']';
-			
-			let ourSwitch = settingsDiv.querySelector(queryString);
-			
-			
-			
-			
-			console.log(ourSwitch);
-		};
-		
-	};
+	restoreSettings();
 	
 	
 	
@@ -1014,9 +1052,9 @@ document.addEventListener('DOMContentLoaded', function(){
 	});
 	
 	
-	if(!barChartAutoplayTurnedOn){
-		start();
-	}
+	// if(!barChartAutoplayTurnedOn){
+		// start();
+	// }
 });
 
 
