@@ -34,7 +34,7 @@ const dropdown = document.querySelector('.dropdown');
 
 
 
-const emailOnOffSwitch = document.querySelector('.email_notify div div');
+// const emailOnOffSwitch = document.querySelector('.email_notify div div');
 const emailOnLabel = document.querySelector('.email_notify label:first-of-type');
 const emailOffLabel = document.querySelector('.email_notify label:last-of-type');
 const emailSwitchDiv = document.querySelector('.email_notify div');
@@ -61,7 +61,7 @@ const autoplayRadioOn = document.querySelector('.barchart_autoplay input[id="on"
 const autoplayRadioOff = document.querySelector('.barchart_autoplay input[id="off"]');
 
 
-
+const saveMessage = document.querySelector('.settings form > div > p');
 
 
 
@@ -77,34 +77,69 @@ const settingsDiv = document.getElementsByClassName('settings')[0];
 const switchDivs = Array.from(settingsDiv.querySelectorAll('[data-setting]')).map(sd => {return sd.dataset.setting;});
 
 
-function restoreSettings(){
+// function restoreSettings(){
 	
-	console.log('run');
+	// // console.log('run');
 	
-	if(localStorage.length > 0){
-	console.log('run2');
-		for(let setting in localStorage){
-		console.log('run ' + setting);	
-			if(switchDivs.includes(setting)){
-				console.log('run3');
-				let queryString = '[data-setting=' + setting + ']';
+	// if(localStorage.length > 0){
+	// // console.log('run2');
+		// for(let setting in localStorage){
+		// // console.log('run ' + setting);	
+			// if(switchDivs.includes(setting)){
+				// // console.log('run3');
+				// let queryString = '[data-setting=' + setting + ']';
 				
-				let ourSwitch = settingsDiv.querySelector(queryString);
+				// let ourSwitch = settingsDiv.querySelector(queryString);
 				
-				let settingValue = localStorage.getItem(setting);
-				console.log(ourSwitch.nextElementSibling.checked);
-				if((settingValue === 'on' && ourSwitch.nextElementSibling.checked) || ((settingValue === 'off' && !ourSwitch.nextElementSibling.checked))){
+				// let settingValue = localStorage.getItem(setting);
+				
+				
+				// // console.log(ourSwitch.nextElementSibling.checked);
+				
+				
+				// // if(window.performance.navigation.type === 2){
+				
+				
+					// // if((settingValue === 'on' && ourSwitch.nextElementSibling.checked)){
 					
-					// here
-				} else {
-					let clickEvent = new Event('click');
-					ourSwitch.dispatchEvent(clickEvent);
-				};
-			};
-		};
-	};
+					
+					
+					// // } else {
+					
+					
+						// // let clickEvent = new Event('click');
+						// // ourSwitch.dispatchEvent(clickEvent);
+					
+					// // };
+				
+				
+				
+				// // } else {
+				
+					// if((settingValue === 'on' && ourSwitch.nextElementSibling.checked) || (settingValue === 'off' && !ourSwitch.nextElementSibling.checked)){
+					
+					
+					
+					// } else {
+					
+					
+						// let clickEvent = new Event('click');
+						// ourSwitch.dispatchEvent(clickEvent);
+					
+					// };
+				
+				
+				// // console.log(ourSwitch.nextElementSibling.checked);
+				
+				
+				
+				// // };
+				
+			// };
+		// };
+	// };
 
-};
+// };
 
 
 
@@ -125,6 +160,14 @@ saveButton.addEventListener('click', function(e){
 	
 	cancelButton.style.backgroundColor = '#B2B2B2';
 	cancelButton.disabled = true;
+	saveMessage.style.opacity = '1';
+	
+	
+	window.setTimeout(function(){
+		saveMessage.style.opacity = '0';
+	}, 2500);
+	
+	
 	
 });
 
@@ -135,25 +178,25 @@ saveButton.addEventListener('click', function(e){
 
 
 
-function switchClick(div, onLabel, offLabel, onOffSwitch, radioOn, radioOff){
+function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 	
 	
-	[radioOff, radioOn].forEach(rb => {
+	// [radioOff, radioOn].forEach(rb => {
 		
-		rb.addEventListener('change', function(e){
-			let clickEvent = new Event('click');
-			div.dispatchEvent(clickEvent);
-		});
+		// rb.addEventListener('change', function(e){
+			// let clickEvent = new Event('click');
+			// div.dispatchEvent(clickEvent);
+		// });
 		
-		rb.addEventListener('focus', function(e){
-			div.style.outline = '2px solid rgb(229,151,0)';
-		});
+		// rb.addEventListener('focus', function(e){
+			// div.style.outline = '2px solid rgb(229,151,0)';
+		// });
 		
-		rb.addEventListener('blur', function(e){
-			div.style.outline = 'none';
-		});
+		// rb.addEventListener('blur', function(e){
+			// div.style.outline = 'none';
+		// });
 	
-	});
+	// });
 	
 	
 	
@@ -207,14 +250,14 @@ function switchClick(div, onLabel, offLabel, onOffSwitch, radioOn, radioOff){
 				onLabel.style.display = 'none';
 				offLabel.style.display = 'block';
 				offLabel.style.marginLeft = '10px';
-				onOffSwitch.style.marginRight = '0';
+				// onOffSwitch.style.marginRight = '0';
 				this.style.backgroundColor = '#b71b1e';
 				radioOff.checked = true;
 				switchFlag = false;
 				
 			} else {
 				onLabel.style.display = 'block';
-				onOffSwitch.style.marginRight = '-10px';
+				// onOffSwitch.style.marginRight = '-10px';
 				offLabel.style.display = 'none';
 				this.style.backgroundColor = '#7377bf';
 				radioOn.checked = true;
@@ -231,11 +274,11 @@ function switchClick(div, onLabel, offLabel, onOffSwitch, radioOn, radioOff){
 };
 
 
-switchClick(emailSwitchDiv, emailOnLabel, emailOffLabel, emailOnOffSwitch, emailRadioOn, emailRadioOff);
+switchClick(emailSwitchDiv, emailOnLabel, emailOffLabel, emailRadioOn, emailRadioOff);
 
-switchClick(profileSwitchDiv, profileOnLabel, profileOffLabel, profileOnOffSwitch, profileRadioOn, profileRadioOff);
+// switchClick(profileSwitchDiv, profileOnLabel, profileOffLabel, profileOnOffSwitch, profileRadioOn, profileRadioOff);
 
-switchClick(autoplaySwitchDiv, autoplayOnLabel, autoplayOffLabel, autoplayOnOffSwitch, autoplayRadioOn, autoplayRadioOff);
+// switchClick(autoplaySwitchDiv, autoplayOnLabel, autoplayOffLabel, autoplayOnOffSwitch, autoplayRadioOn, autoplayRadioOff);
 
 
 
@@ -993,7 +1036,7 @@ legItems.forEach(li => {
 
 document.addEventListener('DOMContentLoaded', function(){
 	
-	console.log('fired');
+	// console.log('fired');
 	
 	// let emailNotifyTurnedOn = localStorage.email === 'on';
 	
@@ -1003,7 +1046,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 	
 	
-	restoreSettings();
+	// restoreSettings();
 	
 	
 	

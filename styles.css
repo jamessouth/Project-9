@@ -715,7 +715,7 @@ div > header > nav ul li a:focus:not(.selected){
 .messages fieldset,
 .settings fieldset{
 	border: none;
-	margin-bottom: 2em;
+	margin-bottom: 3em;
 	
 }
 
@@ -849,12 +849,40 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: background-color 1.25s;
 }
 
-.email_notify div div,
-.public_profile div div,
-.barchart_autoplay div div{
+/* .email_notify div div, */
+/* .public_profile div div, */
+/* .barchart_autoplay div div{ */
+	/* width: 25px; */
+	/* margin-right: -10px; */
+	/* margin-bottom: 1px; */
+	/* height: 25px; */
+	/* border-radius: 50%; */
+	/* background-color: #fff; */
+	/* border: 2px solid #cecece; */
+/* } */
+
+
+.email_notify input[name="email_notify"],
+.public_profile input[name="public_profile"],
+.barchart_autoplay input[name="barchart_autoplay"]{
+	position: absolute;
+	right: 24%;
+	/* transform: translateX(50%); */
+	width: 23px;
+	height: 23px;
+	/* z-index: -156; */
+	/* margin: 0 1em; */
+	/* -webkit-appearance: none; */
+	/* -moz-appearance: none; */
+	outline: none;
+}
+
+.email_notify input[name="email_notify"]:after{
+	content: " ";
+	display: inline-block;
 	width: 25px;
 	margin-right: -10px;
-	/* margin-bottom: 1px; */
+	margin-bottom: 1px;
 	height: 25px;
 	border-radius: 50%;
 	background-color: #fff;
@@ -862,19 +890,9 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 
-.email_notify input[name="email_notify"],
-.public_profile input[name="public_profile"],
-.barchart_autoplay input[name="barchart_autoplay"]{
-	position: absolute;
-	right: 3%;
-	/* transform: translateX(50%); */
-	width: 2px;
-	height: 2px;
-	z-index: -156;
-	/* margin: 0 1em; */
-	/* -webkit-appearance: none; */
-	/* -moz-appearance: none; */
-	outline: none;
+
+.email_notify input[value="off"]{
+	right: 2%;
 }
 
 .email_notify > p,
@@ -903,15 +921,30 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 .settings form > div{
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 }
 
+.settings form > div > p{
+	opacity: 0;
+	position: absolute;
+	background-color: rgba(10,10,10,0.8);
+	top: -48px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 90%;
+	text-align: center;
+	padding: 0.4em 0;
+	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 20px;
+	color: #fff;
+	border-radius: 50px;
+	transition: opacity 1.5s;
+}
+
 .settings form button{
-	
 	width: 45%;
-	
-	
 }
 
 .settings form button:last-of-type{
