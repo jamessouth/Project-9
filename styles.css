@@ -828,7 +828,7 @@ div > header > nav ul li a:focus:not(.selected){
 .email_notify,
 .public_profile,
 .barchart_autoplay{
-	position: relative;
+	
 	height: 50px;
 	display: flex;
 	align-items: center;
@@ -838,9 +838,10 @@ div > header > nav ul li a:focus:not(.selected){
 .email_notify div,
 .public_profile div,
 .barchart_autoplay div{
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
+	position: relative;
+	/* display: flex; */
+	/* align-items: center; */
+	/* justify-content: space-around; */
 	background-color: #7377bf;
 	width: 95px;
 	height: 37px;
@@ -849,27 +850,16 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: background-color 1.25s;
 }
 
-/* .email_notify div div, */
-/* .public_profile div div, */
-/* .barchart_autoplay div div{ */
-	/* width: 25px; */
-	/* margin-right: -10px; */
-	/* margin-bottom: 1px; */
-	/* height: 25px; */
-	/* border-radius: 50%; */
-	/* background-color: #fff; */
-	/* border: 2px solid #cecece; */
-/* } */
-
 
 .email_notify input[name="email_notify"],
 .public_profile input[name="public_profile"],
 .barchart_autoplay input[name="barchart_autoplay"]{
 	position: absolute;
-	right: 24%;
+	right: 14px;
+	top: 16px;
 	/* transform: translateX(50%); */
-	width: 23px;
-	height: 23px;
+	width: 1px;
+	height: 1px;
 	/* z-index: -156; */
 	/* margin: 0 1em; */
 	/* -webkit-appearance: none; */
@@ -877,13 +867,24 @@ div > header > nav ul li a:focus:not(.selected){
 	outline: none;
 }
 
-.email_notify input[name="email_notify"]:after{
+.email_notify input[name="email_notify"]:not(:checked),
+.public_profile input[name="public_profile"]:not(:checked){
+	/* display: none; */
+	z-index: -1;
+}
+
+
+.email_notify input[name="email_notify"]:after,
+.public_profile input[name="public_profile"]:after{
 	content: " ";
+	position: absolute;
+	top: -12px;
+	right: -10px;
 	display: inline-block;
-	width: 25px;
-	margin-right: -10px;
-	margin-bottom: 1px;
-	height: 25px;
+	width: 21px;
+	/* margin-right: -10px; */
+	/* margin-bottom: 1px; */
+	height: 21px;
 	border-radius: 50%;
 	background-color: #fff;
 	border: 2px solid #cecece;
@@ -891,9 +892,20 @@ div > header > nav ul li a:focus:not(.selected){
 
 
 
-.email_notify input[value="off"]{
-	right: 2%;
+.email_notify input[value="off"],
+.public_profile input[value="off"]{
+	
+	/* top: 13px; */
+	left: 14px;
 }
+
+.email_notify input[value="off"]:after,
+.public_profile input[value="off"]:after{
+	
+	top: -12px;
+	left: -10px;
+}
+
 
 .email_notify > p,
 .public_profile > p,
@@ -904,10 +916,11 @@ div > header > nav ul li a:focus:not(.selected){
 .email_notify label,
 .public_profile label,
 .barchart_autoplay label{
-	/* position: absolute; */
-	/* left: 10px; */
-	margin-left: -10px;
-	margin-bottom: 1px;
+	position: absolute;
+	left: 6px;
+	top: 2px;
+	/* margin-left: -10px; */
+	/* margin-bottom: 1px; */
 	color: #fff;
 	font-size: 22px;
 	font-family: 'Alegreya Sans SC', sans-serif;
@@ -916,7 +929,7 @@ div > header > nav ul li a:focus:not(.selected){
 .email_notify label:last-of-type,
 .public_profile label:last-of-type,
 .barchart_autoplay label:last-of-type{
-	/* left: 32px; */
+	/* left: 40px; */
 	display: none;
 }
 

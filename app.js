@@ -1,4 +1,6 @@
-
+if(window.performance.navigation.type === 2){
+	window.location.reload();
+};
 
 const links = document.querySelectorAll('div > header li a');
 const appName = document.querySelector('div > main > div:first-child > h1');
@@ -42,9 +44,7 @@ const emailRadioOn = document.querySelector('.email_notify input[id="on"]');
 const emailRadioOff = document.querySelector('.email_notify input[id="off"]');
 
 
-
-
-const profileOnOffSwitch = document.querySelector('.public_profile div div');
+// const profileOnOffSwitch = document.querySelector('.public_profile div div');
 const profileOnLabel = document.querySelector('.public_profile label:first-of-type');
 const profileOffLabel = document.querySelector('.public_profile label:last-of-type');
 const profileSwitchDiv = document.querySelector('.public_profile div');
@@ -77,82 +77,61 @@ const settingsDiv = document.getElementsByClassName('settings')[0];
 const switchDivs = Array.from(settingsDiv.querySelectorAll('[data-setting]')).map(sd => {return sd.dataset.setting;});
 
 
-// function restoreSettings(){
-	
-	// // console.log('run');
-	
-	// if(localStorage.length > 0){
-	// // console.log('run2');
-		// for(let setting in localStorage){
-		// // console.log('run ' + setting);	
-			// if(switchDivs.includes(setting)){
-				// // console.log('run3');
-				// let queryString = '[data-setting=' + setting + ']';
-				
-				// let ourSwitch = settingsDiv.querySelector(queryString);
-				
-				// let settingValue = localStorage.getItem(setting);
-				
-				
-				// // console.log(ourSwitch.nextElementSibling.checked);
-				
-				
-				// // if(window.performance.navigation.type === 2){
-				
-				
-					// // if((settingValue === 'on' && ourSwitch.nextElementSibling.checked)){
-					
-					
-					
-					// // } else {
-					
-					
-						// // let clickEvent = new Event('click');
-						// // ourSwitch.dispatchEvent(clickEvent);
-					
-					// // };
-				
-				
-				
-				// // } else {
-				
-					// if((settingValue === 'on' && ourSwitch.nextElementSibling.checked) || (settingValue === 'off' && !ourSwitch.nextElementSibling.checked)){
-					
-					
-					
-					// } else {
-					
-					
-						// let clickEvent = new Event('click');
-						// ourSwitch.dispatchEvent(clickEvent);
-					
-					// };
-				
-				
-				// // console.log(ourSwitch.nextElementSibling.checked);
-				
-				
-				
-				// // };
-				
-			// };
-		// };
-	// };
+function makeClick(target){
+	let clickEvent = new Event('click');
+	target.dispatchEvent(clickEvent);
+};
 
-// };
+
+function restoreSettings(){
+	
+	if(localStorage.length === 0){
+		
+		
+		
+	} else {
+	
+	
+		for(let setting in localStorage){
+		// console.log('run ' + setting);	
+			if(switchDivs.includes(setting)){
+				// console.log('run3');
+				let queryString = '[data-setting=' + setting + ']';
+				
+				let ourSwitch = settingsDiv.querySelector(queryString);
+				
+				let settingValue = localStorage.getItem(setting);
+				
+				let isOnChecked = ourSwitch.querySelectorAll('input')[0].checked === true;
+				
+				if(!isOnChecked){
+					// console.log('first');
+					makeClick(ourSwitch);
+				}
+				
+				if(settingValue === 'off'){
+					// console.log('second');
+					makeClick(ourSwitch);
+				}
+				
+			};
+		};
+	
+	};
+};
 
 
 
 saveButton.addEventListener('click', function(e){
 	
-	
-	[emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv].forEach(div => {
+	// [emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv]
+	[emailSwitchDiv].forEach(div => {
 	
 		// console.log();
 	
 		let locStoKey = div.dataset.setting;
 	
-		let locStoVal = div.parentNode.querySelector('input:checked').value;
+		let locStoVal = div.querySelector('input:checked').value;
 	
 		localStorage.setItem(locStoKey, locStoVal);
 		
@@ -181,22 +160,17 @@ saveButton.addEventListener('click', function(e){
 function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 	
 	
-	// [radioOff, radioOn].forEach(rb => {
+	[radioOff, radioOn].forEach(rb => {
 		
-		// rb.addEventListener('change', function(e){
-			// let clickEvent = new Event('click');
-			// div.dispatchEvent(clickEvent);
-		// });
+		rb.addEventListener('focus', function(e){
+			div.style.outline = '2px solid rgb(229,151,0)';
+		});
 		
-		// rb.addEventListener('focus', function(e){
-			// div.style.outline = '2px solid rgb(229,151,0)';
-		// });
-		
-		// rb.addEventListener('blur', function(e){
-			// div.style.outline = 'none';
-		// });
+		rb.addEventListener('blur', function(e){
+			div.style.outline = 'none';
+		});
 	
-	// });
+	});
 	
 	
 	
@@ -247,9 +221,14 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 			};
 			
 			if(switchFlag){
+				
+				// console.log(' now off');
+				
+				
 				onLabel.style.display = 'none';
 				offLabel.style.display = 'block';
-				offLabel.style.marginLeft = '10px';
+				offLabel.style.right = '10px';
+				offLabel.style.left = 'inherit';
 				// onOffSwitch.style.marginRight = '0';
 				this.style.backgroundColor = '#b71b1e';
 				radioOff.checked = true;
@@ -259,6 +238,7 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 				onLabel.style.display = 'block';
 				// onOffSwitch.style.marginRight = '-10px';
 				offLabel.style.display = 'none';
+				
 				this.style.backgroundColor = '#7377bf';
 				radioOn.checked = true;
 				switchFlag = true;
@@ -276,7 +256,7 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 
 switchClick(emailSwitchDiv, emailOnLabel, emailOffLabel, emailRadioOn, emailRadioOff);
 
-// switchClick(profileSwitchDiv, profileOnLabel, profileOffLabel, profileOnOffSwitch, profileRadioOn, profileRadioOff);
+switchClick(profileSwitchDiv, profileOnLabel, profileOffLabel, profileRadioOn, profileRadioOff);
 
 // switchClick(autoplaySwitchDiv, autoplayOnLabel, autoplayOffLabel, autoplayOnOffSwitch, autoplayRadioOn, autoplayRadioOff);
 
@@ -1046,7 +1026,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 	
 	
-	// restoreSettings();
+	restoreSettings();
 	
 	
 	
