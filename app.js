@@ -53,7 +53,7 @@ const profileRadioOff = document.querySelector('.public_profile input[id="off"]'
 
 
 
-const autoplayOnOffSwitch = document.querySelector('.barchart_autoplay div div');
+// const autoplayOnOffSwitch = document.querySelector('.barchart_autoplay div div');
 const autoplayOnLabel = document.querySelector('.barchart_autoplay label:first-of-type');
 const autoplayOffLabel = document.querySelector('.barchart_autoplay label:last-of-type');
 const autoplaySwitchDiv = document.querySelector('.barchart_autoplay div');
@@ -73,8 +73,28 @@ const cancelButton = document.querySelector('.settings form > div button:last-of
 
 const settingsDiv = document.getElementsByClassName('settings')[0];
 
+const switches = settingsDiv.querySelectorAll('[data-setting]');
 
-const switchDivs = Array.from(settingsDiv.querySelectorAll('[data-setting]')).map(sd => {return sd.dataset.setting;});
+const pointer = document.querySelector('.settings .linechart_default .pointer');
+
+const lineChartDial = document.querySelector('.settings .linechart_default > div');
+
+let degs = [-64, -28, 28, 64];
+let degCount = 0;
+
+
+lineChartDial.addEventListener('click', function(e){
+	
+	degCount += 1;
+	let dir = degCount % degs.length;
+	console.log(dir);
+	
+	pointer.style.transform = 'translateX(-50%) rotate(' + degs[dir] + 'deg)';
+	
+});
+
+
+
 
 
 function makeClick(target){
@@ -85,47 +105,30 @@ function makeClick(target){
 
 function restoreSettings(){
 	
-	if(localStorage.length === 0){
+	switches.forEach(switchDiv => {
 		
+		let settingValue = localStorage.getItem(switchDiv.dataset.setting);
 		
+		let isOnChecked = switchDiv.querySelectorAll('input')[0].checked === true;
 		
-	} else {
+		if(!isOnChecked){
+			makeClick(switchDiv);
+		}
+		
+		if(settingValue === 'off'){
+			makeClick(switchDiv);
+		}
+		
+	});
 	
-	
-		for(let setting in localStorage){
-		// console.log('run ' + setting);	
-			if(switchDivs.includes(setting)){
-				// console.log('run3');
-				let queryString = '[data-setting=' + setting + ']';
-				
-				let ourSwitch = settingsDiv.querySelector(queryString);
-				
-				let settingValue = localStorage.getItem(setting);
-				
-				let isOnChecked = ourSwitch.querySelectorAll('input')[0].checked === true;
-				
-				if(!isOnChecked){
-					// console.log('first');
-					makeClick(ourSwitch);
-				}
-				
-				if(settingValue === 'off'){
-					// console.log('second');
-					makeClick(ourSwitch);
-				}
-				
-			};
-		};
-	
-	};
 };
 
 
 
 saveButton.addEventListener('click', function(e){
 	
-	// [emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv]
-	[emailSwitchDiv].forEach(div => {
+	
+	switches.forEach(div => {
 	
 		// console.log();
 	
@@ -196,23 +199,7 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 		
 				cancelButton.addEventListener('click', function(e){
 					
-					if(localStorage.length == 0){
-			
-						[emailSwitchDiv, profileSwitchDiv, autoplaySwitchDiv].forEach(div => {
-				
-							if(!div.nextElementSibling.checked){
-								let clickEvent = new Event('click');
-								div.dispatchEvent(clickEvent);
-							}
-					
-						});
-					
-					} else {
-						
-						restoreSettings();
-						
-					}
-					
+					restoreSettings();
 					cancelButton.style.backgroundColor = '#B2B2B2';
 					cancelButton.disabled = true;
 					
@@ -258,7 +245,7 @@ switchClick(emailSwitchDiv, emailOnLabel, emailOffLabel, emailRadioOn, emailRadi
 
 switchClick(profileSwitchDiv, profileOnLabel, profileOffLabel, profileRadioOn, profileRadioOff);
 
-// switchClick(autoplaySwitchDiv, autoplayOnLabel, autoplayOffLabel, autoplayOnOffSwitch, autoplayRadioOn, autoplayRadioOff);
+switchClick(autoplaySwitchDiv, autoplayOnLabel, autoplayOffLabel, autoplayRadioOn, autoplayRadioOff);
 
 
 
