@@ -715,7 +715,7 @@ div > header > nav ul li a:focus:not(.selected){
 .messages fieldset,
 .settings fieldset{
 	border: none;
-	margin-bottom: 3em;
+	margin-bottom: 4em;
 	
 }
 
@@ -827,7 +827,8 @@ div > header > nav ul li a:focus:not(.selected){
 
 .email_notify,
 .public_profile,
-.barchart_autoplay{
+.barchart_autoplay,
+.linechart_default{
 	
 	height: 50px;
 	display: flex;
@@ -835,9 +836,14 @@ div > header > nav ul li a:focus:not(.selected){
 	justify-content: space-between;
 }
 
-.email_notify div,
-.public_profile div,
-.barchart_autoplay div{
+.linechart_default{
+	height: 100px;
+}
+
+.email_notify > div,
+.public_profile > div,
+.barchart_autoplay > div,
+.linechart_default > div{
 	position: relative;
 	/* display: flex; */
 	/* align-items: center; */
@@ -850,32 +856,101 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: background-color 1.25s;
 }
 
+.linechart_default > div{
+	height: 95px;
+	width: 95px;
+	border-radius: 50%;
+	background: linear-gradient(to bottom right, #a6aaf2, #40448c);
+	border: 1px solid #969ae2;
+	box-shadow: 1px 1px black;
+}
+
 
 .email_notify input[name="email_notify"],
 .public_profile input[name="public_profile"],
-.barchart_autoplay input[name="barchart_autoplay"]{
+.barchart_autoplay input[name="barchart_autoplay"],
+.linechart_default input[name="linechart_default"]{
 	position: absolute;
 	right: 14px;
 	top: 16px;
-	/* transform: translateX(50%); */
-	width: 1px;
-	height: 1px;
-	/* z-index: -156; */
-	/* margin: 0 1em; */
-	/* -webkit-appearance: none; */
-	/* -moz-appearance: none; */
+	width: 10px;
+	height: 10px;
 	outline: none;
 }
 
+.linechart_default input[name="linechart_default"]:after{
+	font-family: 'Alegreya Sans SC', sans-serif;
+	position: absolute;
+	font-size: 22px;
+	color: #221122;
+}
+
+
+.linechart_default input[name="linechart_default"]:nth-of-type(1){
+	left: 5px;
+	top: 25px;
+}
+
+.linechart_default input[name="linechart_default"]:nth-of-type(1):after{
+	/* content: "h"; */
+	
+	right: 0px;
+	top: -6px;
+}
+
+.linechart_default input[name="linechart_default"]:nth-of-type(2){
+	left: 25px;
+	top: 5px;
+}
+
+.linechart_default input[name="linechart_default"]:nth-of-type(2):after{
+	/* content: "d"; */
+	right: 0px;
+	top: -5px;
+}
+
+.linechart_default input[name="linechart_default"]:nth-of-type(3){
+	top: 5px;
+	right: 25px;
+	/* bottom: 2px; */
+}
+
+.linechart_default input[name="linechart_default"]:nth-of-type(3):after{
+	/* content: "w"; */
+	/* top: inherit; */
+	right: 0px;
+	bottom: -1px;
+}
+
+.linechart_default input[name="linechart_default"]:nth-of-type(4){
+	right: 5px;
+	top: 25px;
+	/* left: 0px; */
+}
+
+.linechart_default input[name="linechart_default"]:nth-of-type(4):after{
+	/* content: "m"; */
+	right: inherit;
+	top: -5px;
+	left: 0px;
+}
+
+.linechart_default input[name="linechart_default"]:checked:after{
+	color: #fff;
+}
+
+
 .email_notify input[name="email_notify"]:not(:checked),
-.public_profile input[name="public_profile"]:not(:checked){
+.public_profile input[name="public_profile"]:not(:checked),
+.barchart_autoplay input[name="barchart_autoplay"]:not(:checked){
 	/* display: none; */
 	z-index: -1;
 }
 
 
 .email_notify input[name="email_notify"]:after,
-.public_profile input[name="public_profile"]:after{
+.public_profile input[name="public_profile"]:after,
+.barchart_autoplay input[name="barchart_autoplay"]:after{
 	content: " ";
 	position: absolute;
 	top: -12px;
@@ -893,14 +968,16 @@ div > header > nav ul li a:focus:not(.selected){
 
 
 .email_notify input[value="off"],
-.public_profile input[value="off"]{
+.public_profile input[value="off"],
+.barchart_autoplay input[value="off"]{
 	
 	/* top: 13px; */
 	left: 14px;
 }
 
 .email_notify input[value="off"]:after,
-.public_profile input[value="off"]:after{
+.public_profile input[value="off"]:after,
+.barchart_autoplay input[value="off"]:after{
 	
 	top: -12px;
 	left: -10px;
@@ -909,22 +986,67 @@ div > header > nav ul li a:focus:not(.selected){
 
 .email_notify > p,
 .public_profile > p,
-.barchart_autoplay > p{
+.barchart_autoplay > p,
+.linechart_default > p{
 	font-family: 'Alegreya Sans', sans-serif;	
+}
+
+.linechart_default > p{
+	width: 125px;
 }
 
 .email_notify label,
 .public_profile label,
-.barchart_autoplay label{
+.barchart_autoplay label,
+.linechart_default label{
 	position: absolute;
 	left: 6px;
 	top: 2px;
-	/* margin-left: -10px; */
-	/* margin-bottom: 1px; */
 	color: #fff;
 	font-size: 22px;
 	font-family: 'Alegreya Sans SC', sans-serif;
 }
+
+.linechart_default > div > div.dial{
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	background: linear-gradient(to bottom right, #a6aaf2, #40448c);
+	border-radius: 50%;
+	/* border: 4px solid #cecece; */
+	transform: translateX(-50%) translateY(-50%);
+	left: 50%;
+	top: 50%;
+	box-shadow: 5px 6px 13px black;
+}
+
+.linechart_default > div > div.pointer{
+	position: absolute;
+	width: 0;
+	height: 14px;
+	top: 28px;
+	transform: translateX(-50%) rotate(-64deg);
+	transform-origin: 2px 18px;
+	left: 50%;
+	border-radius: 2px;
+	border: 2px solid #fff;
+	
+	
+	
+}
+
+.linechart_default label{
+	color: #221122;
+	top: inherit;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -25px;
+}
+
+.linechart_default input:not(:checked) + label{
+	color: transparent;
+}
+
 
 .email_notify label:last-of-type,
 .public_profile label:last-of-type,
