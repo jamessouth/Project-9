@@ -79,20 +79,75 @@ const pointer = document.querySelector('.settings .linechart_default .pointer');
 
 const lineChartDial = document.querySelector('.settings .linechart_default > div');
 
-let degs = [-64, -28, 28, 64];
-let degCount = 0;
+const lineChartDialRadios = lineChartDial.querySelectorAll('input');
+
+let dir = 0;
 
 
-lineChartDial.addEventListener('click', function(e){
-	
-	degCount += 1;
-	let dir = degCount % degs.length;
-	console.log(dir);
-	
-	pointer.style.transform = 'translateX(-50%) rotate(' + degs[dir] + 'deg)';
-	
-});
+function dialSwitch(dial, ptr, radios){
 
+	Array.from(radios).forEach(rb => {
+		
+		rb.addEventListener('focus', function(e){
+			dial.style.outline = '2px solid rgb(229,151,0)';
+		});
+		
+		rb.addEventListener('blur', function(e){
+			dial.style.outline = 'none';
+		});
+	
+	});
+
+
+	let degs = [-71, -28, 28, 71];
+	let degCount = 0;
+
+
+	dial.addEventListener('click', function(e){
+		
+		if(e.target.tagName === 'LABEL'){
+			e.preventDefault();
+		}
+		
+		
+		if(e.isTrusted){
+			
+			cancelButton.disabled = false;
+		
+			cancelButton.style.backgroundColor = '#7377bf';
+	
+			cancelButton.addEventListener('click', function(e){
+				
+				
+				ptr.style.transform = 'translateX(-50%) rotate(' + degs[0] + 'deg)';
+		
+				radios[0].checked = true;
+				degCount = 0;
+				restoreSettings();
+				cancelButton.style.backgroundColor = '#B2B2B2';
+				cancelButton.disabled = true;
+				
+			});
+
+		};
+		
+		
+		
+		
+		degCount += 1;
+		dir = degCount % degs.length;
+		
+		ptr.style.transform = 'translateX(-50%) rotate(' + degs[dir] + 'deg)';
+		
+		radios[dir].checked = true;
+		
+		
+	});
+
+};
+
+
+dialSwitch(lineChartDial, pointer, lineChartDialRadios);
 
 
 
@@ -105,9 +160,19 @@ function makeClick(target){
 
 function restoreSettings(){
 	
+	
+	console.log('run');
+	
+	
 	switches.forEach(switchDiv => {
 		
 		let settingValue = localStorage.getItem(switchDiv.dataset.setting);
+		
+		if(!['on', 'off'].includes(settingValue)){
+			timeValue = settingValue;
+		}
+			
+			
 		
 		let isOnChecked = switchDiv.querySelectorAll('input')[0].checked === true;
 		
@@ -120,6 +185,16 @@ function restoreSettings(){
 		}
 		
 	});
+	
+	if(localStorage.length > 0){
+		let timeIndex = parseInt(localStorage.getItem('dirIndex'), 10);
+	
+	
+		for(let i = 1; i <= timeIndex; i++){
+			makeClick(lineChartDial);
+			
+		}
+	}
 	
 };
 
@@ -137,6 +212,10 @@ saveButton.addEventListener('click', function(e){
 		let locStoVal = div.querySelector('input:checked').value;
 	
 		localStorage.setItem(locStoKey, locStoVal);
+		
+		if(locStoKey === 'timeperiod'){
+			localStorage.setItem('dirIndex', dir);
+		}
 		
 	});
 	
@@ -217,7 +296,7 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 				offLabel.style.right = '10px';
 				offLabel.style.left = 'inherit';
 				// onOffSwitch.style.marginRight = '0';
-				this.style.backgroundColor = '#b71b1e';
+				this.style.background = 'linear-gradient(to bottom right, #ea4e51, #840000)';
 				radioOff.checked = true;
 				switchFlag = false;
 				
@@ -226,7 +305,7 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 				// onOffSwitch.style.marginRight = '-10px';
 				offLabel.style.display = 'none';
 				
-				this.style.backgroundColor = '#7377bf';
+				this.style.background = 'linear-gradient(to bottom right, #a6aaf2, #40448c)';
 				radioOn.checked = true;
 				switchFlag = true;
 				
