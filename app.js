@@ -81,7 +81,40 @@ const lineChartDial = document.querySelector('.settings .linechart_default > div
 
 const lineChartDialRadios = lineChartDial.querySelectorAll('input');
 
+
+const sendButton = document.querySelector('.messages button');
+
+const userSearchBox = document.querySelector('.messages input');
+
+const userMessageBox = document.querySelector('.messages textarea');
+
+const errorMessage = document.querySelector('.messages form > p');
+
+
+
 let dir = 0;
+let degs = [-71, -28, 28, 71];
+let degCount = 0;
+
+
+
+
+sendButton.addEventListener('click', function(e){
+	
+	// console.log(e);
+	
+	errorMessage.style.opacity = '1';
+	
+	
+	window.setTimeout(function(){
+		errorMessage.style.opacity = '0';
+	}, 2500);
+	
+	
+	
+});
+
+
 
 
 function dialSwitch(dial, ptr, radios){
@@ -99,10 +132,6 @@ function dialSwitch(dial, ptr, radios){
 	});
 
 
-	let degs = [-71, -28, 28, 71];
-	let degCount = 0;
-
-
 	dial.addEventListener('click', function(e){
 		
 		if(e.target.tagName === 'LABEL'){
@@ -116,18 +145,7 @@ function dialSwitch(dial, ptr, radios){
 		
 			cancelButton.style.backgroundColor = '#7377bf';
 	
-			cancelButton.addEventListener('click', function(e){
-				
-				
-				ptr.style.transform = 'translateX(-50%) rotate(' + degs[0] + 'deg)';
-		
-				radios[0].checked = true;
-				degCount = 0;
-				restoreSettings();
-				cancelButton.style.backgroundColor = '#B2B2B2';
-				cancelButton.disabled = true;
-				
-			});
+			
 
 		};
 		
@@ -161,18 +179,16 @@ function makeClick(target){
 function restoreSettings(){
 	
 	
-	console.log('run');
+	// console.log('run');
 	
 	
 	switches.forEach(switchDiv => {
 		
 		let settingValue = localStorage.getItem(switchDiv.dataset.setting);
 		
-		if(!['on', 'off'].includes(settingValue)){
-			timeValue = settingValue;
-		}
-			
-			
+		// if(!['on', 'off'].includes(settingValue)){
+			// timeValue = settingValue;
+		// }
 		
 		let isOnChecked = switchDiv.querySelectorAll('input')[0].checked === true;
 		
@@ -185,6 +201,15 @@ function restoreSettings(){
 		}
 		
 	});
+	
+	pointer.style.transform = 'translateX(-50%) rotate(' + degs[0] + 'deg)';
+
+	lineChartDialRadios[0].checked = true;
+	
+	degCount = 0;
+	
+	
+	
 	
 	if(localStorage.length > 0){
 		let timeIndex = parseInt(localStorage.getItem('dirIndex'), 10);
@@ -234,8 +259,23 @@ saveButton.addEventListener('click', function(e){
 
 
 
+
+
+cancelButton.addEventListener('click', function(e){
 	
 	
+	
+	
+	
+	restoreSettings();
+	cancelButton.style.backgroundColor = '#B2B2B2';
+	cancelButton.disabled = true;
+
+});
+
+
+
+
 
 
 
@@ -253,9 +293,6 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 		});
 	
 	});
-	
-	
-	
 	
 	
 	// return function(){
@@ -276,14 +313,6 @@ function switchClick(div, onLabel, offLabel, radioOn, radioOff){
 			
 				cancelButton.style.backgroundColor = '#7377bf';
 		
-				cancelButton.addEventListener('click', function(e){
-					
-					restoreSettings();
-					cancelButton.style.backgroundColor = '#B2B2B2';
-					cancelButton.disabled = true;
-					
-				});
-
 			};
 			
 			if(switchFlag){
@@ -949,9 +978,9 @@ barTypesArray.push(dayBar);
 barTypesArray.push(weekBar);
 barTypesArray.push(monthBar);
 
-lineChart = new Chart(lineChartCtx, hourLine);
 
-makeLegend(lineChart, lineLegendDiv);
+
+
 
 barChart = new Chart(barChartCtx, dayBar);
 donutChart = new Chart(donutChartCtx, donut);
@@ -1084,18 +1113,26 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 	// console.log('fired');
 	
-	// let emailNotifyTurnedOn = localStorage.email === 'on';
 	
-	// let publicProfileTurnedOn = localStorage.profile === 'on';
 	
 	let barChartAutoplayTurnedOn = localStorage.autoplay === 'on';
+	
+	let lineChartDefault;
+	
+	if(localStorage.length > 0){
+	
+		lineChartDefault = parseInt(localStorage.dirIndex, 10);
+	} else {
+		lineChartDefault = 0;
+	}
 	
 	
 	
 	restoreSettings();
 	
-	
-	
+	lineChart = new Chart(lineChartCtx, lineTypesArray[lineChartDefault]);
+	makeLegend(lineChart, lineLegendDiv);
+	makeClick(lineTypes[lineChartDefault]);
 	
 	if(barChartAutoplayTurnedOn){
 		dailyTrafficButton.innerHTML = 'pause';

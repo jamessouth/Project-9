@@ -709,8 +709,28 @@ div > header > nav ul li a:focus:not(.selected){
 	padding-bottom: 1em;
 	border-bottom: 1px solid #cecece;
 	margin-bottom: 1em;
+	position: relative;
 	
 }
+
+
+.messages form > p{
+	opacity: 0;
+	position: absolute;
+	background-color: rgba(10,10,10,0.8);
+	top: 263px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 90%;
+	text-align: center;
+	padding: 0.4em 0;
+	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 20px;
+	color: #fff;
+	border-radius: 50px;
+	transition: opacity 1.5s;
+}
+
 
 .messages fieldset,
 .settings fieldset{
