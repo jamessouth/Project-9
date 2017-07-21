@@ -713,30 +713,60 @@ div > header > nav ul li a:focus:not(.selected){
 	
 }
 
-
-.messages form > p{
-	opacity: 0;
+.messages form > div{
 	position: absolute;
-	background-color: rgba(10,10,10,0.8);
-	top: 263px;
+	width: 90%;
+	/* height: 93px; */
+	/* margin: auto; */
+	opacity: 1;
+	
+	top: 46px;
+	left: 21px;
+	/* border-left: 17px solid transparent; */
+	/* border-right: 17px solid transparent; */
+	/* border-bottom: 19px solid #ff0000; */
+	
+	transition: opacity 1.5s;
+}
+
+.messages canvas{
+	/* position: absolute; */
+	/* width: 100%; */
+	border: 1px solid black;
+}
+
+
+
+.messages form > div p{
+	/* border-radius: 50px; */
+	/* position: absolute; */
+	background-color: #fff;
+	margin: auto;
+	top: 2px;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 90%;
+	width: 41%;
 	text-align: center;
-	padding: 0.4em 0;
-	font-family: 'Alegreya Sans', sans-serif;
-	font-size: 20px;
-	color: #fff;
-	border-radius: 50px;
-	transition: opacity 1.5s;
+	/* padding: 1.1em 0; */
+	font-family: 'Fontdiner Swanky', cursive;
+	font-size: 35px;
+	color: #ff0000;
+	text-shadow: 1px 1px #000;
+	transform: rotate(-19deg);
+	
+	
 }
 
 
 .messages fieldset,
 .settings fieldset{
 	border: none;
-	margin-bottom: 4em;
+	margin-bottom: 5em;
 	
+}
+
+.messages fieldset{
+	margin-bottom: 1em;
 }
 
 .messages legend,
@@ -835,6 +865,10 @@ div > header > nav ul li a:focus:not(.selected){
 	border-radius: 5px;
 	outline: none;
 	transition: all 0.7s ease-out;
+}
+
+.messages button{
+	margin-top: 16px;
 }
 
 .messages input[name="search"]:focus,

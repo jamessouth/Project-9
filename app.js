@@ -88,7 +88,14 @@ const userSearchBox = document.querySelector('.messages input');
 
 const userMessageBox = document.querySelector('.messages textarea');
 
-const errorMessage = document.querySelector('.messages form > p');
+const errorMessageDiv = document.querySelector('.messages form > div');
+
+const errorMessage = document.querySelector('.messages form > div p');
+
+const errorCanvas = document.querySelector('.messages form > div canvas');
+
+const errorCanvasCtx = errorCanvas.getContext('2d');
+
 
 
 
@@ -97,20 +104,64 @@ let degs = [-71, -28, 28, 71];
 let degCount = 0;
 
 
+function drawErrorMsg(){
+	errorCanvasCtx.beginPath();
+	// errorCanvasCtx.strokeStyle = 'black';
+	errorCanvasCtx.moveTo(10,40);
+	errorCanvasCtx.bezierCurveTo(30,40, 40,30, 40,10);
+	errorCanvasCtx.bezierCurveTo(60,40, 80,30, 80,10);
+	errorCanvasCtx.bezierCurveTo(85,30, 80,20, 90,10);
+	errorCanvasCtx.bezierCurveTo(110,40, 140,30, 130,10);
+	errorCanvasCtx.bezierCurveTo(150,30, 160,20, 190,8);
+	errorCanvasCtx.bezierCurveTo(170,40, 170,70, 190,80);
+	errorCanvasCtx.bezierCurveTo(170,80, 165,90, 185,100);
+	errorCanvasCtx.bezierCurveTo(160,90, 150,100, 155,118);
+	errorCanvasCtx.bezierCurveTo(150,100, 140,110, 135,120);
+	errorCanvasCtx.bezierCurveTo(125,110, 120,125, 130,130);
+	errorCanvasCtx.bezierCurveTo(110,120, 115,130, 120,140);
+	errorCanvasCtx.bezierCurveTo(110,130, 100,110, 95,148);
+	errorCanvasCtx.bezierCurveTo(80,120, 90,130, 75,143);
+	errorCanvasCtx.bezierCurveTo(70,110, 50,130, 45,135);
+	errorCanvasCtx.bezierCurveTo(40,120, 20,110, 25,140);
+	errorCanvasCtx.bezierCurveTo(20,130, 18,120, 8,145);
+	errorCanvasCtx.bezierCurveTo(15,120, 10,100, 5,110);
+	errorCanvasCtx.bezierCurveTo(16,90, 15,80, 10,65);
+	errorCanvasCtx.bezierCurveTo(22,40, 18,60, 10,40);
+	
+	
+	errorCanvasCtx.fillStyle = 'red';
+	
+	errorCanvasCtx.fill();
+	
+	
+	errorCanvasCtx.lineWidth = '4';
+	errorCanvasCtx.stroke();
+};
+
+drawErrorMsg();
 
 
 sendButton.addEventListener('click', function(e){
 	
 	// console.log(e);
+	if(userSearchBox.value === ''){
+		errorMessage.textContent = 'USER!';
+		// errorMessage.style.color = 'red';
+		// errorMessage.style.backgroundColor = 'transparent';
+		// errorMessage.style.background = 'radial-gradient( #ff0000 15%, #ffffff 55%, #ff0000 85%)';
+		userSearchBox.focus();
+	} else if(userMessageBox.value === ''){
+		errorMessage.textContent = 'Please type in a message';
+		userMessageBox.focus();
+	} else {
+		errorMessage.textContent = 'Your message has been sent';
+	};
 	
-	errorMessage.style.opacity = '1';
+	errorMessageDiv.style.opacity = '1';
 	
-	
-	window.setTimeout(function(){
-		errorMessage.style.opacity = '0';
-	}, 2500);
-	
-	
+	// window.setTimeout(function(){
+		// errorMessage.style.opacity = '0';
+	// }, 2500);
 	
 });
 
