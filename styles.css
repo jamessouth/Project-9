@@ -713,47 +713,32 @@ div > header > nav ul li a:focus:not(.selected){
 	
 }
 
-.messages form > div{
-	position: absolute;
-	width: 90%;
-	/* height: 93px; */
-	/* margin: auto; */
-	opacity: 1;
-	
-	top: 46px;
-	left: 21px;
-	/* border-left: 17px solid transparent; */
-	/* border-right: 17px solid transparent; */
-	/* border-bottom: 19px solid #ff0000; */
-	
-	transition: opacity 1.5s;
-}
-
-.messages canvas{
-	/* position: absolute; */
-	/* width: 100%; */
-	border: 1px solid black;
-}
 
 
 
-.messages form > div p{
+
+.messages form > p{
 	/* border-radius: 50px; */
-	/* position: absolute; */
-	background-color: #fff;
+	position: absolute;
+	display: none;
+	background-color: transparent;
 	margin: auto;
-	top: 2px;
+	opacity: 0;
+	top: 70px;
 	left: 50%;
-	transform: translateX(-50%);
-	width: 41%;
+	letter-spacing: 4px;
+	transform-origin: center center;
+	/* line-height: 29px; */
+	transform: translateX(-50%) rotateX(4deg) rotateY(-50deg) rotate(-8deg);
+	width: 97%;
 	text-align: center;
 	/* padding: 1.1em 0; */
-	font-family: 'Fontdiner Swanky', cursive;
-	font-size: 35px;
-	color: #ff0000;
-	text-shadow: 1px 1px #000;
-	transform: rotate(-19deg);
+	font-family: 'uppereastsideregular';
+	font-size: 90px;
+	color: #fff;
 	
+	
+	transition: all 1.5s;
 	
 }
 
