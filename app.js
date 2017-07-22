@@ -88,13 +88,10 @@ const userSearchBox = document.querySelector('.messages input');
 
 const userMessageBox = document.querySelector('.messages textarea');
 
-const errorMessageDiv = document.querySelector('.messages form > div');
 
-const errorMessage = document.querySelector('.messages form > div p');
 
-const errorCanvas = document.querySelector('.messages form > div canvas');
+const errorMessage = document.querySelector('.messages form > p');
 
-const errorCanvasCtx = errorCanvas.getContext('2d');
 
 
 
@@ -104,64 +101,41 @@ let degs = [-71, -28, 28, 71];
 let degCount = 0;
 
 
-function drawErrorMsg(){
-	errorCanvasCtx.beginPath();
-	// errorCanvasCtx.strokeStyle = 'black';
-	errorCanvasCtx.moveTo(10,40);
-	errorCanvasCtx.bezierCurveTo(30,40, 40,30, 40,10);
-	errorCanvasCtx.bezierCurveTo(60,40, 80,30, 80,10);
-	errorCanvasCtx.bezierCurveTo(85,30, 80,20, 90,10);
-	errorCanvasCtx.bezierCurveTo(110,40, 140,30, 130,10);
-	errorCanvasCtx.bezierCurveTo(150,30, 160,20, 190,8);
-	errorCanvasCtx.bezierCurveTo(170,40, 170,70, 190,80);
-	errorCanvasCtx.bezierCurveTo(170,80, 165,90, 185,100);
-	errorCanvasCtx.bezierCurveTo(160,90, 150,100, 155,118);
-	errorCanvasCtx.bezierCurveTo(150,100, 140,110, 135,120);
-	errorCanvasCtx.bezierCurveTo(125,110, 120,125, 130,130);
-	errorCanvasCtx.bezierCurveTo(110,120, 115,130, 120,140);
-	errorCanvasCtx.bezierCurveTo(110,130, 100,110, 95,148);
-	errorCanvasCtx.bezierCurveTo(80,120, 90,130, 75,143);
-	errorCanvasCtx.bezierCurveTo(70,110, 50,130, 45,135);
-	errorCanvasCtx.bezierCurveTo(40,120, 20,110, 25,140);
-	errorCanvasCtx.bezierCurveTo(20,130, 18,120, 8,145);
-	errorCanvasCtx.bezierCurveTo(15,120, 10,100, 5,110);
-	errorCanvasCtx.bezierCurveTo(16,90, 15,80, 10,65);
-	errorCanvasCtx.bezierCurveTo(22,40, 18,60, 10,40);
-	
-	
-	errorCanvasCtx.fillStyle = 'red';
-	
-	errorCanvasCtx.fill();
-	
-	
-	errorCanvasCtx.lineWidth = '4';
-	errorCanvasCtx.stroke();
-};
 
-drawErrorMsg();
+
+
 
 
 sendButton.addEventListener('click', function(e){
-	
-	// console.log(e);
+	errorMessage.style.display = 'block';
+
 	if(userSearchBox.value === ''){
-		errorMessage.textContent = 'USER!';
-		// errorMessage.style.color = 'red';
-		// errorMessage.style.backgroundColor = 'transparent';
-		// errorMessage.style.background = 'radial-gradient( #ff0000 15%, #ffffff 55%, #ff0000 85%)';
+		errorMessage.textContent = 'Both fields required';
 		userSearchBox.focus();
 	} else if(userMessageBox.value === ''){
-		errorMessage.textContent = 'Please type in a message';
+		errorMessage.textContent = 'Both fields required';
 		userMessageBox.focus();
 	} else {
-		errorMessage.textContent = 'Your message has been sent';
+		errorMessage.style.top = '35px';
+		errorMessage.textContent = 'Your message has been sent!';
+		userSearchBox.value = '';
+		userMessageBox.value = '';
+		userSearchBox.focus();
 	};
 	
-	errorMessageDiv.style.opacity = '1';
+	errorMessage.style.opacity = '1';
+	errorMessage.style.textShadow = '1px 1px #000, 2px 2px #000, 3px 2px 1px #0d0d0d, 5px 3px 1px #1a1a1a, 7px 4px 1px #262626, 9px 5px 1px #333333, 11px 6px 1px #404040, 13px 7px 1px #4d4d4d, 15px 8px 1px #595959, 17px 9px 1px #666666, 19px 10px 1px #737373, 21px 11px 1px #808080, 23px 12px 1px #8c8c8c, 25px 13px 1px #999999, 27px 14px 1px #a6a6a6, 29px 15px 1px #b3b3b3, 31px 16px 1px #bfbfbf, 33px 17px 1px #cccccc, 35px 18px 1px #d9d9d9, 37px 19px 1px #e6e6e6, 39px 20px 1px #f2f2f2';
 	
-	// window.setTimeout(function(){
-		// errorMessage.style.opacity = '0';
-	// }, 2500);
+	
+	
+	window.setTimeout(function(){
+		errorMessage.style.opacity = '0';
+	}, 3500);
+	
+	window.setTimeout(function(){
+		errorMessage.style.display = 'none';
+		errorMessage.style.top = '70px';
+	}, 5003);
 	
 });
 
@@ -1449,8 +1423,99 @@ slideButtons.forEach(sb => {
 
 
 
-
-
+// roy lichtenstein
+// function drawErrorMsg(){
+	// errorCanvasCtx.beginPath();
+	// errorCanvasCtx.moveTo(10,40);
+	// errorCanvasCtx.bezierCurveTo(30,40, 40,30, 40,10);
+	// errorCanvasCtx.bezierCurveTo(60,40, 80,30, 80,10);
+	// errorCanvasCtx.bezierCurveTo(85,30, 80,20, 90,10);
+	// errorCanvasCtx.bezierCurveTo(110,40, 140,30, 130,10);
+	// errorCanvasCtx.bezierCurveTo(150,30, 160,20, 190,8);
+	// errorCanvasCtx.bezierCurveTo(170,40, 170,70, 190,80);
+	// errorCanvasCtx.bezierCurveTo(170,80, 165,90, 185,100);
+	// errorCanvasCtx.bezierCurveTo(160,90, 150,100, 155,118);
+	// errorCanvasCtx.bezierCurveTo(150,100, 140,110, 135,120);
+	// errorCanvasCtx.bezierCurveTo(125,110, 120,125, 130,130);
+	// errorCanvasCtx.bezierCurveTo(110,120, 115,130, 120,140);
+	// errorCanvasCtx.bezierCurveTo(110,130, 100,110, 95,148);
+	// errorCanvasCtx.bezierCurveTo(80,120, 90,130, 75,143);
+	// errorCanvasCtx.bezierCurveTo(70,110, 50,130, 45,135);
+	// errorCanvasCtx.bezierCurveTo(40,120, 20,110, 25,140);
+	// errorCanvasCtx.bezierCurveTo(20,130, 18,120, 8,145);
+	// errorCanvasCtx.bezierCurveTo(15,120, 10,100, 5,110);
+	// errorCanvasCtx.bezierCurveTo(16,90, 15,80, 10,65);
+	// errorCanvasCtx.bezierCurveTo(22,40, 18,60, 10,40);
+	// errorCanvasCtx.fillStyle = '#81C98F';
+	// errorCanvasCtx.fill();
+	// errorCanvasCtx.lineWidth = '3';
+	// errorCanvasCtx.strokeStyle = '#28252E';
+	// errorCanvasCtx.stroke();
+	
+	
+	// errorCanvasCtx.beginPath();
+	// errorCanvasCtx.moveTo(40,65);
+	// errorCanvasCtx.bezierCurveTo(50,60, 60,50, -8,-30);
+	// errorCanvasCtx.bezierCurveTo(70,40, 70,50, 98,50);
+	// errorCanvasCtx.bezierCurveTo(140,60, 150,50, 178,-80);
+	// errorCanvasCtx.bezierCurveTo(150,60, 150,75, 218,60);
+	// errorCanvasCtx.bezierCurveTo(140,90, 130,110, 168,150);
+	// errorCanvasCtx.bezierCurveTo(80,80, 100,70, 40,190);
+	// errorCanvasCtx.bezierCurveTo(90,85, 60,75, -28,130);
+	// errorCanvasCtx.bezierCurveTo(50,70, 60,70, -28,100);
+	// errorCanvasCtx.bezierCurveTo(30,70, 30,80, 40,65);
+	// errorCanvasCtx.fillStyle = '#cecece';
+	// errorCanvasCtx.fill();
+	// errorCanvasCtx.lineWidth = '2';
+	// errorCanvasCtx.strokeStyle = '#2C2821';
+	// errorCanvasCtx.stroke();
+	
+	
+	// errorCanvasCtx.beginPath();
+	// errorCanvasCtx.moveTo(35,45);
+	// errorCanvasCtx.lineTo(42,25);
+	// errorCanvasCtx.lineTo(50,30);
+	// errorCanvasCtx.lineTo(48,10);
+	// errorCanvasCtx.lineTo(71,45);
+	// errorCanvasCtx.lineTo(73,10);
+	// errorCanvasCtx.lineTo(98,43);
+	// errorCanvasCtx.lineTo(120,8);
+	// errorCanvasCtx.lineTo(125,40);
+	// errorCanvasCtx.lineTo(148,2);
+	// errorCanvasCtx.lineTo(155,32);
+	// errorCanvasCtx.lineTo(190,40);
+	// errorCanvasCtx.lineTo(158,90);
+	// errorCanvasCtx.lineTo(170,120);
+	// errorCanvasCtx.lineTo(158,110);
+	// errorCanvasCtx.lineTo(153,147);
+	// errorCanvasCtx.lineTo(143,100);
+	// errorCanvasCtx.lineTo(128,160);
+	// errorCanvasCtx.lineTo(130,115);
+	// errorCanvasCtx.lineTo(118,110);
+	// errorCanvasCtx.lineTo(105,150);
+	// errorCanvasCtx.lineTo(90,110);
+	// errorCanvasCtx.lineTo(80,150);
+	// errorCanvasCtx.lineTo(70,106);
+	// errorCanvasCtx.lineTo(50,140);
+	// errorCanvasCtx.lineTo(43,110);
+	// errorCanvasCtx.lineTo(38,146);
+	// errorCanvasCtx.lineTo(28,120);
+	// errorCanvasCtx.lineTo(16,140);
+	// errorCanvasCtx.lineTo(17,120);
+	// errorCanvasCtx.lineTo(8,124);
+	// errorCanvasCtx.lineTo(24,80);
+	// errorCanvasCtx.lineTo(4,72);
+	// errorCanvasCtx.lineTo(26,60);
+	// errorCanvasCtx.lineTo(20,30);
+	// errorCanvasCtx.closePath();
+	// errorCanvasCtx.fillStyle = '#7377bf';
+	// errorCanvasCtx.fill();
+	
+	// errorCanvasCtx.lineWidth = '3';
+	// errorCanvasCtx.strokeStyle = '#28252E';
+	// errorCanvasCtx.stroke();
+	
+// };
 
 
 
