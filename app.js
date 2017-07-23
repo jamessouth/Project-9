@@ -27,6 +27,14 @@ const newMemberDates = document.querySelectorAll('.new-members .mem-out > p');
 
 const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(2)');
 
+const myAppUsers = [];
+
+
+Array.from(document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(1)')).map(u => u.textContent).forEach(x => {let i = x.indexOf(' '); myAppUsers.push([x.slice(0,i), x.slice(i+1)]);});
+
+
+
+
 const slideButtons = document.querySelectorAll('.rec-activity .activity > button');
 
 const alertBell = document.querySelector('body > header > div > button');
@@ -102,7 +110,36 @@ let degCount = 0;
 
 
 
-
+userSearchBox.addEventListener('keydown', function(e){
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	myAppUsers.forEach(u => {
+		
+		if(u[0].toLowerCase().startsWith(this.value.toLowerCase()) || u[1].toLowerCase().startsWith(this.value.toLowerCase())){
+			
+			console.log(this.value);
+			
+		}
+		
+	});
+	
+	
+	
+});
 
 
 
@@ -123,19 +160,20 @@ sendButton.addEventListener('click', function(e){
 		userSearchBox.focus();
 	};
 	
-	errorMessage.style.opacity = '1';
+	// errorMessage.style.opacity = '1';
 	errorMessage.style.textShadow = '1px 1px #000, 2px 2px #000, 3px 2px 1px #0d0d0d, 5px 3px 1px #1a1a1a, 7px 4px 1px #262626, 9px 5px 1px #333333, 11px 6px 1px #404040, 13px 7px 1px #4d4d4d, 15px 8px 1px #595959, 17px 9px 1px #666666, 19px 10px 1px #737373, 21px 11px 1px #808080, 23px 12px 1px #8c8c8c, 25px 13px 1px #999999, 27px 14px 1px #a6a6a6, 29px 15px 1px #b3b3b3, 31px 16px 1px #bfbfbf, 33px 17px 1px #cccccc, 35px 18px 1px #d9d9d9, 37px 19px 1px #e6e6e6, 39px 20px 1px #f2f2f2';
 	
 	
 	
 	window.setTimeout(function(){
-		errorMessage.style.opacity = '0';
+		// errorMessage.style.opacity = '0';
+		errorMessage.style.textShadow = 'none';
 	}, 3500);
 	
 	window.setTimeout(function(){
 		errorMessage.style.display = 'none';
 		errorMessage.style.top = '70px';
-	}, 5003);
+	}, 4453);
 	
 });
 
