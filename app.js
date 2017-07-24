@@ -73,7 +73,6 @@ const saveMessage = document.querySelector('.settings form > div > p');
 
 
 
-
 const saveButton = document.querySelector('.settings form > div button:first-of-type');
 
 const cancelButton = document.querySelector('.settings form > div button:last-of-type');
@@ -96,7 +95,7 @@ const userSearchBox = document.querySelector('.messages input');
 
 const userMessageBox = document.querySelector('.messages textarea');
 
-
+const userList = document.querySelector('.messages fieldset ul');
 
 const errorMessage = document.querySelector('.messages form > p');
 
@@ -110,20 +109,53 @@ let degCount = 0;
 
 
 
+
+
+
+
+
+function showUserList(){
+	
+	userList.style.display = 'block';
+	window.setTimeout(() => {
+		// console.log(e);
+		document.addEventListener('click', hideUserList);
+		// userSearchBox.removeEventListener('click', showUserList);
+	}, 1);
+};
+
+
+function hideUserList(e){
+	
+	
+	
+	if(!userList.contains(e.target)){
+		
+		userList.style.display = 'none';
+		// userSearchBox.addEventListener('click', showUserList);
+		document.removeEventListener('click', hideUserList);
+	};
+};
+
+
+
 userSearchBox.addEventListener('keydown', function(e){
 	
 	
 	
+	if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
+		
+		userList.style.top = '100px';
+		
+		
+	} else {
+		
+		userList.style.top = '-193px';
+		
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	showUserList();
 	
 	
 	
@@ -131,7 +163,7 @@ userSearchBox.addEventListener('keydown', function(e){
 		
 		if(u[0].toLowerCase().startsWith(this.value.toLowerCase()) || u[1].toLowerCase().startsWith(this.value.toLowerCase())){
 			
-			console.log(this.value);
+			// console.log(this.value);
 			
 		}
 		
@@ -140,6 +172,13 @@ userSearchBox.addEventListener('keydown', function(e){
 	
 	
 });
+
+
+// userSearchBox.addEventListener('blur', function(e){
+	
+	// userList.style.display = 'none';
+	
+// });
 
 
 
@@ -456,7 +495,9 @@ function showAlerts(){
 
 
 function hideAlerts(e){
+	console.log(e);
 	if(!dropdown.contains(e.target)){
+		
 		triangle.style.display = 'none';
 		dropdown.style.display = 'none';
 		alertBell.addEventListener('click', showAlerts);
