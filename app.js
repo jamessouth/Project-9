@@ -97,6 +97,8 @@ const userMessageBox = document.querySelector('.messages textarea');
 
 const userList = document.querySelector('.messages fieldset ul');
 
+const userListItems = document.querySelectorAll('.messages fieldset ul li');
+
 const errorMessage = document.querySelector('.messages form > p');
 
 
@@ -114,11 +116,16 @@ let degCount = 0;
 
 
 
-function showUserList(){
+function showUserList(e){
 	
 	userList.style.display = 'block';
+	
+	if(![38,40].includes(e.keyCode)){
+		userList.children[0].setAttribute('id', 'userselect');
+	};
+	
 	window.setTimeout(() => {
-		// console.log(e);
+		console.log(e);
 		document.addEventListener('click', hideUserList);
 		// userSearchBox.removeEventListener('click', showUserList);
 	}, 1);
@@ -132,16 +139,23 @@ function hideUserList(e){
 	if(!userList.contains(e.target)){
 		
 		userList.style.display = 'none';
+		i=4;
+		
+		userListItems.forEach(li => {
+			li.removeAttribute('id');
+		});
+		
+		
 		// userSearchBox.addEventListener('click', showUserList);
 		document.removeEventListener('click', hideUserList);
 	};
 };
 
 
-
+let i = 4;
 userSearchBox.addEventListener('keydown', function(e){
 	
-	
+	console.log(e.keyCode);
 	
 	if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 		
@@ -150,12 +164,28 @@ userSearchBox.addEventListener('keydown', function(e){
 		
 	} else {
 		
-		userList.style.top = '-193px';
+		userList.style.top = '-119px';
 		
 	}
 	
 	
-	showUserList();
+	showUserList(e);
+	
+	
+	if(e.keyCode == 38){
+		userListItems[i % 4].setAttribute('id', 'userselect');
+		userListItems[(i + 1) % 4].removeAttribute('id');
+		console.log(i);
+		i--;
+		if(i<1){
+			i=4;
+		};
+		
+	};
+	
+	
+	
+	
 	
 	
 	
@@ -171,14 +201,56 @@ userSearchBox.addEventListener('keydown', function(e){
 	
 	
 	
+},{once: true});
+
+
+
+userListItems.forEach(li => {
+	
+	
+	
+
+
+	li.addEventListener('mouseenter', function(e){
+		
+		
+		
+		
+		li.setAttribute('id', 'userselect');
+		// console.log(this);
+	});
+	
+	li.addEventListener('mouseleave', function(e){
+		li.removeAttribute('id');
+		
+	});
+
+	li.addEventListener('click', function(e){
+	
+		
+	});
 });
 
 
-// userSearchBox.addEventListener('blur', function(e){
+
+
+
+userList.addEventListener('mouseenter', (e) => {
+	// console.log(e);
 	
-	// userList.style.display = 'none';
+	userListItems.forEach(li => {
+		li.removeAttribute('id');
+	});
 	
-// });
+	
+	
+});
+
+
+
+
+
+
 
 
 

@@ -757,7 +757,7 @@ div > header > nav ul li a:focus:not(.selected){
 
 .messages fieldset ul{
 	display: none;
-	background-color: #822c23;
+	background-color: #11fbfb;
 	padding: 0.6em;
 	/* border: 1px solid black; */
 	position: absolute;
@@ -771,21 +771,28 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 .messages fieldset ul li{
-	padding: 0.35em;
-	margin: 0.5em 0;
-	color: #fffde7;
-	background-color: #822c23;
+	padding: 0.15em;
+	margin: 0.15em 0;
+	color: #676666;
+	background-color: #fbfbfb;
 	font-size: 22px;
 	border-radius: 4px;
-	box-shadow: 0px 8px 12px -6px #fffde7;
-	transition: all 0.3s;
+	/* box-shadow: 0px 8px 12px -6px #fffde7; */
+	/* transition: all 0.3s; */
 }
 
 .messages fieldset ul li:hover{
-	color: #822c23;
-	text-shadow: 1px 0px #1c0000;
-	box-shadow: 0px 8px 12px -6px #1c0000;
-	background: #81c98f;
+	color: #fffed7;
+	/* text-shadow: 1px 0px #1c0000; */
+	/* box-shadow: 0px 8px 12px -6px #1c0000; */
+	background-color: #7377bf;
+}
+
+#userselect{
+	color: #fffed7;
+	/* text-shadow: 1px 0px #1c0000; */
+	/* box-shadow: 0px 8px 12px -6px #1c0000; */
+	background-color: #7377bf;
 }
 
 .messages legend,
