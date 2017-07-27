@@ -125,34 +125,35 @@ let degCount = 0;
 let userInput = (function(){
 	let i = 4;
 	let listShowing = false;
-	// let arrows;
+	let arrows;
+	let choice;
 	
 	
 	function showUserList(e){
 		
-		if(e.shiftKey && e.keyCode == 9){return;};
-		if(e.keyCode == 9){return;};
+		if(e.shiftKey || e.keyCode == 9){return;};
+		// tab/shift when list open
 		
 		
 		listShowing = true;
-		userSearchBox.blur();
+		// userSearchBox.blur();
 		
 		userList.style.display = 'block';
-		userList.focus();
-		// if([38,40].includes(e.keyCode)){
+		// userList.focus();
+		if([38,40].includes(e.keyCode)){
 			
-			// arrows=true;
-			
-			
-		// };
+			arrows=true;
 			
 			
-		userList.children[0].setAttribute('id', 'userselect');
+		};
+			
+			
+		// userList.children[0].setAttribute('id', 'userselect');
 			
 		
 		
 		window.setTimeout(() => {
-			console.log(e);
+			
 			document.addEventListener('click', hideUserList);
 			// userSearchBox.removeEventListener('click', showUserList);
 		}, 1);
@@ -164,6 +165,7 @@ let userInput = (function(){
 		
 		
 		if(!userList.contains(e.target)){
+			
 			listShowing = false;
 			userList.style.display = 'none';
 			i=4;
@@ -184,6 +186,11 @@ let userInput = (function(){
 		
 		// console.log(e.keyCode);
 		
+		
+		
+		
+		
+		
 		if(!listShowing){
 		
 			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
@@ -202,9 +209,11 @@ let userInput = (function(){
 		
 		
 		
-		// for(let ii = 0; ii < userListItems.length; ii++){
-			// userListItems[ii].removeAttribute('id');
-		// };
+		
+		
+		// userListItems.forEach(li => {
+			// li.removeAttribute('id');
+		// });
 		
 		
 		// if(e.keyCode == 38){
@@ -226,43 +235,96 @@ let userInput = (function(){
 			
 		// };
 		
-		// if([38,40].includes(e.keyCode)){
+		if([38,40].includes(e.keyCode)){
 			
-			// if(!arrows){
+			if(!arrows){
 			
-				// if(e.keyCode == 38){
-					// i--;
+				if(e.keyCode == 38){
+					i--;
 					
-				// } else {
-					// i++;
+				} else {
+					i++;
 					
-				// };
+				};
 			
-			// } else {
+			} else {
 				
-				// if(e.keyCode == 38){
-					// i=5;
-					// i--;
+				if(e.keyCode == 38){
+					i=5;
+					i--;
 					
-				// } else {
-					// i=3;
-					// i++;
+				} else {
+					i=3;
+					i++;
 					
-				// };
-				// arrows=false;
+				};
+				arrows=false;
 			
-			// };
+			};
 		
-			// if(i < 1 || i > 7){
-				// i=4;
-			// };
-		// };
-		
-		
+			if(i < 1 || i > 7){
+				i=4;
+			};
+		};
 		
 		
-		console.log(i);
-		// userListItems[i % 4].setAttribute('id', 'userselect');
+		
+		
+		console.log(i-1, i, i+1);
+		
+		
+		userListItems[(i-1) % 4].removeAttribute('id');
+		userListItems[(i+1) % 4].removeAttribute('id');
+		
+		userListItems[i % 4].setAttribute('id', 'userselect');
+		
+		
+		
+		
+		
+		if(e.keyCode == 13){
+			
+			e.preventDefault();
+			
+			if(listShowing){
+				// console.log('both');
+				
+				userListItems.forEach(li => {
+					
+					if(li.hasAttribute('id')){
+					
+						choice = li;
+						console.log(choice.textContent);
+						
+					};
+					
+					
+				});
+				listShowing = false;
+				userList.style.display = 'none';
+				i=4;
+			
+				userListItems.forEach(li => {
+					li.removeAttribute('id');
+				});
+			
+			
+				// userSearchBox.addEventListener('click', showUserList);
+				document.removeEventListener('click', hideUserList);
+			};
+			
+		};
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		// myAppUsers.forEach(u => {
@@ -286,7 +348,9 @@ let userInput = (function(){
 
 
 		li.addEventListener('mouseenter', function(e){
-			
+			userListItems.forEach(li => {
+				li.removeAttribute('id');
+			});
 			
 			i = Array.from(this.parentNode.children).indexOf(this) + 4;
 			
@@ -317,22 +381,22 @@ let userInput = (function(){
 
 
 
-userList.addEventListener('mouseenter', (e) => {
-	// console.log(e);
+// userList.addEventListener('mouseenter', (e) => {
+	// // console.log(e);
 	
-	userListItems.forEach(li => {
-		li.removeAttribute('id');
-	});
+	// userListItems.forEach(li => {
+		// li.removeAttribute('id');
+	// });
 	
 	
 	
-});
+// });
 
 
 
-userList.addEventListener('keydown', function(e){
-		console.log(e);
-	});
+// userList.addEventListener('keydown', function(e){
+		// console.log(e);
+	// });
 
 
 sendButton.addEventListener('click', function(e){

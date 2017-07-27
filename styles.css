@@ -757,9 +757,9 @@ div > header > nav ul li a:focus:not(.selected){
 
 .messages fieldset ul{
 	display: none;
-	background-color: #11fbfb;
-	padding: 0.6em;
-	/* border: 1px solid black; */
+	background: radial-gradient(circle at right center, #7377bf -115%, #fbfbfb 100%);
+	/* padding: 0.6em; */
+	border: 2px solid #676666;
 	position: absolute;
 	border-radius: 4px;
 	width: 100%;
@@ -772,11 +772,11 @@ div > header > nav ul li a:focus:not(.selected){
 
 .messages fieldset ul li{
 	padding: 0.15em;
-	margin: 0.15em 0;
+	/* margin: 0.15em 0; */
 	color: #676666;
-	background-color: #fbfbfb;
+	/* background-color: #fbfbfb; */
 	font-size: 22px;
-	border-radius: 4px;
+	/* border-radius: 4px; */
 	/* box-shadow: 0px 8px 12px -6px #fffde7; */
 	/* transition: all 0.3s; */
 }
@@ -900,7 +900,6 @@ div > header > nav ul li a:focus:not(.selected){
 .messages input[name="search"]:focus,
 .messages textarea:focus,
 .messages button:focus,
-.messages fieldset ul,
 .settings form button:focus{
 	outline-offset: 0;
 	border: 3px solid #4D4C72;
