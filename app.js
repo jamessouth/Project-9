@@ -115,13 +115,6 @@ let degCount = 0;
 
 
 
-
-
-
-
-
-
-
 let userInput = (function(){
 	let i = 4;
 	let listShowing = false;
@@ -131,67 +124,83 @@ let userInput = (function(){
 	
 	function showUserList(e){
 		
-		if(e.shiftKey || e.keyCode == 9){return;};
-		// tab/shift when list open
-		
-		
 		listShowing = true;
-		// userSearchBox.blur();
-		
+
 		userList.style.display = 'block';
-		// userList.focus();
+
 		if([38,40].includes(e.keyCode)){
-			
 			arrows=true;
-			
-			
 		};
-			
-			
-		// userList.children[0].setAttribute('id', 'userselect');
-			
 		
-		
-		window.setTimeout(() => {
-			
-			document.addEventListener('click', hideUserList);
-			// userSearchBox.removeEventListener('click', showUserList);
-		}, 1);
 	};
 
 
-	function hideUserList(e){
+	function hideUserList(cF){
 		
-		
-		
-		if(!userList.contains(e.target)){
-			
-			listShowing = false;
-			userList.style.display = 'none';
-			i=4;
-			
-			userListItems.forEach(li => {
-				li.removeAttribute('id');
-			});
+	
+		return function(){
 			
 			
-			// userSearchBox.addEventListener('click', showUserList);
-			document.removeEventListener('click', hideUserList);
+			
+			// if(!userList.contains(e.target)){
+				
+				listShowing = false;
+				userList.style.display = 'none';
+				i=4;
+				
+				userListItems.forEach(li => {
+					li.removeAttribute('id');
+				});
+				
+				
+				if(cF === true){
+					userMessageBox.focus();
+				} else {
+					
+				};
+				
+				
+				
+				// userSearchBox.addEventListener('click', showUserList);
+				// document.removeEventListener('click', hideUserList);
+			// };
 		};
 	};
 	
+	
+	let hideUserListNoFocus = hideUserList(false);
+	let hideUserListChangeFocus = hideUserList(true);
+	
+	function selectUser(){
+		userListItems.forEach(li => {
+			if(li.hasAttribute('id')){
+				userSearchBox.value = li.textContent;
+			};
+		});
+	};
 	
 	
 	userSearchBox.addEventListener('keydown', function(e){
 		
-		// console.log(e.keyCode);
+		console.log(e.keyCode);
 		
 		
-		
+		if(!listShowing && (e.shiftKey || e.keyCode == 9 || e.keyCode == 27)){
+			return;
+		} else if(listShowing && (e.shiftKey || e.keyCode == 9 || e.keyCode == 27)){
+			selectUser();
+			hideUserListNoFocus();
+			return;
+		};
 		
 		
 		
 		if(!listShowing){
+			
+			if(e.keyCode == 13){
+				e.preventDefault();
+				return;
+			};
 		
 			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 				
@@ -236,7 +245,7 @@ let userInput = (function(){
 		// };
 		
 		if([38,40].includes(e.keyCode)){
-			
+			e.preventDefault();
 			if(!arrows){
 			
 				if(e.keyCode == 38){
@@ -270,7 +279,7 @@ let userInput = (function(){
 		
 		
 		
-		console.log(i-1, i, i+1);
+		// console.log(i-1, i, i+1);
 		
 		
 		userListItems[(i-1) % 4].removeAttribute('id');
@@ -289,28 +298,20 @@ let userInput = (function(){
 			if(listShowing){
 				// console.log('both');
 				
-				userListItems.forEach(li => {
-					
-					if(li.hasAttribute('id')){
-					
-						choice = li;
-						console.log(choice.textContent);
-						
-					};
-					
-					
-				});
-				listShowing = false;
-				userList.style.display = 'none';
-				i=4;
+				
+				// listShowing = false;
+				// userList.style.display = 'none';
+				// i=4;
 			
-				userListItems.forEach(li => {
-					li.removeAttribute('id');
-				});
+				// userListItems.forEach(li => {
+					// li.removeAttribute('id');
+				// });
 			
+				selectUser();
+				hideUserListChangeFocus();
 			
 				// userSearchBox.addEventListener('click', showUserList);
-				document.removeEventListener('click', hideUserList);
+				// document.removeEventListener('click', hideUserList);
 			};
 			
 		};
@@ -348,24 +349,42 @@ let userInput = (function(){
 
 
 		li.addEventListener('mouseenter', function(e){
+			
 			userListItems.forEach(li => {
 				li.removeAttribute('id');
 			});
 			
 			i = Array.from(this.parentNode.children).indexOf(this) + 4;
 			
+			
+			
 			li.setAttribute('id', 'userselect');
 			// console.log(this);
 		});
 		
 		li.addEventListener('mouseleave', function(e){
-			li.removeAttribute('id');
+			
+			// li.removeAttribute('id');
 			
 			
 		});
 
 		li.addEventListener('click', function(e){
-		
+			// e.preventDefault();
+			choice = li.textContent;
+			userSearchBox.value = choice;
+			
+			
+			// listShowing = false;
+			// userList.style.display = 'none';
+			// i=4;
+			
+			// userListItems.forEach(li => {
+				// li.removeAttribute('id');
+			// });
+			
+			hideUserList(e);
+			
 			
 		});
 	});
