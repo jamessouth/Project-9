@@ -118,8 +118,8 @@ let degCount = 0;
 let userInput = (function(){
 	let i = 4;
 	let listShowing = false;
-	let arrows;
-	let choice;
+	// let arrows;
+	// let choice;
 	
 	
 	function showUserList(e){
@@ -128,9 +128,9 @@ let userInput = (function(){
 
 		userList.style.display = 'block';
 
-		if([38,40].includes(e.keyCode)){
-			arrows=true;
-		};
+		// if([38,40].includes(e.keyCode)){
+			// arrows=true;
+		// };
 		
 	};
 
@@ -139,6 +139,7 @@ let userInput = (function(){
 		
 	
 		return function(){
+			
 			
 			
 			
@@ -185,22 +186,66 @@ let userInput = (function(){
 		console.log(e.keyCode);
 		
 		
-		if(!listShowing && (e.shiftKey || e.keyCode == 9 || e.keyCode == 27)){
-			return;
-		} else if(listShowing && (e.shiftKey || e.keyCode == 9 || e.keyCode == 27)){
-			selectUser();
-			hideUserListNoFocus();
-			return;
-		};
+		
 		
 		
 		
 		if(!listShowing){
 			
-			if(e.keyCode == 13){
-				e.preventDefault();
+			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
 				return;
+			}; 
+			
+			
+			
+			if([38,40].includes(e.keyCode)){
+				e.preventDefault();
+			
+			
+				if(e.keyCode == 38){
+					i=5;
+					i--;
+					
+				} else {
+					i=3;
+					i++;
+					
+				};
+			
+			
 			};
+			
+			if(e.keyCode == 13){
+			
+				e.preventDefault();
+			
+			
+				// console.log('both');
+				
+				
+				// listShowing = false;
+				// userList.style.display = 'none';
+				// i=4;
+			
+				// userListItems.forEach(li => {
+					// li.removeAttribute('id');
+				// });
+			
+				// selectUser();
+				// hideUserListChangeFocus();
+			
+				// userSearchBox.addEventListener('click', showUserList);
+				// document.removeEventListener('click', hideUserList);
+			
+			
+			};
+			
+			
+			
+			// if(e.keyCode == 13){
+				// e.preventDefault();
+				// return;
+			// };
 		
 			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 				
@@ -214,6 +259,63 @@ let userInput = (function(){
 			
 			showUserList(e);
 		
+		} else {
+			
+			
+			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
+				selectUser();
+				hideUserListNoFocus();
+				return;
+			};
+			
+			
+			if([38,40].includes(e.keyCode)){
+				e.preventDefault();
+				
+				if(e.keyCode == 38){
+					
+					i--;
+					// selectUser();
+					
+				} else {
+					
+					i++;
+					// selectUser();
+					
+				};
+				// arrows=false;
+			
+			
+		
+			
+			};
+			
+			if(e.keyCode == 13){
+			
+				e.preventDefault();
+			
+			
+				// console.log('both');
+				
+				
+				// listShowing = false;
+				// userList.style.display = 'none';
+				// i=4;
+			
+				// userListItems.forEach(li => {
+					// li.removeAttribute('id');
+				// });
+			
+				selectUser();
+				hideUserListChangeFocus();
+				return;
+				// userSearchBox.addEventListener('click', showUserList);
+				// document.removeEventListener('click', hideUserList);
+			
+			
+			};
+			
+			
 		};
 		
 		
@@ -244,77 +346,29 @@ let userInput = (function(){
 			
 		// };
 		
-		if([38,40].includes(e.keyCode)){
-			e.preventDefault();
-			if(!arrows){
-			
-				if(e.keyCode == 38){
-					i--;
-					
-				} else {
-					i++;
-					
-				};
-			
-			} else {
-				
-				if(e.keyCode == 38){
-					i=5;
-					i--;
-					
-				} else {
-					i=3;
-					i++;
-					
-				};
-				arrows=false;
-			
-			};
 		
-			if(i < 1 || i > 7){
-				i=4;
-			};
+		if(i < 1 || i > 7){
+			i=4;
 		};
-		
-		
-		
-		
-		// console.log(i-1, i, i+1);
-		
-		
+			
+			
+			
+			// console.log(i-1, i, i+1);
+			
+			
 		userListItems[(i-1) % 4].removeAttribute('id');
 		userListItems[(i+1) % 4].removeAttribute('id');
-		
+			
 		userListItems[i % 4].setAttribute('id', 'userselect');
+			
+		if([38,40].includes(e.keyCode)){
+			
+			userSearchBox.value = userListItems[i % 4].textContent;
 		
 		
-		
-		
-		
-		if(e.keyCode == 13){
-			
-			e.preventDefault();
-			
-			if(listShowing){
-				// console.log('both');
-				
-				
-				// listShowing = false;
-				// userList.style.display = 'none';
-				// i=4;
-			
-				// userListItems.forEach(li => {
-					// li.removeAttribute('id');
-				// });
-			
-				selectUser();
-				hideUserListChangeFocus();
-			
-				// userSearchBox.addEventListener('click', showUserList);
-				// document.removeEventListener('click', hideUserList);
-			};
-			
 		};
+		
+		
 		
 		
 		
@@ -359,6 +413,7 @@ let userInput = (function(){
 			
 			
 			li.setAttribute('id', 'userselect');
+			selectUser();
 			// console.log(this);
 		});
 		
@@ -370,20 +425,9 @@ let userInput = (function(){
 		});
 
 		li.addEventListener('click', function(e){
-			// e.preventDefault();
-			choice = li.textContent;
-			userSearchBox.value = choice;
 			
-			
-			// listShowing = false;
-			// userList.style.display = 'none';
-			// i=4;
-			
-			// userListItems.forEach(li => {
-				// li.removeAttribute('id');
-			// });
-			
-			hideUserList(e);
+			selectUser();
+			hideUserListChangeFocus();
 			
 			
 		});
