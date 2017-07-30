@@ -111,26 +111,64 @@ let degCount = 0;
 
 
 
+(function(){
+	let httpRequest;
+	let user;
+	document.addEventListener('DOMContentLoaded', makeRequest);
+	
+	function makeRequest(){
+		httpRequest = new XMLHttpRequest();
+		
+		if(!httpRequest){
+			alert('problem');
+			return false;
+		}
+		
+		httpRequest.onreadystatechange = showContents;
+		httpRequest.open('GET', 'https://randomuser.me/api/?results=1&inc=name,email,picture&noinfo');
+		httpRequest.send();
+		
+		
+	}
+	
+	function showContents(){
+		
+		try{
+			if(httpRequest.readyState === XMLHttpRequest.DONE){
+				if(httpRequest.status === 200){
+				
+				user=(JSON.parse(httpRequest.responseText)).results;
+				console.log(user);
+				} else {
+					alert('problem 2');
+				}
+			}
+			
+		}
+		catch(e){
+			alert('caught exception: ' + e.description);
+		}
+		
+		
+	}
+	
+	
+	
+
+})();
 
 
 
 
-let userInput = (function(){
+(function(){
 	let i = 4;
 	let listShowing = false;
-	// let arrows;
-	// let choice;
 	
 	
 	function showUserList(e){
 		
 		listShowing = true;
-
 		userList.style.display = 'block';
-
-		// if([38,40].includes(e.keyCode)){
-			// arrows=true;
-		// };
 		
 	};
 
@@ -140,31 +178,22 @@ let userInput = (function(){
 	
 		return function(){
 			
+			listShowing = false;
+			userList.style.display = 'none';
+			i=4;
+			
+			userListItems.forEach(li => {
+				li.removeAttribute('id');
+			});
 			
 			
+			if(cF === true){
+				userMessageBox.focus();
+			} else {
+
+			};
 			
-			// if(!userList.contains(e.target)){
-				
-				listShowing = false;
-				userList.style.display = 'none';
-				i=4;
-				
-				userListItems.forEach(li => {
-					li.removeAttribute('id');
-				});
-				
-				
-				if(cF === true){
-					userMessageBox.focus();
-				} else {
-					
-				};
-				
-				
-				
-				// userSearchBox.addEventListener('click', showUserList);
-				// document.removeEventListener('click', hideUserList);
-			// };
+			
 		};
 	};
 	
@@ -183,11 +212,7 @@ let userInput = (function(){
 	
 	userSearchBox.addEventListener('keydown', function(e){
 		
-		console.log(e.keyCode);
-		
-		
-		
-		
+		// console.log(e.keyCode);
 		
 		
 		if(!listShowing){
@@ -197,10 +222,8 @@ let userInput = (function(){
 			}; 
 			
 			
-			
 			if([38,40].includes(e.keyCode)){
 				e.preventDefault();
-			
 			
 				if(e.keyCode == 38){
 					i=5;
@@ -212,40 +235,13 @@ let userInput = (function(){
 					
 				};
 			
-			
 			};
 			
 			if(e.keyCode == 13){
 			
 				e.preventDefault();
-			
-			
-				// console.log('both');
-				
-				
-				// listShowing = false;
-				// userList.style.display = 'none';
-				// i=4;
-			
-				// userListItems.forEach(li => {
-					// li.removeAttribute('id');
-				// });
-			
-				// selectUser();
-				// hideUserListChangeFocus();
-			
-				// userSearchBox.addEventListener('click', showUserList);
-				// document.removeEventListener('click', hideUserList);
-			
-			
 			};
 			
-			
-			
-			// if(e.keyCode == 13){
-				// e.preventDefault();
-				// return;
-			// };
 		
 			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 				
@@ -275,109 +271,41 @@ let userInput = (function(){
 				if(e.keyCode == 38){
 					
 					i--;
-					// selectUser();
 					
 				} else {
 					
 					i++;
-					// selectUser();
 					
 				};
-				// arrows=false;
-			
-			
-		
-			
 			};
 			
 			if(e.keyCode == 13){
 			
 				e.preventDefault();
 			
-			
-				// console.log('both');
-				
-				
-				// listShowing = false;
-				// userList.style.display = 'none';
-				// i=4;
-			
-				// userListItems.forEach(li => {
-					// li.removeAttribute('id');
-				// });
-			
 				selectUser();
 				hideUserListChangeFocus();
 				return;
-				// userSearchBox.addEventListener('click', showUserList);
-				// document.removeEventListener('click', hideUserList);
-			
 			
 			};
 			
-			
 		};
-		
-		
-		
-		
-		
-		// userListItems.forEach(li => {
-			// li.removeAttribute('id');
-		// });
-		
-		
-		// if(e.keyCode == 38){
-			// userListItems[i % 4].setAttribute('id', 'userselect');
-			// userListItems[(i + 1) % 4].removeAttribute('id');
-			// console.log(i);
-			// i--;
-			
-			
-		// };
-		
-		
-		// if(e.keyCode == 40){
-			
-			
-			// console.log(i);
-			// i++;
-			
-			
-		// };
 		
 		
 		if(i < 1 || i > 7){
 			i=4;
 		};
-			
-			
-			
-			// console.log(i-1, i, i+1);
-			
-			
+
 		userListItems[(i-1) % 4].removeAttribute('id');
 		userListItems[(i+1) % 4].removeAttribute('id');
-			
+		
 		userListItems[i % 4].setAttribute('id', 'userselect');
-			
+		
 		if([38,40].includes(e.keyCode)){
-			
+		
 			userSearchBox.value = userListItems[i % 4].textContent;
 		
-		
 		};
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -398,9 +326,6 @@ let userInput = (function(){
 	
 	userListItems.forEach(li => {
 	
-		
-	
-
 
 		li.addEventListener('mouseenter', function(e){
 			
@@ -410,56 +335,21 @@ let userInput = (function(){
 			
 			i = Array.from(this.parentNode.children).indexOf(this) + 4;
 			
-			
-			
 			li.setAttribute('id', 'userselect');
-			selectUser();
-			// console.log(this);
+			
+			userSearchBox.value = li.textContent;
+			
 		});
 		
-		li.addEventListener('mouseleave', function(e){
-			
-			// li.removeAttribute('id');
-			
-			
-		});
-
 		li.addEventListener('click', function(e){
 			
-			selectUser();
 			hideUserListChangeFocus();
-			
 			
 		});
 	});
 	
 	
-	
-	
-}());
-
-
-
-
-
-
-
-// userList.addEventListener('mouseenter', (e) => {
-	// // console.log(e);
-	
-	// userListItems.forEach(li => {
-		// li.removeAttribute('id');
-	// });
-	
-	
-	
-// });
-
-
-
-// userList.addEventListener('keydown', function(e){
-		// console.log(e);
-	// });
+})();
 
 
 sendButton.addEventListener('click', function(e){
