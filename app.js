@@ -25,6 +25,8 @@ const donutChartP = document.querySelector('.donut-chart > p');
 
 const newMemberDates = document.querySelectorAll('.new-members .mem-out > p');
 
+const newMembersDiv = document.querySelector('.new-members');
+
 const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(2)');
 
 const myAppUsers = [];
@@ -113,7 +115,7 @@ let degCount = 0;
 
 (function(){
 	let httpRequest;
-	let user;
+	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
 	
 	function makeRequest(){
@@ -137,8 +139,8 @@ let degCount = 0;
 			if(httpRequest.readyState === XMLHttpRequest.DONE){
 				if(httpRequest.status === 200){
 				
-				user=(JSON.parse(httpRequest.responseText)).results;
-				console.log(user);
+				users=(JSON.parse(httpRequest.responseText)).results;
+				console.log(users);
 				} else {
 					alert('problem 2');
 				}
@@ -152,7 +154,9 @@ let degCount = 0;
 		
 	}
 	
-	
+	for(let i = 0; i < users.length; i++){
+		console.log(users[i]);
+	}
 	
 
 })();
