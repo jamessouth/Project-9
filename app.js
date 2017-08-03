@@ -25,7 +25,9 @@ const donutChartP = document.querySelector('.donut-chart > p');
 
 const newMemberDates = document.querySelectorAll('.new-members .mem-out > p');
 
-const newMembersDiv = document.querySelector('.new-members');
+const newMembersDivs = document.querySelectorAll('.new-members > div');
+
+const recActivityDivs = document.querySelectorAll('.rec-activity > div');
 
 const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(2)');
 
@@ -114,6 +116,7 @@ let degCount = 0;
 
 
 (function(){
+	let numUsers = 24;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -122,14 +125,13 @@ let degCount = 0;
 		httpRequest = new XMLHttpRequest();
 		
 		if(!httpRequest){
-			alert('problem');
+			
 			return false;
 		}
 		
 		httpRequest.onreadystatechange = showContents;
-		httpRequest.open('GET', 'https://randomuser.me/api/?results=1&inc=name,email,picture&noinfo');
+		httpRequest.open('GET', 'https://randomuser.me/api/?results=' + numUsers + '&seed=sed&inc=name,email,picture&noinfo');
 		httpRequest.send();
-		
 		
 	}
 	
@@ -140,24 +142,90 @@ let degCount = 0;
 				if(httpRequest.status === 200){
 				
 				users=(JSON.parse(httpRequest.responseText)).results;
-				console.log(users);
+				// console.log(users);
+				whenDone(users);
 				} else {
-					alert('problem 2');
+					console.log('problem 2');
+					whenDoneError();
 				}
 			}
 			
 		}
 		catch(e){
-			alert('caught exception: ' + e.description);
+			console.log('caught exception: ' + e.description);
+			whenDoneError();
 		}
 		
+	}
+	
+	
+	
+	function whenDone(userObs){
+		console.log(userObs);
+		let nums = new Set();
+		while(nums.size < newMembersDivs.length){
+			let n = Math.floor(Math.random() * numUsers);
+			nums.add(n);
+			console.log(nums);
+		}
+		nums = [...nums];
 		
+		
+		
+		for(let i = 0; i < newMembersDivs.length; i++){
+			
+			
+			console.log(nums);
+			
+			// console.log(userObs[i]);
+			let firstName = userObs[i].name.first;
+			let lastName = userObs[i].name.last;
+			let userName = firstName[0].toUpperCase() + 
+			firstName.substring(1) + ' ' + 
+			lastName[0].toUpperCase() + 
+			lastName.substring(1);
+			
+			let firstNameA = userObs[nums[i]].name.first;
+			let lastNameA = userObs[nums[i]].name.last;
+			let userNameA = firstNameA[0].toUpperCase() + 
+			firstNameA.substring(1) + ' ' + 
+			lastNameA[0].toUpperCase() + 
+			lastNameA.substring(1);
+			
+			
+			newMembersDivs[i].querySelector('img').src = userObs[i].picture.thumbnail;
+			
+			recActivityDivs[i].querySelector('img').src = userObs[nums[i]].picture.thumbnail;
+			
+			newMembersDivs[i].querySelector('div > div > p:first-child').textContent = userName;
+			
+			recActivityDivs[i].querySelector('div > div > p:first-child').textContent = userNameA;
+			
+			newMembersDivs[i].querySelector('div > div > p:last-child').textContent = userObs[i].email;
+			
+		}
 	}
 	
-	for(let i = 0; i < users.length; i++){
-		console.log(users[i]);
+	function whenDoneError(){
+		let names = ['Jean-Baptiste Say', 'Ludwig von Mises', 'Frédéric Bastiat', 'John Cowperthwaite'];
+		let emails = ['jbsay@example.com', 'lvmises@example.com', 'frederic.bastiat@example.com', 'jjcowperthwaite@example.com'];
+		let pics = ['say-face.jpg', 'mises-face.jpg', 'bastiat-face.jpg', 'cowperthwaite-face.jpg'];
+		
+		for(let i = 0; i < newMembersDivs.length; i++){
+			// console.log(userObs[i]);
+			
+			newMembersDivs[i].querySelector('img').src = pics[i];
+			
+			recActivityDivs[i].querySelector('img').src = pics[i];
+			
+			newMembersDivs[i].querySelector('div > div > p:first-child').textContent = names[i];
+			
+			recActivityDivs[i].querySelector('div > div > p:first-child').textContent = names[i];
+			
+			newMembersDivs[i].querySelector('div > div > p:last-child').textContent = emails[i];
+			
+		}
 	}
-	
 
 })();
 

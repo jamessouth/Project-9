@@ -639,7 +639,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Josefin Slab', serif;
 	width: 75%;
 	opacity: 0;
-	margin-left: 1.25em;
+	margin-left: 1.15em;
 	position: absolute;
 	transform: translateX(500%);
 	transition: transform 0.7s cubic-bezier(0.68,-0.02, 0.79, 0.75) 0.05s, opacity 0.3s ease-in-out 0.5s;
