@@ -93,20 +93,6 @@ const lineChartDial = document.querySelector('.settings .linechart_default > div
 const lineChartDialRadios = lineChartDial.querySelectorAll('input');
 
 
-const sendButton = document.querySelector('.messages button');
-
-const userSearchBox = document.querySelector('.messages input');
-
-const userMessageBox = document.querySelector('.messages textarea');
-
-const userList = document.querySelector('.messages fieldset ul');
-
-const userListItems = document.querySelectorAll('.messages fieldset ul li');
-
-const errorMessage = document.querySelector('.messages form > p');
-
-
-
 
 
 let dir = 0;
@@ -161,45 +147,74 @@ let degCount = 0;
 	
 	
 	function whenDone(userObs){
-		console.log(userObs);
+		let flag;
+		
 		let nums = new Set();
 		while(nums.size < newMembersDivs.length){
 			let n = Math.floor(Math.random() * numUsers);
 			nums.add(n);
-			console.log(nums);
+			// console.log(nums);
 		}
 		nums = [...nums];
+		
+		
+		function getName(randSelection,i){
+			
+			let index;
+			if(randSelection){
+				index = nums[i];
+			} else {
+				index = i;
+			}
+			
+			return function(){
+				
+				let firstName = userObs[index].name.first;
+				let lastName = userObs[index].name.last;
+				let userName = firstName[0].toUpperCase() + 
+				firstName.substring(1) + ' ' + 
+				lastName[0].toUpperCase() + 
+				lastName.substring(1);
+				
+				if(new RegExp(/[^\w ]/).test(lastName)){
+					flag = true;
+				} else {
+					flag = false;
+				}
+				
+				
+				return userName;
+				
+			}
+		
+		}
+		
 		
 		
 		
 		for(let i = 0; i < newMembersDivs.length; i++){
 			
-			
-			console.log(nums);
-			
-			// console.log(userObs[i]);
-			let firstName = userObs[i].name.first;
-			let lastName = userObs[i].name.last;
-			let userName = firstName[0].toUpperCase() + 
-			firstName.substring(1) + ' ' + 
-			lastName[0].toUpperCase() + 
-			lastName.substring(1);
-			
-			let firstNameA = userObs[nums[i]].name.first;
-			let lastNameA = userObs[nums[i]].name.last;
-			let userNameA = firstNameA[0].toUpperCase() + 
-			firstNameA.substring(1) + ' ' + 
-			lastNameA[0].toUpperCase() + 
-			lastNameA.substring(1);
-			
+			let nameForNewMembers = getName(false,i);
+			let nameForRecActivity = getName(true,i);
+			let recActNames = recActivityDivs[i].querySelector('div > div > p:first-child')
 			
 			newMembersDivs[i].querySelector('img').src = userObs[i].picture.thumbnail;
 			
 			recActivityDivs[i].querySelector('img').src = userObs[nums[i]].picture.thumbnail;
 			
-			newMembersDivs[i].querySelector('div > div > p:first-child').textContent = userName;
+			newMembersDivs[i].querySelector('div > div > p:first-child').textContent = nameForNewMembers();
 			
-			recActivityDivs[i].querySelector('div > div > p:first-child').textContent = userNameA;
+			recActNames.textContent = nameForRecActivity();
+			
+			if(flag){
+				
+				recActNames.style.fontFamily = 'Amiri, serif';
+				recActNames.style.letterSpacing = '2px';
+				recActNames.style.lineHeight = '21px';
+				recActNames.style.fontSize = '21px';
+				
+				
+			}
 			
 			newMembersDivs[i].querySelector('div > div > p:last-child').textContent = userObs[i].email;
 			
@@ -226,15 +241,26 @@ let degCount = 0;
 			
 		}
 	}
+	
+// ----------------------------------------
 
-})();
-
-
-
-
-(function(){
-	let i = 4;
+	let i = numUsers;
 	let listShowing = false;
+	const userSearchBox = document.querySelector('.messages input');
+	const userList = document.querySelector('.messages fieldset ul');
+	const userListItems = document.querySelectorAll('.messages fieldset ul li');
+	const sendButton = document.querySelector('.messages button');
+	const userMessageBox = document.querySelector('.messages textarea');
+	const errorMessage = document.querySelector('.messages form > p');
+	
+	function popUserList(){
+		users.forEach(u => {
+			console.log(u.name.first);
+		});
+		
+	};
+	
+	popUserList();
 	
 	
 	function showUserList(e){
@@ -252,7 +278,7 @@ let degCount = 0;
 			
 			listShowing = false;
 			userList.style.display = 'none';
-			i=4;
+			i=numUsers;
 			
 			userListItems.forEach(li => {
 				li.removeAttribute('id');
@@ -298,11 +324,11 @@ let degCount = 0;
 				e.preventDefault();
 			
 				if(e.keyCode == 38){
-					i=5;
+					i=numUsers + 1;
 					i--;
 					
 				} else {
-					i=3;
+					i=numUsers - 1;
 					i++;
 					
 				};
@@ -364,18 +390,18 @@ let degCount = 0;
 		};
 		
 		
-		if(i < 1 || i > 7){
-			i=4;
+		if(i < 1 || i > (numUsers * 2) - 1){
+			i=numUsers;
 		};
 
-		userListItems[(i-1) % 4].removeAttribute('id');
-		userListItems[(i+1) % 4].removeAttribute('id');
+		userListItems[(i-1) % numUsers].removeAttribute('id');
+		userListItems[(i+1) % numUsers].removeAttribute('id');
 		
-		userListItems[i % 4].setAttribute('id', 'userselect');
+		userListItems[i % numUsers].setAttribute('id', 'userselect');
 		
 		if([38,40].includes(e.keyCode)){
 		
-			userSearchBox.value = userListItems[i % 4].textContent;
+			userSearchBox.value = userListItems[i % numUsers].textContent;
 		
 		};
 		
@@ -405,7 +431,7 @@ let degCount = 0;
 				li.removeAttribute('id');
 			});
 			
-			i = Array.from(this.parentNode.children).indexOf(this) + 4;
+			i = Array.from(this.parentNode.children).indexOf(this) + numUsers;
 			
 			li.setAttribute('id', 'userselect');
 			
@@ -421,42 +447,46 @@ let degCount = 0;
 	});
 	
 	
+
+
+
+	sendButton.addEventListener('click', function(e){
+		errorMessage.style.display = 'block';
+
+		if(userSearchBox.value === ''){
+			errorMessage.textContent = 'Both fields required';
+			userSearchBox.focus();
+		} else if(userMessageBox.value === ''){
+			errorMessage.textContent = 'Both fields required';
+			userMessageBox.focus();
+		} else {
+			errorMessage.style.top = '35px';
+			errorMessage.textContent = 'Your message has been sent!';
+			userSearchBox.value = '';
+			userMessageBox.value = '';
+			userSearchBox.focus();
+		};
+		
+		// errorMessage.style.opacity = '1';
+		errorMessage.style.textShadow = '1px 1px #000, 2px 2px #000, 3px 2px 1px #0d0d0d, 5px 3px 1px #1a1a1a, 7px 4px 1px #262626, 9px 5px 1px #333333, 11px 6px 1px #404040, 13px 7px 1px #4d4d4d, 15px 8px 1px #595959, 17px 9px 1px #666666, 19px 10px 1px #737373, 21px 11px 1px #808080, 23px 12px 1px #8c8c8c, 25px 13px 1px #999999, 27px 14px 1px #a6a6a6, 29px 15px 1px #b3b3b3, 31px 16px 1px #bfbfbf, 33px 17px 1px #cccccc, 35px 18px 1px #d9d9d9, 37px 19px 1px #e6e6e6, 39px 20px 1px #f2f2f2';
+		
+		
+		
+		window.setTimeout(function(){
+			// errorMessage.style.opacity = '0';
+			errorMessage.style.textShadow = 'none';
+		}, 3500);
+		
+		window.setTimeout(function(){
+			errorMessage.style.display = 'none';
+			errorMessage.style.top = '70px';
+		}, 4453);
+		
+	});
+
+
 })();
 
-
-sendButton.addEventListener('click', function(e){
-	errorMessage.style.display = 'block';
-
-	if(userSearchBox.value === ''){
-		errorMessage.textContent = 'Both fields required';
-		userSearchBox.focus();
-	} else if(userMessageBox.value === ''){
-		errorMessage.textContent = 'Both fields required';
-		userMessageBox.focus();
-	} else {
-		errorMessage.style.top = '35px';
-		errorMessage.textContent = 'Your message has been sent!';
-		userSearchBox.value = '';
-		userMessageBox.value = '';
-		userSearchBox.focus();
-	};
-	
-	// errorMessage.style.opacity = '1';
-	errorMessage.style.textShadow = '1px 1px #000, 2px 2px #000, 3px 2px 1px #0d0d0d, 5px 3px 1px #1a1a1a, 7px 4px 1px #262626, 9px 5px 1px #333333, 11px 6px 1px #404040, 13px 7px 1px #4d4d4d, 15px 8px 1px #595959, 17px 9px 1px #666666, 19px 10px 1px #737373, 21px 11px 1px #808080, 23px 12px 1px #8c8c8c, 25px 13px 1px #999999, 27px 14px 1px #a6a6a6, 29px 15px 1px #b3b3b3, 31px 16px 1px #bfbfbf, 33px 17px 1px #cccccc, 35px 18px 1px #d9d9d9, 37px 19px 1px #e6e6e6, 39px 20px 1px #f2f2f2';
-	
-	
-	
-	window.setTimeout(function(){
-		// errorMessage.style.opacity = '0';
-		errorMessage.style.textShadow = 'none';
-	}, 3500);
-	
-	window.setTimeout(function(){
-		errorMessage.style.display = 'none';
-		errorMessage.style.top = '70px';
-	}, 4453);
-	
-});
 
 
 
