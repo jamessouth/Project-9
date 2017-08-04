@@ -635,6 +635,12 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: transform 1s ease-in-out 0.5s, opacity 0.3s ease-in-out 0.5s;
 }
 
+.act-out{
+	display: block;
+}
+
+
+
 .hidden{
 	font-family: 'Josefin Slab', serif;
 	width: 75%;
