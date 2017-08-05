@@ -102,6 +102,7 @@ let degCount = 0;
 
 
 (function(){
+	let userListItems;
 	let numUsers = 24;
 	let httpRequest;
 	let users;
@@ -130,6 +131,12 @@ let degCount = 0;
 				users=(JSON.parse(httpRequest.responseText)).results;
 				// console.log(users);
 				whenDone(users);
+				popUserList(users);
+				
+				
+				
+				listEventSetup();
+				
 				} else {
 					console.log('problem 2');
 					whenDoneError();
@@ -248,19 +255,26 @@ let degCount = 0;
 	let listShowing = false;
 	const userSearchBox = document.querySelector('.messages input');
 	const userList = document.querySelector('.messages fieldset ul');
-	const userListItems = document.querySelectorAll('.messages fieldset ul li');
+	// const userListItems = document.querySelectorAll('.messages fieldset ul li');
 	const sendButton = document.querySelector('.messages button');
 	const userMessageBox = document.querySelector('.messages textarea');
 	const errorMessage = document.querySelector('.messages form > p');
 	
-	function popUserList(){
-		users.forEach(u => {
-			console.log(u.name.first);
+	console.log(whenDone);
+	
+	
+	function popUserList(userObs){
+		userObs.forEach(u => {
+			let listItem = document.createElement('li');
+			listItem.textContent = u.name.first;
+			userList.appendChild(listItem);
 		});
+		
+		userListItems = document.querySelectorAll('.messages fieldset ul li');
 		
 	};
 	
-	popUserList();
+	
 	
 	
 	function showUserList(e){
@@ -344,10 +358,12 @@ let degCount = 0;
 			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 				
 				userList.style.top = '100px';
+				userList.style.bottom = '';
 				
 			} else {
 				
-				userList.style.top = '-119px';
+				userList.style.bottom = '213px';
+				userList.style.top = '';
 				
 			}
 			
@@ -421,32 +437,33 @@ let degCount = 0;
 	});
 	
 	
+	function listEventSetup(){
 	
-	userListItems.forEach(li => {
-	
+		userListItems.forEach(li => {
+		
 
-		li.addEventListener('mouseenter', function(e){
-			
-			userListItems.forEach(li => {
-				li.removeAttribute('id');
+			li.addEventListener('mouseenter', function(e){
+				
+				userListItems.forEach(li => {
+					li.removeAttribute('id');
+				});
+				
+				i = Array.from(this.parentNode.children).indexOf(this) + numUsers;
+				
+				li.setAttribute('id', 'userselect');
+				
+				userSearchBox.value = li.textContent;
+				
 			});
 			
-			i = Array.from(this.parentNode.children).indexOf(this) + numUsers;
-			
-			li.setAttribute('id', 'userselect');
-			
-			userSearchBox.value = li.textContent;
-			
+			li.addEventListener('click', function(e){
+				
+				hideUserListChangeFocus();
+				
+			});
 		});
-		
-		li.addEventListener('click', function(e){
-			
-			hideUserListChangeFocus();
-			
-		});
-	});
 	
-	
+	}
 
 
 
