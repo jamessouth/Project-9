@@ -131,10 +131,6 @@ let degCount = 0;
 				users=(JSON.parse(httpRequest.responseText)).results;
 				// console.log(users);
 				whenDone(users);
-				popUserList(users);
-				
-				
-				
 				listEventSetup();
 				
 				} else {
@@ -165,7 +161,7 @@ let degCount = 0;
 		nums = [...nums];
 		
 		
-		function getName(randSelection,i){
+		function getName(ob,randSelection,i){
 			
 			let index;
 			if(randSelection){
@@ -176,8 +172,8 @@ let degCount = 0;
 			
 			return function(){
 				
-				let firstName = userObs[index].name.first;
-				let lastName = userObs[index].name.last;
+				let firstName = ob[index].name.first;
+				let lastName = ob[index].name.last;
 				let userName = firstName[0].toUpperCase() + 
 				firstName.substring(1) + ' ' + 
 				lastName[0].toUpperCase() + 
@@ -199,10 +195,13 @@ let degCount = 0;
 		
 		
 		
+		
+		
+		
 		for(let i = 0; i < newMembersDivs.length; i++){
 			
-			let nameForNewMembers = getName(false,i);
-			let nameForRecActivity = getName(true,i);
+			let nameForNewMembers = getName(userObs,false,i);
+			let nameForRecActivity = getName(userObs,true,i);
 			let recActNames = recActivityDivs[i].querySelector('div > div > p:first-child')
 			
 			newMembersDivs[i].querySelector('img').src = userObs[i].picture.thumbnail;
@@ -226,6 +225,32 @@ let degCount = 0;
 			newMembersDivs[i].querySelector('div > div > p:last-child').textContent = userObs[i].email;
 			
 		}
+		
+		
+		userObs.forEach((u,i) => {
+			let listItem = document.createElement('li');
+			let listItemName = getName(userObs,false,i);
+			
+			// console.log(listItemName(), flag);
+			
+			listItem.textContent = listItemName();
+			
+			userList.appendChild(listItem);
+			
+			if(flag){
+			
+				listItem.style.fontFamily = 'Amiri, serif';
+				listItem.style.letterSpacing = '2px';
+				listItem.style.lineHeight = '24px';
+				listItem.style.fontSize = '21px';
+				
+			
+			}
+		});
+		
+		userListItems = document.querySelectorAll('.messages fieldset ul li');
+		
+		
 	}
 	
 	function whenDoneError(){
@@ -259,20 +284,6 @@ let degCount = 0;
 	const sendButton = document.querySelector('.messages button');
 	const userMessageBox = document.querySelector('.messages textarea');
 	const errorMessage = document.querySelector('.messages form > p');
-	
-	console.log(whenDone);
-	
-	
-	function popUserList(userObs){
-		userObs.forEach(u => {
-			let listItem = document.createElement('li');
-			listItem.textContent = u.name.first;
-			userList.appendChild(listItem);
-		});
-		
-		userListItems = document.querySelectorAll('.messages fieldset ul li');
-		
-	};
 	
 	
 	
@@ -317,6 +328,25 @@ let degCount = 0;
 		userListItems.forEach(li => {
 			if(li.hasAttribute('id')){
 				userSearchBox.value = li.textContent;
+				
+				if(new RegExp(/[^\w ]/).test(li.textContent.substr(li.textContent.indexOf(' ')+1))){
+					
+					userSearchBox.style.fontFamily = 'Amiri, serif';
+					userSearchBox.style.letterSpacing = '2px';
+					userSearchBox.style.lineHeight = '24px';
+					userSearchBox.style.fontSize = '21px';
+					
+					
+				} else {
+					
+					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+					userSearchBox.style.letterSpacing = '';
+					userSearchBox.style.lineHeight = '';
+					userSearchBox.style.fontSize = '18px';
+					
+				}
+				
+				
 			};
 		});
 	};
@@ -416,8 +446,29 @@ let degCount = 0;
 		userListItems[i % numUsers].setAttribute('id', 'userselect');
 		
 		if([38,40].includes(e.keyCode)){
-		
-			userSearchBox.value = userListItems[i % numUsers].textContent;
+			let thisName = userListItems[i % numUsers].textContent;
+			userSearchBox.value = thisName;
+			
+			
+			
+			if(new RegExp(/[^\w ]/).test(thisName.substr(thisName.indexOf(' ')+1))){
+			
+				userSearchBox.style.fontFamily = 'Amiri, serif';
+				userSearchBox.style.letterSpacing = '2px';
+				userSearchBox.style.lineHeight = '24px';
+				userSearchBox.style.fontSize = '21px';
+			
+			
+			} else {
+			
+				userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+				userSearchBox.style.letterSpacing = '';
+				userSearchBox.style.lineHeight = '';
+				userSearchBox.style.fontSize = '18px';
+			
+			
+			
+			}
 		
 		};
 		
@@ -453,6 +504,28 @@ let degCount = 0;
 				li.setAttribute('id', 'userselect');
 				
 				userSearchBox.value = li.textContent;
+				
+				
+				if(new RegExp(/[^\w ]/).test(li.textContent.substr(li.textContent.indexOf(' ')+1))){
+			
+					userSearchBox.style.fontFamily = 'Amiri, serif';
+					userSearchBox.style.letterSpacing = '2px';
+					userSearchBox.style.lineHeight = '24px';
+					userSearchBox.style.fontSize = '21px';
+			
+			
+				} else {
+					
+					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+					userSearchBox.style.letterSpacing = '';
+					userSearchBox.style.lineHeight = '';
+					userSearchBox.style.fontSize = '18px';
+			
+				}
+				
+				
+				
+				
 				
 			});
 			

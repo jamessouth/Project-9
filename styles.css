@@ -780,11 +780,11 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 .messages fieldset ul li{
-	padding: 0.15em;
+	padding: 0.1em 0.2em;
 	/* margin: 0.15em 0; */
 	color: #676666;
 	/* background-color: #fbfbfb; */
-	font-size: 22px;
+	font-size: 20px;
 	/* border-radius: 4px; */
 	/* box-shadow: 0px 8px 12px -6px #fffde7; */
 	/* transition: all 0.3s; */
@@ -830,7 +830,7 @@ div > header > nav ul li a:focus:not(.selected){
 	border: 1px solid #cecece;
 	padding-left: 1em;
 	border-radius: 5px;
-	transition: all 0.7s ease-out;
+	transition: border 0.7s ease-out;
 }
 
 
