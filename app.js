@@ -31,10 +31,7 @@ const recActivityDivs = document.querySelectorAll('.rec-activity > div');
 
 const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(2)');
 
-const myAppUsers = [];
 
-
-Array.from(document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(1)')).map(u => u.textContent).forEach(x => {let i = x.indexOf(' '); myAppUsers.push([x.slice(0,i), x.slice(i+1)]);});
 
 
 
@@ -103,6 +100,7 @@ let degCount = 0;
 
 (function(){
 	let userListItems;
+	// const myAppUsers = [];
 	let numUsers = 24;
 	let httpRequest;
 	let users;
@@ -151,6 +149,9 @@ let degCount = 0;
 	
 	function whenDone(userObs){
 		let flag;
+		
+		
+		
 		
 		let nums = new Set();
 		while(nums.size < newMembersDivs.length){
@@ -227,6 +228,8 @@ let degCount = 0;
 		}
 		
 		
+		
+		
 		userObs.forEach((u,i) => {
 			let listItem = document.createElement('li');
 			let listItemName = getName(userObs,false,i);
@@ -246,12 +249,22 @@ let degCount = 0;
 				
 			
 			}
+			
+
+			// Array.from(document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(1)')).map(u => u.textContent).forEach(x => {let i = x.indexOf(' '); myAppUsers.push([x.slice(0,i), x.slice(i+1)]);});
+			
+			// myAppUsers.push(listItemName().split(' '));
+			
+			
+			
 		});
 		
 		userListItems = document.querySelectorAll('.messages fieldset ul li');
 		
 		
 	}
+	
+	
 	
 	function whenDoneError(){
 		let names = ['Jean-Baptiste Say', 'Ludwig von Mises', 'Frédéric Bastiat', 'John Cowperthwaite'];
@@ -357,6 +370,8 @@ let degCount = 0;
 		// console.log(e.keyCode);
 		
 		
+		
+		
 		if(!listShowing){
 			
 			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
@@ -383,6 +398,15 @@ let degCount = 0;
 			
 				e.preventDefault();
 			};
+			
+			
+			if(userSearchBox.style.fontFamily === 'Amiri, serif'){
+				userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+				userSearchBox.style.letterSpacing = '';
+				userSearchBox.style.lineHeight = '';
+				userSearchBox.style.fontSize = '18px';
+			}
+			
 			
 		
 			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
@@ -475,17 +499,34 @@ let degCount = 0;
 		
 		
 		
-		// myAppUsers.forEach(u => {
-			
-			// if(u[0].toLowerCase().startsWith(this.value.toLowerCase()) || u[1].toLowerCase().startsWith(this.value.toLowerCase())){
-				
-				// // console.log(this.value);
-				
-			// }
-			
-		// });
+		
 		
 	});
+	
+	
+	userSearchBox.addEventListener('keyup', function(){
+	
+		
+		
+		
+		[...userListItems].forEach(u => {
+			let nameArray = u.textContent.split(' ');
+			
+			if(!nameArray[0].toLowerCase().startsWith(this.value.toLowerCase()) && !nameArray[1].toLowerCase().startsWith(this.value.toLowerCase())){
+				
+				u.style.display = 'none';
+				
+			}
+			
+			
+			
+			
+			
+		});
+		
+	});
+	
+	
 	
 	
 	function listEventSetup(){
