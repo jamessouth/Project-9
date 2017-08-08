@@ -833,10 +833,6 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: border 0.7s ease-out;
 }
 
-
-
-
-
 .messages input[name="search"]::-webkit-input-placeholder{
 	color: #b9b9b9;
 	font-size: 17px;
