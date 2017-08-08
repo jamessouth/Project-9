@@ -101,6 +101,7 @@ let degCount = 0;
 (function(){
 	let userListItems;
 	// const myAppUsers = [];
+	// let nameArray = [];
 	let numUsers = 24;
 	let httpRequest;
 	let users;
@@ -297,7 +298,7 @@ let degCount = 0;
 	const sendButton = document.querySelector('.messages button');
 	const userMessageBox = document.querySelector('.messages textarea');
 	const errorMessage = document.querySelector('.messages form > p');
-	
+	// let listLength = 24;
 	
 	
 	
@@ -365,11 +366,9 @@ let degCount = 0;
 	};
 	
 	
-	userSearchBox.addEventListener('keydown', function(e){
+	userSearchBox.addEventListener('keyup', function(e){
 		
 		// console.log(e.keyCode);
-		
-		
 		
 		
 		if(!listShowing){
@@ -386,11 +385,13 @@ let degCount = 0;
 					i=numUsers + 1;
 					i--;
 					
-				} else {
+				} else if(e.keyCode == 40){
 					i=numUsers - 1;
 					i++;
 					
 				};
+				
+				
 			
 			};
 			
@@ -398,7 +399,6 @@ let degCount = 0;
 			
 				e.preventDefault();
 			};
-			
 			
 			if(userSearchBox.style.fontFamily === 'Amiri, serif'){
 				userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
@@ -408,7 +408,6 @@ let degCount = 0;
 			}
 			
 			
-		
 			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 				
 				userList.style.top = '100px';
@@ -422,9 +421,18 @@ let degCount = 0;
 			}
 			
 			showUserList(e);
+			
+			
 		
 		} else {
 			
+			// userListItems.forEach({
+				// if(){
+				
+				// }
+			// });
+			
+			// console.log(listLength);
 			
 			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
 				selectUser();
@@ -458,6 +466,51 @@ let degCount = 0;
 			};
 			
 		};
+		console.log(i);
+		
+		
+		
+		
+		// let rrr = 0;
+		userListItems.forEach(na => {
+			
+			// console.log(this.value);
+			
+			// let prev = na.previousElementSibling;
+			// let next = na.nextElementSibling;
+		
+			if(!na.textContent.toLowerCase().includes(this.value.toLowerCase())){
+				// console.log(na.parentNode);
+				na.style.display = 'none';
+				// na.parentNode.removeChild(na);
+				na.classList.add('hid');
+				// userListItems = document.querySelectorAll('.messages fieldset ul li');
+				
+				// numUsers = userListItems.length;
+				
+			} else {
+				
+				na.style.display = 'list-item';
+				na.classList.remove('hid');
+				
+			}
+
+			
+			// if(na.style.display != 'none'){
+				// rrr++;
+			// }
+			
+			
+		});
+	
+		let fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+	
+		console.log(fff);
+		// i=numUsers;
+		// console.log(rrr);
+		// i=rrr;
+		
+		
 		
 		
 		if(i < 1 || i > (numUsers * 2) - 1){
@@ -497,34 +550,86 @@ let degCount = 0;
 		};
 		
 		
-		
-		
-		
-		
 	});
 	
 	
-	userSearchBox.addEventListener('keyup', function(){
+	// userSearchBox.addEventListener('input', function(e){
+		
+		
+		
+		
+		
+		// if(!listShowing){
+		
+			// if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
+			
+				// userList.style.top = '100px';
+				// userList.style.bottom = '';
+			
+			// } else {
+			
+				// userList.style.bottom = '213px';
+				// userList.style.top = '';
+			
+			// }
+		
+			// showUserList(e);
+			
+			
+		// } else {
+			
+		// }
 	
 		
+	
+		
+	
+	// });
+	
+	
+	// userSearchBox.addEventListener('keyup', function(e){
+	
+		// // console.log(e.keyCode);
+		// // console.log(nameArray);
+		
+		// if(this.value === ''){
+			// console.log(this.value);
+			// listLength = numUsers;
+			// return;
+		// }
 		
 		
-		[...userListItems].forEach(u => {
-			let nameArray = u.textContent.split(' ');
+		// if(e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27 || e.keyCode == 38 || e.keyCode == 40){
+			// console.log('not running the below code');
+			// return;
+		// }
+		
+		// listLength = 0;
+		
+		// userListItems.forEach(na => {
+		
+			// if(!na.textContent.toLowerCase().includes(this.value.toLowerCase())){
 			
-			if(!nameArray[0].toLowerCase().startsWith(this.value.toLowerCase()) && !nameArray[1].toLowerCase().startsWith(this.value.toLowerCase())){
+				// na.style.display = 'none';
 				
-				u.style.display = 'none';
+			
+			// } else {
+				// na.style.display = 'list-item';
 				
-			}
+			// }
+
+			// if(na.style.display != 'none'){
+				
+				// listLength += 1;
+				
+			// }
 			
 			
-			
-			
-			
-		});
+		// });
 		
-	});
+		// console.log(listLength + ' LL');
+		
+	// });
 	
 	
 	
@@ -533,6 +638,7 @@ let degCount = 0;
 	
 		userListItems.forEach(li => {
 		
+			// nameArray.push(li.textContent.split(' '));
 
 			li.addEventListener('mouseenter', function(e){
 				
