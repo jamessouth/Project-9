@@ -100,6 +100,7 @@ let degCount = 0;
 
 (function(){
 	let userListItems;
+	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
 	let numUsers = 24;
@@ -262,6 +263,8 @@ let degCount = 0;
 		
 		userListItems = document.querySelectorAll('.messages fieldset ul li');
 		
+		fff = userListItems;
+		// console.log(fff);
 		
 	}
 	
@@ -324,11 +327,9 @@ let degCount = 0;
 			});
 			
 			
-			if(cF === true){
+			if(cF){
 				userMessageBox.focus();
-			} else {
-
-			};
+			}
 			
 			
 		};
@@ -365,11 +366,12 @@ let degCount = 0;
 		});
 	};
 	
+	let mmm = false;
 	
-	userSearchBox.addEventListener('keyup', function(e){
-		
-		// console.log(e.keyCode);
-		
+	userSearchBox.addEventListener('keydown', function(e){
+		if(e.keyCode == 27){
+			mmm = true;
+		}
 		
 		if(!listShowing){
 			
@@ -377,28 +379,11 @@ let degCount = 0;
 				return;
 			}; 
 			
-			
-			if([38,40].includes(e.keyCode)){
-				e.preventDefault();
-			
-				if(e.keyCode == 38){
-					i=numUsers + 1;
-					i--;
-					
-				} else if(e.keyCode == 40){
-					i=numUsers - 1;
-					i++;
-					
-				};
+			if([13,32,38,40].includes(e.keyCode)){
 				
-				
-			
-			};
-			
-			if(e.keyCode == 13){
-			
 				e.preventDefault();
 			};
+			
 			
 			if(userSearchBox.style.fontFamily === 'Amiri, serif'){
 				userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
@@ -406,148 +391,229 @@ let degCount = 0;
 				userSearchBox.style.lineHeight = '';
 				userSearchBox.style.fontSize = '18px';
 			}
-			
-			
-			if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
-				
-				userList.style.top = '100px';
-				userList.style.bottom = '';
-				
-			} else {
-				
-				userList.style.bottom = '213px';
-				userList.style.top = '';
-				
-			}
-			
-			showUserList(e);
-			
-			
+		
 		
 		} else {
-			
-			// userListItems.forEach({
-				// if(){
-				
-				// }
-			// });
-			
-			// console.log(listLength);
-			
+		
+		
+		
 			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
 				selectUser();
 				hideUserListNoFocus();
 				return;
 			};
 			
-			
-			if([38,40].includes(e.keyCode)){
+			if(e.keyCode == 13){
+				
 				e.preventDefault();
 				
-				if(e.keyCode == 38){
-					
-					i--;
-					
-				} else {
-					
-					i++;
-					
-				};
-			};
-			
-			if(e.keyCode == 13){
-			
-				e.preventDefault();
-			
 				selectUser();
 				hideUserListChangeFocus();
 				return;
 			
 			};
+		
+		}
+	
+	});
+	
+	
+	userSearchBox.addEventListener('keyup', function(e){
+		
+		// console.log(e.keyCode);
+		console.log(mmm);
+		
+		if(e.shiftKey || e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27){
 			
-		};
-		console.log(i);
-		
-		
-		
-		
-		// let rrr = 0;
-		userListItems.forEach(na => {
 			
-			// console.log(this.value);
-			
-			// let prev = na.previousElementSibling;
-			// let next = na.nextElementSibling;
-		
-			if(!na.textContent.toLowerCase().includes(this.value.toLowerCase())){
-				// console.log(na.parentNode);
-				na.style.display = 'none';
-				// na.parentNode.removeChild(na);
-				na.classList.add('hid');
-				// userListItems = document.querySelectorAll('.messages fieldset ul li');
+			if(e.keyCode == 27){
 				
-				// numUsers = userListItems.length;
 				
+				userListItems.forEach(na => {
+					
+					na.style.display = 'list-item';
+					na.classList.remove('hid');
+					
+				});
+				
+				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+				numUsers = fff.length;
+				mmm = false;
+			}
+			
+			return;
+		}; 
+		
+		
+		
+		
+		if(!mmm){
+		
+		
+		
+			if(!listShowing){
+				
+				// if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
+					// return;
+				// }; 
+				
+				
+				if([38,40].includes(e.keyCode)){
+					e.preventDefault();
+				
+					if(e.keyCode == 38){
+						i=numUsers + 1;
+						i--;
+						
+					} else if(e.keyCode == 40){
+						i=numUsers - 1;
+						i++;
+						
+					};
+					
+					
+				
+				};
+				
+				// if(e.keyCode == 13){
+				
+					// e.preventDefault();
+				// };
+				
+				
+				
+				
+				if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
+					
+					userList.style.top = '100px';
+					userList.style.bottom = '';
+					
+				} else {
+					
+					userList.style.bottom = '213px';
+					userList.style.top = '';
+					
+				}
+				
+				showUserList(e);
+				
+				
+			
 			} else {
 				
-				na.style.display = 'list-item';
-				na.classList.remove('hid');
+				// userListItems.forEach({
+					// if(){
+					
+					// }
+				// });
 				
-			}
+				// console.log(listLength);
+				
+				// if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
+					// selectUser();
+					// hideUserListNoFocus();
+					// return;
+				// };
+				
+				
+				if([38,40].includes(e.keyCode)){
+					e.preventDefault();
+					
+					if(e.keyCode == 38){
+						
+						i--;
+						
+					} else {
+						
+						i++;
+						
+					};
+				};
+				
+				if(e.keyCode == 13){
+				
+					e.preventDefault();
+				
+					selectUser();
+					hideUserListChangeFocus();
+					return;
+				
+				};
+				
+			};
+			// console.log(i);
+			
+			
+			
+			if(![38,40].includes(e.keyCode)){
+				// fff
+				userListItems.forEach(na => {
+					
+					
+				
+					if(!na.textContent.toLowerCase().includes(this.value.toLowerCase())){
+					
+						na.style.display = 'none';
+						na.classList.add('hid');
+						
+					} else {
+						
+						na.style.display = 'list-item';
+						na.classList.remove('hid');
+						
+					}
 
+					
+				});
 			
-			// if(na.style.display != 'none'){
-				// rrr++;
-			// }
-			
-			
-		});
-	
-		let fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
-	
-		console.log(fff);
-		// i=numUsers;
-		// console.log(rrr);
-		// i=rrr;
-		
-		
-		
-		
-		if(i < 1 || i > (numUsers * 2) - 1){
-			i=numUsers;
-		};
-
-		userListItems[(i-1) % numUsers].removeAttribute('id');
-		userListItems[(i+1) % numUsers].removeAttribute('id');
-		
-		userListItems[i % numUsers].setAttribute('id', 'userselect');
-		
-		if([38,40].includes(e.keyCode)){
-			let thisName = userListItems[i % numUsers].textContent;
-			userSearchBox.value = thisName;
-			
-			
-			
-			if(new RegExp(/[^\w ]/).test(thisName.substr(thisName.indexOf(' ')+1))){
-			
-				userSearchBox.style.fontFamily = 'Amiri, serif';
-				userSearchBox.style.letterSpacing = '2px';
-				userSearchBox.style.lineHeight = '24px';
-				userSearchBox.style.fontSize = '21px';
-			
-			
-			} else {
-			
-				userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
-				userSearchBox.style.letterSpacing = '';
-				userSearchBox.style.lineHeight = '';
-				userSearchBox.style.fontSize = '18px';
-			
-			
-			
+				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+				numUsers = fff.length;
+				i = fff.length;
 			}
+			
+			// console.log(fff);
+			
+			if(i < 1 || i > (numUsers * 2) - 1){
+				i=numUsers;
+			};
+
+			if(numUsers > 0){
+				fff[(i-1) % numUsers].removeAttribute('id');
+				fff[(i+1) % numUsers].removeAttribute('id');
+			
+				fff[i % numUsers].setAttribute('id', 'userselect');
+			}
+			
+			if([38,40].includes(e.keyCode)){
+				let thisName = fff[i % numUsers].textContent;
+				userSearchBox.value = thisName;
+				
+				
+				
+				if(new RegExp(/[^\w ]/).test(thisName.substr(thisName.indexOf(' ')+1))){
+				
+					userSearchBox.style.fontFamily = 'Amiri, serif';
+					userSearchBox.style.letterSpacing = '2px';
+					userSearchBox.style.lineHeight = '24px';
+					userSearchBox.style.fontSize = '21px';
+				
+				
+				} else {
+				
+					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+					userSearchBox.style.letterSpacing = '';
+					userSearchBox.style.lineHeight = '';
+					userSearchBox.style.fontSize = '18px';
+				
+				
+				
+				}
+			
+			};
 		
-		};
+		}
+		
+		
 		
 		
 	});
