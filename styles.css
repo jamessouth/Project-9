@@ -762,8 +762,8 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 .messages fieldset ul{
-	/* max-height: 350px; */
-	/* overflow: auto; */
+	max-height: 350px;
+	overflow: auto;
 	z-index: 55;
 	display: none;
 	background: radial-gradient(circle at right center, #7377bf -115%, #fbfbfb 100%);

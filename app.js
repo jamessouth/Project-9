@@ -103,7 +103,7 @@ let degCount = 0;
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 24;
+	let numUsers = 50;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -412,16 +412,23 @@ let degCount = 0;
 				return;
 			
 			};
+			
+			if([38,40].includes(e.keyCode)){
+				
+				e.preventDefault();
+			};
 		
 		}
 	
 	});
 	
+	// let lastUsed;
 	
 	userSearchBox.addEventListener('keyup', function(e){
 		
+		
 		// console.log(e.keyCode);
-		console.log(mmm);
+		// console.log(mmm);
 		
 		if(e.shiftKey || e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27){
 			
@@ -546,15 +553,16 @@ let degCount = 0;
 			
 			
 			if(![38,40].includes(e.keyCode)){
-				// fff
+				
 				userListItems.forEach(na => {
 					
-					
+					na.removeAttribute('id');
 				
 					if(!na.textContent.toLowerCase().includes(this.value.toLowerCase())){
 					
 						na.style.display = 'none';
 						na.classList.add('hid');
+						
 						
 					} else {
 						
@@ -576,7 +584,7 @@ let degCount = 0;
 			if(i < 1 || i > (numUsers * 2) - 1){
 				i=numUsers;
 			};
-
+			
 			if(numUsers > 0){
 				fff[(i-1) % numUsers].removeAttribute('id');
 				fff[(i+1) % numUsers].removeAttribute('id');
@@ -584,28 +592,35 @@ let degCount = 0;
 				fff[i % numUsers].setAttribute('id', 'userselect');
 			}
 			
+			// lastUsed = fff[i % numUsers];
+			// console.log(lastUsed);
+			
+			
 			if([38,40].includes(e.keyCode)){
-				let thisName = fff[i % numUsers].textContent;
-				userSearchBox.value = thisName;
+				
+				
+				if(fff.length > 0){
+					let thisName = fff[i % numUsers].textContent;
+					userSearchBox.value = thisName;
 				
 				
 				
-				if(new RegExp(/[^\w ]/).test(thisName.substr(thisName.indexOf(' ')+1))){
-				
-					userSearchBox.style.fontFamily = 'Amiri, serif';
-					userSearchBox.style.letterSpacing = '2px';
-					userSearchBox.style.lineHeight = '24px';
-					userSearchBox.style.fontSize = '21px';
-				
-				
-				} else {
-				
-					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
-					userSearchBox.style.letterSpacing = '';
-					userSearchBox.style.lineHeight = '';
-					userSearchBox.style.fontSize = '18px';
-				
-				
+					if(new RegExp(/[^\w ]/).test(thisName.substr(thisName.indexOf(' ')+1))){
+					
+						userSearchBox.style.fontFamily = 'Amiri, serif';
+						userSearchBox.style.letterSpacing = '2px';
+						userSearchBox.style.lineHeight = '24px';
+						userSearchBox.style.fontSize = '21px';
+					
+					
+					} else {
+					
+						userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+						userSearchBox.style.letterSpacing = '';
+						userSearchBox.style.lineHeight = '';
+						userSearchBox.style.fontSize = '18px';
+					
+					}
 				
 				}
 			
@@ -708,11 +723,13 @@ let degCount = 0;
 
 			li.addEventListener('mouseenter', function(e){
 				
-				userListItems.forEach(li => {
+				fff.forEach(li => {
 					li.removeAttribute('id');
 				});
 				
-				i = Array.from(this.parentNode.children).indexOf(this) + numUsers;
+				// console.log(this);
+				i = Array.from(fff).indexOf(this) + numUsers;
+				// console.log(i);
 				
 				li.setAttribute('id', 'userselect');
 				
@@ -743,7 +760,7 @@ let degCount = 0;
 			});
 			
 			li.addEventListener('click', function(e){
-				
+				selectUser();
 				hideUserListChangeFocus();
 				
 			});
