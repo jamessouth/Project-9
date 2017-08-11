@@ -97,6 +97,71 @@ let degs = [-71, -28, 28, 71];
 let degCount = 0;
 
 
+(function(){
+	let tzd;
+	let httpRequest;
+	document.addEventListener('DOMContentLoaded', makeRequest);
+	function makeRequest(){
+		httpRequest = new XMLHttpRequest();
+		
+		if(!httpRequest){
+			return false;
+		}
+		
+		httpRequest.onreadystatechange = showContents;
+		
+		httpRequest.open('GET', 'https://en.wikipedia.org/w/api.php?action=parse&page=Time_zone&prop=text&section=11&format=json&origin=*');
+		
+		
+		// https://en.wikipedia.org/w/api.php?action=query&titles=Time_zone&prop=extracts&explaintext&format=json&origin=*
+		
+		
+		
+		// httpRequest.setRequestHeader('Api-User-Agent', 'Example/1.0');
+		httpRequest.send();
+		
+	}
+	
+	
+	function showContents(){
+		
+		try{
+			if(httpRequest.readyState === XMLHttpRequest.DONE){
+				if(httpRequest.status === 200){
+				
+				tzd=(JSON.parse(httpRequest.responseText)).parse.text['*'];
+				// console.log(tzd);
+				callback(tzd);
+				// listEventSetup();
+				
+				} else {
+					console.log('problem 2');
+					// whenDoneError();
+				}
+			}
+			
+		}
+		catch(e){
+			console.log('caught exception: ' + e.description);
+			// whenDoneError();
+		}
+		
+	}
+	
+	function callback(str){
+		
+		let res = str.substring(str.indexOf('<tr>'), str.lastIndexOf('</tr>')+5);
+		
+		res = res.split('</tr>\n<tr>');
+		
+		console.log(res);
+	}
+	
+
+
+})();
+
+
 
 (function(){
 	let userListItems;
