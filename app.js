@@ -153,8 +153,34 @@ let degCount = 0;
 		let res = str.substring(str.indexOf('<tr>'), str.lastIndexOf('</tr>')+5);
 		
 		res = res.split('</tr>\n<tr>');
+		let f = res.shift();
 		
-		console.log(res);
+		let r = res.map(x => 
+			x.split('</td>\n<td>')
+		);
+		
+		let p = r.reduce((a,b) => {
+			return a.concat(b);
+		});
+		
+		let q = p.filter((x,i) => {
+			return i % 4 != 1;
+		});
+		
+		let w = q.map((b,i) => {
+			// let reg = new RegExp(/[^>\<]+(?=<\/)/g);
+			let reg = new RegExp(/\n*<([^>]*)>\n*/g);
+			// return (b === '</td>\n' ? '' : b) && (i % 3 == 0 ? b = b.match(reg)[0] : b) && (i % 3 != 0 && b !== '' ? b.replace(reg2, '') : b );
+			// return (b === '</td>\n' ? '' : b) && (i % 3 == 0 ? b = b.match(reg)[0] : b);
+			return b.replace(reg, '');
+		});
+		
+		let e = [], sz = 3;
+		while(w.length > 0){
+			e.push(w.splice(0,sz));
+		}
+		
+		console.log(e);
 	}
 	
 
