@@ -89,6 +89,9 @@ const lineChartDial = document.querySelector('.settings .linechart_default > div
 
 const lineChartDialRadios = lineChartDial.querySelectorAll('input');
 
+const timezoneSelect = document.querySelector('.timezone select');
+
+
 
 
 
@@ -131,8 +134,10 @@ let degCount = 0;
 				
 				tzd=(JSON.parse(httpRequest.responseText)).parse.text['*'];
 				// console.log(tzd);
-				callback(tzd);
+				let timeZones = callback(tzd);
 				// listEventSetup();
+				loadOptions(timeZones);
+				
 				
 				} else {
 					console.log('problem 2');
@@ -179,8 +184,24 @@ let degCount = 0;
 		while(w.length > 0){
 			e.push(w.splice(0,sz));
 		}
+		e[28][1] = e[28][1].match(/[a-zA-Z ]+/)[0];
+		return e;
+	}
+	
+	
+	function loadOptions(obj){
+		console.log(obj);
+		let opt = document.createElement('option');
+		let textAndValue = obj[0] + ' ' + obj[1];
+		opt.textContent = textAndValue;
+		opt.value = textAndValue;
+		timezoneSelect.appendChild(opt);
 		
-		console.log(e);
+		timezoneSelect.addEventListener('change', (e)=> {
+			console.log(e);
+		});
+		
+		
 	}
 	
 
