@@ -905,7 +905,8 @@ div > header > nav ul li a:focus:not(.selected){
 .messages input[name="search"]:focus,
 .messages textarea:focus,
 .messages button:focus,
-.settings form button:focus{
+.settings form button:focus,
+.timezone select:focus{
 	outline-offset: 0;
 	border: 3px solid #4D4C72;
 }
@@ -1169,14 +1170,44 @@ div > header > nav ul li a:focus:not(.selected){
 	background-color: #B2B2B2;
 }
 
+.timezone{
+	margin-top: 2.5em;
+	position: relative;
+}
 
 
+.timezone label{
+	color: transparent;
+}
+
+.timezone select{
+	outline: none;
+	width: 100%;
+	background: url(downArrow.jpg) no-repeat 95%;
+	font-size: 17px;
+	font-family: 'Alegreya Sans', sans-serif;
+	background-color: #fbfbfb;
+	border: 1px solid #cecece;
+	border-radius: 5px;
+	padding: 0.75em 1em;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+	transition: border 0.7s ease-out;
+	
+}
+
+.timezone select:required:invalid{
+	color: #b9b9b9;
+}
 
 
+.timezone select option[value=""][disabled]{
+	display: none;
+}
 
-
-
-
+.timezone select option{
+	color: #676666;
+}
 
 
 
