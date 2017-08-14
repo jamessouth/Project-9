@@ -155,50 +155,97 @@ let degCount = 0;
 	
 	function callback(str){
 		
+		let reg = new RegExp(/\n*<([^>]*)>\n*/g);
+		
 		let res = str.substring(str.indexOf('<tr>'), str.lastIndexOf('</tr>')+5);
 		
 		res = res.split('</tr>\n<tr>');
 		let f = res.shift();
 		
-		let r = res.map(x => 
-			x.split('</td>\n<td>')
-		);
-		
-		let p = r.reduce((a,b) => {
-			return a.concat(b);
-		});
-		
-		let q = p.filter((x,i) => {
-			return i % 4 != 1;
-		});
-		
-		let w = q.map((b,i) => {
-			// let reg = new RegExp(/[^>\<]+(?=<\/)/g);
-			let reg = new RegExp(/\n*<([^>]*)>\n*/g);
-			// return (b === '</td>\n' ? '' : b) && (i % 3 == 0 ? b = b.match(reg)[0] : b) && (i % 3 != 0 && b !== '' ? b.replace(reg2, '') : b );
-			// return (b === '</td>\n' ? '' : b) && (i % 3 == 0 ? b = b.match(reg)[0] : b);
-			return b.replace(reg, '');
-		});
-		
-		let e = [], sz = 3;
-		while(w.length > 0){
-			e.push(w.splice(0,sz));
+		for(let i = 0; i < res.length; i++){
+			res[i] = res[i].split('</td>\n<td>');
+			res[i].splice(1,1);
+			[res[i][0], res[i][1], res[i][2]] = [res[i][0].replace(reg, ''), res[i][1].replace(reg, ''), res[i][2].replace(reg, '')]
+			if(res[i][1] === ''){
+				res[i].splice(1,1);
+			}
+			if(res[i][2] === ''){
+				res[i].splice(2);
+			}
+			res[i][1] = res[i][1].replace(/\[\d+\]/, '');
+			if(res[i][2]){
+				res[i][2] = res[i][2].replace(/\[\d+\]/, '');
+			}
+			
 		}
-		e[28][1] = e[28][1].match(/[a-zA-Z ]+/)[0];
-		return e;
+		
+		console.log(res);
+		
+		// let w = res.map(x => 
+			// x.split('</td>\n<td>')
+		// ).reduce((a,b) => {
+			// return a.concat(b);
+		// }).filter((x,i) => {
+			// return i % 4 != 1;
+		// }).map((b,i) => {
+			
+			// let reg = new RegExp(/\n*<([^>]*)>\n*/g);
+			
+			// return b.replace(reg, '');
+		// });
+		
+		// let e = [], sz = 3;
+		// while(w.length > 0){
+			// e.push(w.splice(0,sz).filter(function(x){
+				
+				// return x !== '';
+			// }).map(x => {
+				
+				
+				// return (/\[\d+\]/.test(x)) ? x.match(/[a-zA-Z ]+/)[0] : x;
+				
+			// }));
+		// }
+		
+		
+		// console.log(e);
+		
+		return res;
 	}
 	
 	
-	function loadOptions(obj){
-		console.log(obj);
-		let opt = document.createElement('option');
-		let textAndValue = obj[0] + ' ' + obj[1];
-		opt.textContent = textAndValue;
-		opt.value = textAndValue;
-		timezoneSelect.appendChild(opt);
+	function createOption(x){
 		
-		timezoneSelect.addEventListener('change', (e)=> {
-			console.log(e);
+		[x[1], x[2]].forEach(j => {
+		
+			if(j){
+				let opt = document.createElement('option');
+				let textAndValue = x[0] + ' ' + j;
+				opt.textContent = textAndValue;
+				opt.value = textAndValue;
+				timezoneSelect.appendChild(opt);
+			}
+		});
+	
+	}
+	
+	
+	
+	function loadOptions(obj){
+		
+		// console.log(obj);
+		
+		obj.forEach(x => {
+			
+			createOption(x);
+			
+			
+		});
+		
+		
+		
+		timezoneSelect.addEventListener('change', function(e){
+			this.style.background = 'none';
 		});
 		
 		

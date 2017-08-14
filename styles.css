@@ -826,8 +826,9 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans', sans-serif;
 	height: 45px;
 	width: 100%;
+	box-shadow: 0 0 0 1px #cecece;
 	background-color: #fbfbfb;
-	border: 1px solid #cecece;
+	border: 3px solid transparent;
 	padding-left: 1em;
 	border-radius: 5px;
 	transition: border 0.7s ease-out;
@@ -862,10 +863,10 @@ div > header > nav ul li a:focus:not(.selected){
 	font-size: 18px;
 	font-family: 'Alegreya Sans', sans-serif;
 	height: 8em;
-	
+	box-shadow: 0 0 0 1px #cecece;
 	border-radius: 5px;
 	background-color: #fbfbfb;
-	border: 1px solid #cecece;
+	border: 3px solid transparent;
 	padding: 0.75em 1em 1em;
 	transition: all 0.7s ease-out;
 }
@@ -894,6 +895,7 @@ div > header > nav ul li a:focus:not(.selected){
 	background-color: #7377bf;
 	border: none;
 	border-radius: 5px;
+	border: 3px solid transparent;
 	outline: none;
 	transition: all 0.7s ease-out;
 }
@@ -904,12 +906,19 @@ div > header > nav ul li a:focus:not(.selected){
 
 .messages input[name="search"]:focus,
 .messages textarea:focus,
-.messages button:focus,
-.settings form button:focus,
 .timezone select:focus{
 	outline-offset: 0;
 	border: 3px solid #4D4C72;
 }
+
+
+.messages button:focus,
+.settings form button:focus{
+	outline-offset: 0;
+	border: 3px solid #221122;
+}
+
+
 
 
 .email_notify,
@@ -1187,7 +1196,11 @@ div > header > nav ul li a:focus:not(.selected){
 	font-size: 17px;
 	font-family: 'Alegreya Sans', sans-serif;
 	background-color: #fbfbfb;
-	border: 1px solid #cecece;
+	box-shadow: 0 0 0 1px #cecece;
+	white-space: pre-wrap;
+	-moz-white-space: pre-wrap;
+	/* border: none; */
+	border: 3px solid transparent;
 	border-radius: 5px;
 	padding: 0.75em 1em;
 	-webkit-appearance: none;
@@ -1207,6 +1220,7 @@ div > header > nav ul li a:focus:not(.selected){
 
 .timezone select option{
 	color: #676666;
+	width: 300px;
 }
 
 
