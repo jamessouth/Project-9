@@ -172,14 +172,28 @@ let degCount = 0;
 			if(res[i][2] === ''){
 				res[i].splice(2);
 			}
-			res[i][1] = res[i][1].replace(/\[\d+\]/, '');
+			res[i][1] = res[i][1].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
+			
+			
+			res[i][1] = res[i][1].split(', ');
+			
+			
 			if(res[i][2]){
-				res[i][2] = res[i][2].replace(/\[\d+\]/, '');
+				res[i][2] = res[i][2].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
+				
+				res[i][2] = res[i][2].split(', ');
+				
+				
+				res[i] = [res[i][0], ...res[i][1], ...res[i][2]];
+			} else {
+				res[i] = [res[i][0], ...res[i][1]];
 			}
 			
 		}
 		
-		console.log(res);
+		
+		
+		// console.log(res);
 		
 		// let w = res.map(x => 
 			// x.split('</td>\n<td>')
@@ -213,19 +227,39 @@ let degCount = 0;
 		return res;
 	}
 	
-	
+	let cnt = 0;
 	function createOption(x){
 		
-		[x[1], x[2]].forEach(j => {
+		let nums = [];
 		
-			if(j){
-				let opt = document.createElement('option');
-				let textAndValue = x[0] + ' ' + j;
-				opt.textContent = textAndValue;
-				opt.value = textAndValue;
-				timezoneSelect.appendChild(opt);
+		
+		y = new Set(x);
+		y = [...y];
+		
+		
+		if(y.length > 6){
+			nums = getRands(5, y.slice(1).length, true);
+			
+		} else {
+			
+			for(let j = 1; j < y.length; j++){
+				nums.push(j);
 			}
-		});
+			
+		}
+		
+		console.log(nums, y);
+		
+		for(let i = 0; i < nums.length; i++){
+		
+			let opt = document.createElement('option');
+			let textAndValue = y[0] + ' ' + y[nums[i]];
+			opt.textContent = textAndValue;
+			opt.value = textAndValue;
+			timezoneSelect.appendChild(opt);
+		
+			cnt++;
+		}
 	
 	}
 	
@@ -242,7 +276,7 @@ let degCount = 0;
 			
 		});
 		
-		
+		console.log(cnt);
 		
 		timezoneSelect.addEventListener('change', function(e){
 			this.style.background = 'none';
@@ -254,6 +288,26 @@ let degCount = 0;
 
 
 })();
+
+function getRands(element, element2, plusOne){
+	let len = element.length || element;
+	let nums = new Set();
+	
+	if(plusOne){
+	
+		while(nums.size < len){
+			let n = Math.ceil(Math.random() * (element2 - 1));
+			nums.add(n);
+		}
+	} else {
+		while(nums.size < len){
+			let n = Math.floor(Math.random() * element2);
+			nums.add(n);
+		}
+	}
+	
+	return [...nums];
+}
 
 
 
@@ -314,13 +368,7 @@ let degCount = 0;
 		
 		
 		
-		let nums = new Set();
-		while(nums.size < newMembersDivs.length){
-			let n = Math.floor(Math.random() * numUsers);
-			nums.add(n);
-			// console.log(nums);
-		}
-		nums = [...nums];
+		let nums = getRands(newMembersDivs, numUsers, false);
 		
 		
 		function getName(ob,randSelection,i){
