@@ -1197,9 +1197,6 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans', sans-serif;
 	background-color: #fbfbfb;
 	box-shadow: 0 0 0 1px #cecece;
-	/* white-space: pre-wrap; */
-	-moz-white-space: pre-wrap;
-	/* border: none; */
 	border: 3px solid transparent;
 	border-radius: 5px;
 	padding: 0.75em 1em;
@@ -1220,7 +1217,6 @@ div > header > nav ul li a:focus:not(.selected){
 
 .timezone select option{
 	color: #676666;
-	/* width: 300px; */
 }
 
 
