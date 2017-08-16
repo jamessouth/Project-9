@@ -175,6 +175,7 @@ let degCount = 0;
 			res[i][1] = res[i][1].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
 			
 			
+		
 			res[i][1] = res[i][1].split(', ');
 			
 			
@@ -184,10 +185,52 @@ let degCount = 0;
 				res[i][2] = res[i][2].split(', ');
 				
 				
+				
+				
 				res[i] = [res[i][0], ...res[i][1], ...res[i][2]];
 			} else {
 				res[i] = [res[i][0], ...res[i][1]];
 			}
+			
+			
+			if(/(south )(?!(africa|korea|sudan))/gi.test(res[i][2])){
+				
+				
+				res[i][3] = res[i][2].slice(22).replace(/south/i, 'S');;
+				res[i][2] = res[i][2].slice(0,13);
+				
+				
+				// console.log(res[i]);
+			}
+			
+			if(/british/i.test(res[i][3])){
+				
+				function abbrev(match){
+					return match[0].toUpperCase();
+				}
+				
+				
+				res[i][3] = res[i][3].replace(/\w+ */gi, abbrev);
+				
+				// console.log(res[i]);
+			}
+			
+			if(/demo/i.test(res[i][5])){
+				
+				function abbrev(match, p1, p2, p3, p4, p5, string){
+					return p1[0].toUpperCase() + p2[0].toUpperCase() + ' ' + p5;
+				}
+				
+				
+				res[i][5] = res[i][5].replace(/(\w+)\s(\w+)\s(\w+)\s(\w+)\s(\w+)/gi, abbrev);
+				
+				// console.log(res[i]);
+			}
+			
+			
+			
+			// console.log(res[i]);
+			
 			
 		}
 		
@@ -222,12 +265,11 @@ let degCount = 0;
 		// }
 		
 		
-		// console.log(e);
 		
 		return res;
 	}
 	
-	let cnt = 0;
+	// let cnt = 0;
 	function createOption(x){
 		
 		let nums = [];
@@ -248,17 +290,31 @@ let degCount = 0;
 			
 		}
 		
-		console.log(nums, y);
+		// console.log(nums, y);
 		
 		for(let i = 0; i < nums.length; i++){
-		
+			// let spaces;
 			let opt = document.createElement('option');
-			let textAndValue = y[0] + ' ' + y[nums[i]];
+			opt.value = y[0] + ' ' + y[nums[i]];
+			
+			
+			// let spacesCount = 32 - (y[0].length + y[nums[i]].length);
+			
+			// if((y[0].length + y[nums[i]].length) < 32){
+				// spaces = '\u00A0\u00A0';
+			// } else {
+				// spaces = '\u00A0';
+			// }
+			
+			// spaces = '\u00A0'.repeat(spacesCount);
+			
+			let textAndValue = y[0] + '\u00A0\u00A0' + y[nums[i]];
+			// console.log(textAndValue.length);
 			opt.textContent = textAndValue;
-			opt.value = textAndValue;
+			// opt.style.textAlign = 'right';
 			timezoneSelect.appendChild(opt);
 		
-			cnt++;
+			// cnt++;
 		}
 	
 	}
@@ -276,7 +332,7 @@ let degCount = 0;
 			
 		});
 		
-		console.log(cnt);
+		// console.log(cnt);
 		
 		timezoneSelect.addEventListener('change', function(e){
 			this.style.background = 'none';
@@ -296,7 +352,7 @@ function getRands(element, element2, plusOne){
 	if(plusOne){
 	
 		while(nums.size < len){
-			let n = Math.ceil(Math.random() * (element2 - 1));
+			let n = Math.floor(Math.random() * element2) + 1;
 			nums.add(n);
 		}
 	} else {
