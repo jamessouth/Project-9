@@ -372,7 +372,7 @@ function getRands(element, element2, plusOne){
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 50;
+	let numUsers = 500;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -440,15 +440,27 @@ function getRands(element, element2, plusOne){
 				
 				let firstName = ob[index].name.first;
 				let lastName = ob[index].name.last;
-				let userName = firstName[0].toUpperCase() + 
-				firstName.substring(1) + ' ' + 
-				lastName[0].toUpperCase() + 
-				lastName.substring(1);
 				
-				if(new RegExp(/[^\w ]/).test(lastName)){
-					flag = true;
+				if(new RegExp(/^\S+(?:\s{1}\S+){1,}$/gi).test(lastName)){
+				
+				
+				// 'van'.match(/(\w)\w*$/gi)[0][0]
+				
+				
 				} else {
+				
+					
+					let userName = firstName[0].toUpperCase() + 
+					firstName.substring(1) + ' ' + 
+					lastName[0].toUpperCase() + 
+					lastName.substring(1);
+				}
+				
+				
+				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(userName)){
 					flag = false;
+				} else {
+					flag = true;
 				}
 				
 				
@@ -607,7 +619,18 @@ function getRands(element, element2, plusOne){
 			if(li.hasAttribute('id')){
 				userSearchBox.value = li.textContent;
 				
-				if(new RegExp(/[^\w ]/).test(li.textContent.substr(li.textContent.indexOf(' ')+1))){
+				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(li.textContent)){
+					
+					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+					userSearchBox.style.letterSpacing = '';
+					userSearchBox.style.lineHeight = '';
+					userSearchBox.style.fontSize = '18px';
+					
+					
+				} else {
+					
+					
+					
 					
 					userSearchBox.style.fontFamily = 'Amiri, serif';
 					userSearchBox.style.letterSpacing = '2px';
@@ -615,12 +638,6 @@ function getRands(element, element2, plusOne){
 					userSearchBox.style.fontSize = '21px';
 					
 					
-				} else {
-					
-					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
-					userSearchBox.style.letterSpacing = '';
-					userSearchBox.style.lineHeight = '';
-					userSearchBox.style.fontSize = '18px';
 					
 				}
 				
@@ -868,20 +885,22 @@ function getRands(element, element2, plusOne){
 				
 				
 				
-					if(new RegExp(/[^\w ]/).test(thisName.substr(thisName.indexOf(' ')+1))){
+					if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(thisName)){
+					
+						userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+						userSearchBox.style.letterSpacing = '';
+						userSearchBox.style.lineHeight = '';
+						userSearchBox.style.fontSize = '18px';
+					
+					
+					} else {
+					
 					
 						userSearchBox.style.fontFamily = 'Amiri, serif';
 						userSearchBox.style.letterSpacing = '2px';
 						userSearchBox.style.lineHeight = '24px';
 						userSearchBox.style.fontSize = '21px';
 					
-					
-					} else {
-					
-						userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
-						userSearchBox.style.letterSpacing = '';
-						userSearchBox.style.lineHeight = '';
-						userSearchBox.style.fontSize = '18px';
 					
 					}
 				
@@ -999,7 +1018,18 @@ function getRands(element, element2, plusOne){
 				userSearchBox.value = li.textContent;
 				
 				
-				if(new RegExp(/[^\w ]/).test(li.textContent.substr(li.textContent.indexOf(' ')+1))){
+				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(li.textContent)){
+			
+					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+					userSearchBox.style.letterSpacing = '';
+					userSearchBox.style.lineHeight = '';
+					userSearchBox.style.fontSize = '18px';
+			
+			
+				} else {
+					
+					
+			
 			
 					userSearchBox.style.fontFamily = 'Amiri, serif';
 					userSearchBox.style.letterSpacing = '2px';
@@ -1007,12 +1037,7 @@ function getRands(element, element2, plusOne){
 					userSearchBox.style.fontSize = '21px';
 			
 			
-				} else {
-					
-					userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
-					userSearchBox.style.letterSpacing = '';
-					userSearchBox.style.lineHeight = '';
-					userSearchBox.style.fontSize = '18px';
+			
 			
 				}
 				
