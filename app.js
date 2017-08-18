@@ -372,7 +372,7 @@ function getRands(element, element2, plusOne){
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 500;
+	let numUsers = 1500;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -438,24 +438,20 @@ function getRands(element, element2, plusOne){
 			
 			return function(){
 				
-				let firstName = ob[index].name.first;
-				let lastName = ob[index].name.last;
+				let firstName = ob[index].name.first.trim();
+				let lastName = ob[index].name.last.trim();
 				
-				if(new RegExp(/^\S+(?:\s{1}\S+){1,}$/gi).test(lastName)){
-				
-				
-				// 'van'.match(/(\w)\w*$/gi)[0][0]
-				
-				
-				} else {
-				
-					
-					let userName = firstName[0].toUpperCase() + 
-					firstName.substring(1) + ' ' + 
-					lastName[0].toUpperCase() + 
-					lastName.substring(1);
+				function caps(match){
+					return match[0].toUpperCase() + match.substring(1);
 				}
 				
+				firstName = firstName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps);
+				
+				lastName = lastName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/mahony/, "'Mahony");
+				
+				let userName = firstName + ' ' + lastName;
+				
+				// console.log(userName);
 				
 				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(userName)){
 					flag = false;
@@ -463,17 +459,11 @@ function getRands(element, element2, plusOne){
 					flag = true;
 				}
 				
-				
 				return userName;
 				
 			}
 		
 		}
-		
-		
-		
-		
-		
 		
 		
 		for(let i = 0; i < newMembersDivs.length; i++){
@@ -732,11 +722,11 @@ function getRands(element, element2, plusOne){
 		}; 
 		
 		
-		
+		let held = '';
 		
 		if(!mmm){
 		
-		
+			// console.log(numUsers);
 		
 			if(!listShowing){
 				
@@ -747,17 +737,25 @@ function getRands(element, element2, plusOne){
 				
 				if([38,40].includes(e.keyCode)){
 					e.preventDefault();
+					
+					
+					
 				
 					if(e.keyCode == 38){
+						// console.log(numUsers+' up');
 						i=numUsers + 1;
 						i--;
 						
 					} else if(e.keyCode == 40){
+						// console.log(numUsers+' down ' + this.value);
+						
 						i=numUsers - 1;
 						i++;
 						
 					};
-					
+					if(this.value != ''){
+							held = this.value;
+						}
 					
 				
 				};
@@ -869,7 +867,12 @@ function getRands(element, element2, plusOne){
 				fff[(i-1) % numUsers].removeAttribute('id');
 				fff[(i+1) % numUsers].removeAttribute('id');
 			
-				fff[i % numUsers].setAttribute('id', 'userselect');
+				if(!held){
+					fff[i % numUsers].setAttribute('id', 'userselect');
+				}
+				
+				
+				// console.log(i);
 			}
 			
 			// lastUsed = fff[i % numUsers];
@@ -877,13 +880,29 @@ function getRands(element, element2, plusOne){
 			
 			
 			if([38,40].includes(e.keyCode)){
-				
+				console.log('here');
 				
 				if(fff.length > 0){
 					let thisName = fff[i % numUsers].textContent;
 					userSearchBox.value = thisName;
 				
-				
+					// console.log(held, fff);
+					
+					if(held){
+						userSearchBox.value = held;
+						
+						for(let ik = 0; ik < fff.length; ik++){
+							
+							if(fff[ik].textContent === held){
+								
+								fff[ik].setAttribute('id', 'userselect');
+								
+							}
+							
+						}
+						
+						
+					}
 				
 					if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(thisName)){
 					
