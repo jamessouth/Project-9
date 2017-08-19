@@ -372,7 +372,7 @@ function getRands(element, element2, plusOne){
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 1500;
+	let numUsers = 1000;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -587,9 +587,9 @@ function getRands(element, element2, plusOne){
 			userList.style.display = 'none';
 			i=numUsers;
 			
-			userListItems.forEach(li => {
-				li.removeAttribute('id');
-			});
+			// userListItems.forEach(li => {
+				// li.removeAttribute('id');
+			// });
 			
 			
 			if(cF){
@@ -635,12 +635,13 @@ function getRands(element, element2, plusOne){
 			};
 		});
 	};
-	
+	let theOne;
 	let mmm = false;
 	
 	userSearchBox.addEventListener('keydown', function(e){
 		if(e.keyCode == 27){
 			mmm = true;
+			theOne = null;
 		}
 		
 		if(!listShowing){
@@ -716,13 +717,14 @@ function getRands(element, element2, plusOne){
 				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
 				numUsers = fff.length;
 				mmm = false;
+				
 			}
 			
 			return;
 		}; 
 		
 		
-		let held = '';
+		
 		
 		if(!mmm){
 		
@@ -737,25 +739,37 @@ function getRands(element, element2, plusOne){
 				
 				if([38,40].includes(e.keyCode)){
 					e.preventDefault();
+					// let picked=false;
 					
+					for(let g = 0; g < fff.length; g++){
+					
+						if(fff[g].hasAttribute('id')){
+							// picked=true;
+							
+							theOne = [...fff].indexOf(fff[g]);
+							
+							i=theOne;
+							
+							
+							console.log(fff[g], theOne, i);
+						}
+					}
 					
 					
 				
-					if(e.keyCode == 38){
-						// console.log(numUsers+' up');
-						i=numUsers + 1;
-						i--;
+					// if(e.keyCode == 38){
+						// // console.log(numUsers+' up');
+						// i=numUsers + 1;
+						// i--;
 						
-					} else if(e.keyCode == 40){
-						// console.log(numUsers+' down ' + this.value);
+					// } else if(e.keyCode == 40){
+						// // console.log(numUsers+' down ' + this.value + i);
 						
-						i=numUsers - 1;
-						i++;
+						// i=numUsers - 1;
+						// i++;
 						
-					};
-					if(this.value != ''){
-							held = this.value;
-						}
+					// };
+					
 					
 				
 				};
@@ -867,12 +881,12 @@ function getRands(element, element2, plusOne){
 				fff[(i-1) % numUsers].removeAttribute('id');
 				fff[(i+1) % numUsers].removeAttribute('id');
 			
-				if(!held){
-					fff[i % numUsers].setAttribute('id', 'userselect');
-				}
+				
+				fff[i % numUsers].setAttribute('id', 'userselect');
 				
 				
-				// console.log(i);
+				
+				console.log(i);
 			}
 			
 			// lastUsed = fff[i % numUsers];
@@ -880,29 +894,13 @@ function getRands(element, element2, plusOne){
 			
 			
 			if([38,40].includes(e.keyCode)){
-				console.log('here');
+				// console.log('here');
 				
 				if(fff.length > 0){
 					let thisName = fff[i % numUsers].textContent;
 					userSearchBox.value = thisName;
 				
-					// console.log(held, fff);
 					
-					if(held){
-						userSearchBox.value = held;
-						
-						for(let ik = 0; ik < fff.length; ik++){
-							
-							if(fff[ik].textContent === held){
-								
-								fff[ik].setAttribute('id', 'userselect');
-								
-							}
-							
-						}
-						
-						
-					}
 				
 					if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(thisName)){
 					
