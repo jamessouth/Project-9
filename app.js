@@ -447,7 +447,7 @@ function getRands(element, element2, plusOne){
 				
 				firstName = firstName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps);
 				
-				lastName = lastName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/mahony/, "'Mahony");
+				lastName = lastName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1');
 				
 				let userName = firstName + ' ' + lastName;
 				
@@ -496,7 +496,6 @@ function getRands(element, element2, plusOne){
 		
 		
 		
-		
 		userObs.forEach((u,i) => {
 			let listItem = document.createElement('li');
 			let listItemName = getName(userObs,false,i);
@@ -528,8 +527,8 @@ function getRands(element, element2, plusOne){
 		
 		userListItems = document.querySelectorAll('.messages fieldset ul li');
 		
-		fff = userListItems;
-		// console.log(fff);
+		fff = new Set([...userListItems].);
+		console.log(fff);
 		
 	}
 	
@@ -574,10 +573,26 @@ function getRands(element, element2, plusOne){
 		
 		listShowing = true;
 		userList.style.display = 'block';
-		
+		window.setTimeout(() => {
+			document.addEventListener('click', hideUserListOnClick);
+		}, 1);
 	};
-
-
+	
+	
+	function hideUserListOnClick(e){
+		console.log(e);
+		if(!userList.contains(e.target)){
+		
+		
+			listShowing = false;
+			userList.style.display = 'none';
+			i=numUsers;
+			
+			document.removeEventListener('click', hideUserListOnClick);
+		};
+	};
+	
+	
 	function hideUserList(cF){
 		
 	
@@ -586,7 +601,7 @@ function getRands(element, element2, plusOne){
 			listShowing = false;
 			userList.style.display = 'none';
 			i=numUsers;
-			
+			document.removeEventListener('click', hideUserListOnClick);
 			// userListItems.forEach(li => {
 				// li.removeAttribute('id');
 			// });
@@ -635,13 +650,13 @@ function getRands(element, element2, plusOne){
 			};
 		});
 	};
-	let theOne;
+	
 	let mmm = false;
 	
 	userSearchBox.addEventListener('keydown', function(e){
 		if(e.keyCode == 27){
 			mmm = true;
-			theOne = null;
+			
 		}
 		
 		if(!listShowing){
@@ -739,8 +754,27 @@ function getRands(element, element2, plusOne){
 				
 				if([38,40].includes(e.keyCode)){
 					e.preventDefault();
-					// let picked=false;
 					
+					
+					let rgrg = [...fff].map(x => x.textContent);
+					
+					let gugu = rgrg.reduce(function(obj, item) {
+						if (!obj[item]) {
+							obj[item] = 0;
+						}
+						obj[item]++;
+						return obj;
+					}, {});
+					
+					for(let t in gugu){
+						if(gugu[t] > 1){
+							console.log(t, gugu[t]);
+						}
+					}
+					
+					
+					// let picked=false;
+					let theOne;
 					for(let g = 0; g < fff.length; g++){
 					
 						if(fff[g].hasAttribute('id')){
@@ -751,7 +785,7 @@ function getRands(element, element2, plusOne){
 							i=theOne;
 							
 							
-							console.log(fff[g], theOne, i);
+							// console.log(fff[g], theOne, i);
 						}
 					}
 					
@@ -886,7 +920,7 @@ function getRands(element, element2, plusOne){
 				
 				
 				
-				console.log(i);
+				// console.log(i);
 			}
 			
 			// lastUsed = fff[i % numUsers];
@@ -931,88 +965,6 @@ function getRands(element, element2, plusOne){
 		
 		
 	});
-	
-	
-	// userSearchBox.addEventListener('input', function(e){
-		
-		
-		
-		
-		
-		// if(!listShowing){
-		
-			// if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
-			
-				// userList.style.top = '100px';
-				// userList.style.bottom = '';
-			
-			// } else {
-			
-				// userList.style.bottom = '213px';
-				// userList.style.top = '';
-			
-			// }
-		
-			// showUserList(e);
-			
-			
-		// } else {
-			
-		// }
-	
-		
-	
-		
-	
-	// });
-	
-	
-	// userSearchBox.addEventListener('keyup', function(e){
-	
-		// // console.log(e.keyCode);
-		// // console.log(nameArray);
-		
-		// if(this.value === ''){
-			// console.log(this.value);
-			// listLength = numUsers;
-			// return;
-		// }
-		
-		
-		// if(e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27 || e.keyCode == 38 || e.keyCode == 40){
-			// console.log('not running the below code');
-			// return;
-		// }
-		
-		// listLength = 0;
-		
-		// userListItems.forEach(na => {
-		
-			// if(!na.textContent.toLowerCase().includes(this.value.toLowerCase())){
-			
-				// na.style.display = 'none';
-				
-			
-			// } else {
-				// na.style.display = 'list-item';
-				
-			// }
-
-			// if(na.style.display != 'none'){
-				
-				// listLength += 1;
-				
-			// }
-			
-			
-		// });
-		
-		// console.log(listLength + ' LL');
-		
-	// });
-	
-	
-	
 	
 	function listEventSetup(){
 	
