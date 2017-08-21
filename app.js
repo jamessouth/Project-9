@@ -497,6 +497,7 @@ function getRands(element, element2, plusOne){
 		
 		
 		userObs.forEach((u,i) => {
+			
 			let listItem = document.createElement('li');
 			let listItemName = getName(userObs,false,i);
 			
@@ -527,8 +528,8 @@ function getRands(element, element2, plusOne){
 		
 		userListItems = document.querySelectorAll('.messages fieldset ul li');
 		
-		fff = new Set([...userListItems].);
-		console.log(fff);
+		fff = userListItems;
+		// console.log(fff);
 		
 	}
 	
@@ -712,7 +713,11 @@ function getRands(element, element2, plusOne){
 	
 	userSearchBox.addEventListener('keyup', function(e){
 		
-		
+		if(e.keyCode === 8 && this.value === ''){
+			console.log('gogo');
+			userList.scrollTop = 0;
+			console.log(userList.scrollTop);
+		}
 		// console.log(e.keyCode);
 		// console.log(mmm);
 		
@@ -755,24 +760,6 @@ function getRands(element, element2, plusOne){
 				if([38,40].includes(e.keyCode)){
 					e.preventDefault();
 					
-					
-					let rgrg = [...fff].map(x => x.textContent);
-					
-					let gugu = rgrg.reduce(function(obj, item) {
-						if (!obj[item]) {
-							obj[item] = 0;
-						}
-						obj[item]++;
-						return obj;
-					}, {});
-					
-					for(let t in gugu){
-						if(gugu[t] > 1){
-							console.log(t, gugu[t]);
-						}
-					}
-					
-					
 					// let picked=false;
 					let theOne;
 					for(let g = 0; g < fff.length; g++){
@@ -790,22 +777,13 @@ function getRands(element, element2, plusOne){
 					}
 					
 					
-				
-					// if(e.keyCode == 38){
-						// // console.log(numUsers+' up');
-						// i=numUsers + 1;
-						// i--;
-						
-					// } else if(e.keyCode == 40){
-						// // console.log(numUsers+' down ' + this.value + i);
-						
-						// i=numUsers - 1;
-						// i++;
-						
-					// };
 					
 					
-				
+					
+					
+					
+					
+					
 				};
 				
 				// if(e.keyCode == 13){
@@ -861,6 +839,20 @@ function getRands(element, element2, plusOne){
 						i++;
 						
 					};
+					
+					// console.log(i,fff.length);
+					let distFromTop = ((i % fff.length) * 28) + 14;
+					
+					let visible = (distFromTop >= userList.scrollTop && distFromTop < userList.offsetHeight + userList.scrollTop);
+					
+					console.log(visible, distFromTop, userList.scrollTop, userList.scrollHeight, userList.offsetHeight);
+					
+					
+					
+					
+					
+					
+					
 				};
 				
 				if(e.keyCode == 13){
