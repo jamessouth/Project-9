@@ -372,7 +372,7 @@ function getRands(element, element2, plusOne){
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 1000;
+	let numUsers = 15;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -577,11 +577,12 @@ function getRands(element, element2, plusOne){
 		window.setTimeout(() => {
 			document.addEventListener('click', hideUserListOnClick);
 		}, 1);
+		// userList.scrollTop = 0;
 	};
 	
 	
 	function hideUserListOnClick(e){
-		console.log(e);
+		// console.log(e);
 		if(!userList.contains(e.target)){
 		
 		
@@ -598,7 +599,7 @@ function getRands(element, element2, plusOne){
 		
 	
 		return function(){
-			
+			// console.log(userList.scrollTop);
 			listShowing = false;
 			userList.style.display = 'none';
 			i=numUsers;
@@ -653,12 +654,47 @@ function getRands(element, element2, plusOne){
 	};
 	
 	let mmm = false;
+	let letters = [];
+	
+	
 	
 	userSearchBox.addEventListener('keydown', function(e){
 		if(e.keyCode == 27){
 			mmm = true;
+			letters = [];
+			userList.scrollTop = 0;
+		}
+		
+		if(e.keyCode == 8){
+			
+			
+			letters.pop();
+			if(letters.length == 0){
+				
+				
+				
+				this.value = '';
+				
+				userListItems.forEach(na => {
+					
+					na.style.display = 'list-item';
+					na.classList.remove('hid');
+					na.removeAttribute('id');
+				});
+				
+				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+				numUsers = fff.length;
+				
+				
+				
+				
+				
+				
+			}
 			
 		}
+		
+		
 		
 		if(!listShowing){
 			
@@ -687,6 +723,7 @@ function getRands(element, element2, plusOne){
 			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
 				selectUser();
 				hideUserListNoFocus();
+				letters = [];
 				return;
 			};
 			
@@ -696,6 +733,7 @@ function getRands(element, element2, plusOne){
 				
 				selectUser();
 				hideUserListChangeFocus();
+				letters = [];
 				return;
 			
 			};
@@ -711,13 +749,86 @@ function getRands(element, element2, plusOne){
 	
 	// let lastUsed;
 	
+	let rest, thisName;
+	
+	userSearchBox.addEventListener('input', function(e){
+		
+	
+		// console.log(e);
+
+		if(e.data){
+			letters.push(e.data);
+		}
+		
+		
+		
+		
+		// if(![38,40].includes(e.keyCode)){
+		
+			userList.scrollTop = 0;
+			
+			
+			
+			
+			
+			userListItems.forEach(na => {
+				
+				na.removeAttribute('id');
+			
+				if(!na.textContent.toLowerCase().startsWith(letters.join('').toLowerCase())){
+				
+					na.style.display = 'none';
+					na.classList.add('hid');
+					
+					
+				} else {
+					
+					na.style.display = 'list-item';
+					na.classList.remove('hid');
+					
+					// let distFromTop = ((i % fff.length) * 28);
+					// userList.scrollTop = distFromTop;
+				}
+
+				
+			});
+		
+			fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+			numUsers = fff.length;
+			i = fff.length;
+		
+		
+		
+		// }
+		
+		
+		let distFromTop = ((i % fff.length) * 28);
+				userList.scrollTop = distFromTop;
+		
+		
+		
+		
+
+	
+		
+	});
+	
+	userSearchBox.addEventListener('search', function(e){
+		
+		
+		// console.log(e);
+		letters = [];
+		
+	});
+	
+	
 	userSearchBox.addEventListener('keyup', function(e){
 		
-		if(e.keyCode === 8 && this.value === ''){
-			console.log('gogo');
-			userList.scrollTop = 0;
-			console.log(userList.scrollTop);
-		}
+		
+		
+		console.log(letters);
+		
+		
 		// console.log(e.keyCode);
 		// console.log(mmm);
 		
@@ -748,6 +859,8 @@ function getRands(element, element2, plusOne){
 		
 		if(!mmm){
 		
+		
+		
 			// console.log(numUsers);
 		
 			if(!listShowing){
@@ -757,7 +870,9 @@ function getRands(element, element2, plusOne){
 				// }; 
 				
 				
-				if([38,40].includes(e.keyCode)){
+				
+				
+				if([13,32,37,38,39,40].includes(e.keyCode)){
 					e.preventDefault();
 					
 					// let picked=false;
@@ -780,15 +895,16 @@ function getRands(element, element2, plusOne){
 					
 					
 					
-					
-					
-					
-					
 				};
 				
 				// if(e.keyCode == 13){
 				
 					// e.preventDefault();
+					
+					
+					
+					
+					
 				// };
 				
 				
@@ -807,9 +923,15 @@ function getRands(element, element2, plusOne){
 				}
 				
 				showUserList(e);
+				console.log(i, fff.length);
 				
+				if(e.keyCode == 8 && this.value == ''){
+					userList.scrollTop = 0;
+				} else {
+					let distFromTop = ((i % fff.length) * 28);
+					userList.scrollTop = distFromTop;
+				}
 				
-			
 			} else {
 				
 				// userListItems.forEach({
@@ -841,19 +963,18 @@ function getRands(element, element2, plusOne){
 					};
 					
 					// console.log(i,fff.length);
-					let distFromTop = ((i % fff.length) * 28) + 14;
+					// let distFromTop = ((i % fff.length) * 28);
 					
-					let visible = (distFromTop >= userList.scrollTop && distFromTop < userList.offsetHeight + userList.scrollTop);
+					// let visible = (distFromTop >= userList.scrollTop && distFromTop < userList.offsetHeight + userList.scrollTop);
 					
-					console.log(visible, distFromTop, userList.scrollTop, userList.scrollHeight, userList.offsetHeight);
-					
-					
-					
-					
-					
+					// console.log(visible, distFromTop, userList.scrollTop, userList.scrollHeight, userList.offsetHeight);
 					
 					
 				};
+				
+				
+				
+				
 				
 				if(e.keyCode == 13){
 				
@@ -870,32 +991,7 @@ function getRands(element, element2, plusOne){
 			
 			
 			
-			if(![38,40].includes(e.keyCode)){
-				
-				userListItems.forEach(na => {
-					
-					na.removeAttribute('id');
-				
-					if(!na.textContent.toLowerCase().includes(this.value.toLowerCase())){
-					
-						na.style.display = 'none';
-						na.classList.add('hid');
-						
-						
-					} else {
-						
-						na.style.display = 'list-item';
-						na.classList.remove('hid');
-						
-					}
-
-					
-				});
 			
-				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
-				numUsers = fff.length;
-				i = fff.length;
-			}
 			
 			// console.log(fff);
 			
@@ -907,9 +1003,9 @@ function getRands(element, element2, plusOne){
 				fff[(i-1) % numUsers].removeAttribute('id');
 				fff[(i+1) % numUsers].removeAttribute('id');
 			
-				
-				fff[i % numUsers].setAttribute('id', 'userselect');
-				
+				if(!(e.keyCode == 8 && letters.length == 0)){
+					fff[i % numUsers].setAttribute('id', 'userselect');
+				}
 				
 				
 				// console.log(i);
@@ -918,15 +1014,26 @@ function getRands(element, element2, plusOne){
 			// lastUsed = fff[i % numUsers];
 			// console.log(lastUsed);
 			
-			
-			if([38,40].includes(e.keyCode)){
+			// if(rest && (rest !== thisName)){
 				// console.log('here');
-				
+			
+			// }
+			
+			
+			
+			
+			if(e.keyCode != 8){
+			
+			
 				if(fff.length > 0){
-					let thisName = fff[i % numUsers].textContent;
-					userSearchBox.value = thisName;
+					rest = fff[i % numUsers].textContent.substring(letters.length);
+					thisName = letters.join('') + rest;
 				
+					userSearchBox.value = thisName;
 					
+					// userSearchBox.style.color = 'red';
+				
+				
 				
 					if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(thisName)){
 					
@@ -946,13 +1053,85 @@ function getRands(element, element2, plusOne){
 					
 					
 					}
-				
+					
 				}
+			
+			} else {
+				// console.log(rest, thisName, 'keyup');
+				
+				
+				if(letters.length == 0){
+					i=numUsers;
+					fff[i % numUsers].setAttribute('id', 'userselect');
+					userList.scrollTop = 0;
+					return;
+				}
+			
+				if(fff.length > 0){
+					rest = fff[i % numUsers].textContent.substring(letters.length);
+					thisName = letters.join('') + rest;
+				
+					userSearchBox.value = thisName;
+				
+					if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(thisName)){
+					
+						userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
+						userSearchBox.style.letterSpacing = '';
+						userSearchBox.style.lineHeight = '';
+						userSearchBox.style.fontSize = '18px';
+					
+					
+					} else {
+					
+					
+						userSearchBox.style.fontFamily = 'Amiri, serif';
+						userSearchBox.style.letterSpacing = '2px';
+						userSearchBox.style.lineHeight = '24px';
+						userSearchBox.style.fontSize = '21px';
+					
+					
+					}
+					
+				}
+				// console.log(rest, thisName, 'keyup');
+			
+			}
+			
+			
+			
+			
+			
+			
+			
+			if([38,40].includes(e.keyCode)){
+				// console.log('here');
+				
+				let distFromTop = ((i % fff.length) * 28);
+				userList.scrollTop = distFromTop;
+					// let visible = (distFromTop >= userList.scrollTop && distFromTop < userList.offsetHeight + userList.scrollTop);
+					
+					// console.log(i, distFromTop, fff.length, userList.scrollTop);
+					
+					
+					
+					
+				
+				
 			
 			};
 		
 		}
 		
+		// console.log(fff[i % numUsers].textContent, this.value);
+		
+		// this.value += rest;
+		
+		
+		if(e.keyCode === 8 && this.value === ''){
+			// console.log('gogo');
+			userList.scrollTop = 0;
+			// console.log(userList.scrollTop);
+		}
 		
 		
 		
