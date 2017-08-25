@@ -372,7 +372,7 @@ function getRands(element, element2, plusOne){
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 15;
+	let numUsers = 5;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -654,8 +654,11 @@ function getRands(element, element2, plusOne){
 	};
 	
 	let mmm = false;
+	
 	let letters = [];
 	
+	
+	// styling for input box, scripted vs regular
 	
 	
 	userSearchBox.addEventListener('keydown', function(e){
@@ -680,6 +683,7 @@ function getRands(element, element2, plusOne){
 					na.style.display = 'list-item';
 					na.classList.remove('hid');
 					na.removeAttribute('id');
+					na.innerHTML = na.textContent;
 				});
 				
 				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
@@ -785,7 +789,16 @@ function getRands(element, element2, plusOne){
 					
 					na.style.display = 'list-item';
 					na.classList.remove('hid');
+					// console.log(na.innerHTML);
 					
+					if(letters.length > 0){
+						na.innerHTML = '<span>' + letters[0].toUpperCase() + letters.slice(1).join('') + '</span>' + na.textContent.substring(letters.length);
+					} else {
+						na.innerHTML = na.textContent;
+					}
+					
+					
+					// console.log(na.innerHTML);
 					// let distFromTop = ((i % fff.length) * 28);
 					// userList.scrollTop = distFromTop;
 				}
@@ -842,6 +855,11 @@ function getRands(element, element2, plusOne){
 					
 					na.style.display = 'list-item';
 					na.classList.remove('hid');
+					// console.log(na.textContent);
+					
+					na.innerHTML = na.textContent;
+					
+					
 					
 				});
 				
@@ -1027,9 +1045,17 @@ function getRands(element, element2, plusOne){
 			
 				if(fff.length > 0){
 					rest = fff[i % numUsers].textContent.substring(letters.length);
-					thisName = letters.join('') + rest;
+					
+					if(letters.length > 0){
+					
+						thisName = letters[0].toUpperCase() + letters.slice(1).join('') + rest;
+					
+					} else {
+					
+						thisName = letters.join('') + rest;
+					}
 				
-					userSearchBox.value = thisName;
+					// userSearchBox.value = thisName;
 					
 					// userSearchBox.style.color = 'red';
 				
@@ -1069,9 +1095,9 @@ function getRands(element, element2, plusOne){
 			
 				if(fff.length > 0){
 					rest = fff[i % numUsers].textContent.substring(letters.length);
-					thisName = letters.join('') + rest;
+					thisName = letters[0].toUpperCase() + letters.slice(1).join('') + rest;
 				
-					userSearchBox.value = thisName;
+					// userSearchBox.value = thisName;
 				
 					if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(thisName)){
 					
@@ -1155,7 +1181,7 @@ function getRands(element, element2, plusOne){
 				
 				li.setAttribute('id', 'userselect');
 				
-				userSearchBox.value = li.textContent;
+				// userSearchBox.value = li.textContent;
 				
 				
 				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(li.textContent)){
@@ -1190,7 +1216,7 @@ function getRands(element, element2, plusOne){
 			li.addEventListener('click', function(e){
 				selectUser();
 				hideUserListChangeFocus();
-				
+				letters = [];
 			});
 		});
 	
