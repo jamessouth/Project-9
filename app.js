@@ -372,7 +372,7 @@ function getRands(element, element2, plusOne){
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 5;
+	let numUsers = 5000;
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -662,6 +662,11 @@ function getRands(element, element2, plusOne){
 	
 	
 	userSearchBox.addEventListener('keydown', function(e){
+		
+		if(e.keyCode == 37 || e.keyCode == 39){
+			e.preventDefault();
+		}
+		
 		if(e.keyCode == 27){
 			mmm = true;
 			letters = [];
@@ -826,6 +831,26 @@ function getRands(element, element2, plusOne){
 		
 	});
 	
+	
+	userSearchBox.addEventListener('click', function(e){
+		
+		
+		
+		
+		
+		
+		if(this.value != ''){
+			this.setSelectionRange(0, this.value.length);
+			letters = [];
+			console.log(e);
+		}
+		
+		
+	});
+	
+	
+	
+	
 	userSearchBox.addEventListener('search', function(e){
 		
 		
@@ -941,7 +966,7 @@ function getRands(element, element2, plusOne){
 				}
 				
 				showUserList(e);
-				console.log(i, fff.length);
+				// console.log(i, fff.length);
 				
 				if(e.keyCode == 8 && this.value == ''){
 					userList.scrollTop = 0;
@@ -1037,7 +1062,9 @@ function getRands(element, element2, plusOne){
 			
 			// }
 			
-			
+			function caps(match){
+					return match[0].toUpperCase();
+				}
 			
 			
 			if(e.keyCode != 8){
@@ -1054,8 +1081,15 @@ function getRands(element, element2, plusOne){
 					
 						thisName = letters.join('') + rest;
 					}
+					
+					
+					thisName = thisName.replace(/\b[\w]{1}(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps);
+					
+					
 				
-					// userSearchBox.value = thisName;
+					userSearchBox.value = thisName;
+					this.setSelectionRange(letters.length, this.value.length);
+					
 					
 					// userSearchBox.style.color = 'red';
 				
@@ -1097,8 +1131,17 @@ function getRands(element, element2, plusOne){
 					rest = fff[i % numUsers].textContent.substring(letters.length);
 					thisName = letters[0].toUpperCase() + letters.slice(1).join('') + rest;
 				
-					// userSearchBox.value = thisName;
-				
+					
+					thisName = thisName.replace(/\b[\w]{1}(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps);
+					
+					
+					
+					
+					
+					userSearchBox.value = thisName;
+					
+					
+					this.setSelectionRange(letters.length, this.value.length);
 					if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(thisName)){
 					
 						userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
@@ -1181,7 +1224,7 @@ function getRands(element, element2, plusOne){
 				
 				li.setAttribute('id', 'userselect');
 				
-				// userSearchBox.value = li.textContent;
+				userSearchBox.value = li.textContent;
 				
 				
 				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(li.textContent)){
