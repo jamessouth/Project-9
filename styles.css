@@ -790,13 +790,7 @@ div > header > nav ul li a:focus:not(.selected){
 	/* transition: all 0.3s; */
 }
 
-.messages fieldset ul li span{
-	color: #ff0000;
-	font-size: 22px;
-	/* text-shadow: 1px 0px #1c0000; */
-	/* box-shadow: 0px 8px 12px -6px #1c0000; */
-	/* background-color: #fff; */
-}
+
 
 #userselect{
 	color: #fffed7;
@@ -1197,14 +1191,14 @@ div > header > nav ul li a:focus:not(.selected){
 .timezone select{
 	outline: none;
 	width: 100%;
-	background: url(downArrow.jpg) no-repeat 95%;
+	background: url(downArrow.jpg) no-repeat 100%;
 	font-size: 17px;
 	font-family: 'Alegreya Sans', sans-serif;
 	background-color: #fbfbfb;
 	box-shadow: 0 0 0 1px #cecece;
 	border: 3px solid transparent;
 	border-radius: 5px;
-	padding: 0.75em 1em;
+	padding: 0.75em 0.5em;
 	-webkit-appearance: none;
     -moz-appearance: none;
 	transition: border 0.7s ease-out;

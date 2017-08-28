@@ -334,9 +334,9 @@ let degCount = 0;
 		
 		// console.log(cnt);
 		
-		timezoneSelect.addEventListener('change', function(e){
-			this.style.background = 'none';
-		});
+		// timezoneSelect.addEventListener('change', function(e){
+			// this.style.background = 'none';
+		// });
 		
 		
 	}
@@ -372,7 +372,7 @@ function getRands(element, element2, plusOne){
 	let fff;
 	// const myAppUsers = [];
 	// let nameArray = [];
-	let numUsers = 5000;
+	let numUsers = 5;   // 5000 max
 	let httpRequest;
 	let users;
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -441,13 +441,22 @@ function getRands(element, element2, plusOne){
 				let firstName = ob[index].name.first.trim();
 				let lastName = ob[index].name.last.trim();
 				
+				// if(new RegExp(/æ/igm).test(firstName)){
+					// console.log(firstName, lastName, index);
+				// }
+				
+				
+				
+				
+				
+				
 				function caps(match){
 					return match[0].toUpperCase() + match.substring(1);
 				}
 				
-				firstName = firstName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps);
+				firstName = firstName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/jean-/, 'Jean-').replace(/anne-/, 'Anne-');
 				
-				lastName = lastName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1');
+				lastName = lastName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/brien/, "'Brien").replace(/donoghue/, "'Donoghue").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1').replace(/jean-/, 'Jean-').replace(/^mccoy/i, 'McCoy').replace(/^mck\w+/i, 'McKinney');
 				
 				let userName = firstName + ' ' + lastName;
 				
@@ -658,7 +667,6 @@ function getRands(element, element2, plusOne){
 	let letters = [];
 	
 	
-	// styling for input box, scripted vs regular
 	
 	
 	userSearchBox.addEventListener('keydown', function(e){
@@ -727,9 +735,14 @@ function getRands(element, element2, plusOne){
 		
 		} else {
 		
+			// if(e.shiftKey && e.keyCode == 9){
+				// selectUser();
+				// hideUserListNoFocus();
+				// letters = [];
+				// return;
+			// }
 		
-		
-			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
+			if((e.shiftKey && e.keyCode == 9) || e.keyCode == 9 || e.keyCode == 27){
 				selectUser();
 				hideUserListNoFocus();
 				letters = [];
@@ -766,9 +779,15 @@ function getRands(element, element2, plusOne){
 		// console.log(e);
 
 		if(e.data){
-			letters.push(e.data);
+			letters.push(e.data.toLowerCase());
 		}
 		
+		function caps(match){
+					return match[0].toUpperCase();
+				}
+				
+				
+				
 		
 		
 		
@@ -790,17 +809,30 @@ function getRands(element, element2, plusOne){
 					na.classList.add('hid');
 					
 					
+					
+					
+					
+					
+					// typing uppercase letters
+					
+					
+					
+					
 				} else {
 					
 					na.style.display = 'list-item';
 					na.classList.remove('hid');
 					// console.log(na.innerHTML);
 					
-					if(letters.length > 0){
-						na.innerHTML = '<span>' + letters[0].toUpperCase() + letters.slice(1).join('') + '</span>' + na.textContent.substring(letters.length);
-					} else {
-						na.innerHTML = na.textContent;
-					}
+					// if(letters.length > 0){
+						// na.innerHTML = letters[0].toUpperCase() + letters.slice(1).join('') + na.textContent.substring(letters.length);
+						
+						// na.innerHTML = na.innerHTML.replace(/\b[A-zÀ-ÿğŞı]{1}(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1').replace(/jean-/, 'Jean-').replace(/mccoy/i, 'McCoy').replace(/mckinney/i, 'McKinney');
+						
+						
+					// } else {
+						// na.innerHTML = na.textContent;
+					// }
 					
 					
 					// console.log(na.innerHTML);
@@ -864,13 +896,13 @@ function getRands(element, element2, plusOne){
 		
 		
 		
-		console.log(letters);
+		// console.log(letters);
 		
 		
 		// console.log(e.keyCode);
 		// console.log(mmm);
 		
-		if(e.shiftKey || e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27){
+		if(e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27){
 			
 			
 			if(e.keyCode == 27){
@@ -1063,8 +1095,13 @@ function getRands(element, element2, plusOne){
 			// }
 			
 			function caps(match){
-					return match[0].toUpperCase();
+					return ' ' + match[1].toUpperCase();
 				}
+				
+				
+				// function caps(match){
+					// return match[0].toUpperCase() + match.substring(1);
+				// }
 			
 			
 			if(e.keyCode != 8){
@@ -1083,7 +1120,7 @@ function getRands(element, element2, plusOne){
 					}
 					
 					
-					thisName = thisName.replace(/\b[\w]{1}(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps);
+					thisName = thisName.replace(/\s{1}\b[A-zÀ-ÿğŞı]{1}'?(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/brien/, "'Brien").replace(/donoghue/, "'Donoghue").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1').replace(/jean-/, 'Jean-').replace(/^mccoy/i, 'McCoy').replace(/^mck\w+/i, 'McKinney');
 					
 					
 				
@@ -1130,9 +1167,14 @@ function getRands(element, element2, plusOne){
 				if(fff.length > 0){
 					rest = fff[i % numUsers].textContent.substring(letters.length);
 					thisName = letters[0].toUpperCase() + letters.slice(1).join('') + rest;
-				
 					
-					thisName = thisName.replace(/\b[\w]{1}(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps);
+					
+					
+					// thisName = thisName.replace(/\b[\w]{1}(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1').replace(/jean-/, 'Jean-').replace(/mccoy/i, 'McCoy').replace(/mckinney/i, 'McKinney');
+					
+					
+					
+					thisName = thisName.replace(/\s{1}\b[A-zÀ-ÿğŞı]{1}'?(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/brien/, "'Brien").replace(/donoghue/, "'Donoghue").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1').replace(/jean-/, 'Jean-').replace(/^mccoy/i, 'McCoy').replace(/^mck\w+/i, 'McKinney');
 					
 					
 					
