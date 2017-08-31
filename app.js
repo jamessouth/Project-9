@@ -89,261 +89,164 @@ const lineChartDial = document.querySelector('.settings .linechart_default > div
 
 const lineChartDialRadios = lineChartDial.querySelectorAll('input');
 
-const timezoneSelect = document.querySelector('.timezone select');
-
-
-
-
 
 let dir = 0;
 let degs = [-71, -28, 28, 71];
 let degCount = 0;
 
 
-(function(){
-	let tzd;
-	let httpRequest;
-	document.addEventListener('DOMContentLoaded', makeRequest);
-	function makeRequest(){
-		httpRequest = new XMLHttpRequest();
-		
-		if(!httpRequest){
-			return false;
-		}
-		
-		httpRequest.onreadystatechange = showContents;
-		
-		httpRequest.open('GET', 'https://en.wikipedia.org/w/api.php?action=parse&page=Time_zone&prop=text&section=11&format=json&origin=*');
-		
-		
-		// https://en.wikipedia.org/w/api.php?action=query&titles=Time_zone&prop=extracts&explaintext&format=json&origin=*
-		
-		
-		
-		// httpRequest.setRequestHeader('Api-User-Agent', 'Example/1.0');
-		httpRequest.send();
-		
-	}
+
+
+
+
+
+
+
+
+function m() {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", 'https://en.wikipedia.org/w/api.php?action=parse&page=Time_zone&prop=text&section=11&format=json&origin=*');
 	
-	
-	function showContents(){
-		
-		try{
-			if(httpRequest.readyState === XMLHttpRequest.DONE){
-				if(httpRequest.status === 200){
-				
-				tzd=(JSON.parse(httpRequest.responseText)).parse.text['*'];
-				// console.log(tzd);
-				let timeZones = callback(tzd);
-				// listEventSetup();
-				loadOptions(timeZones);
-				
-				
-				} else {
-					console.log('problem 2');
-					// whenDoneError();
-				}
-			}
-			
-		}
-		catch(e){
-			console.log('caught exception: ' + e.description);
-			// whenDoneError();
-		}
-		
-	}
-	
-	function callback(str){
-		
-		let reg = new RegExp(/\n*<([^>]*)>\n*/g);
-		
-		let res = str.substring(str.indexOf('<tr>'), str.lastIndexOf('</tr>')+5);
-		
-		res = res.split('</tr>\n<tr>');
-		let f = res.shift();
-		
-		for(let i = 0; i < res.length; i++){
-			res[i] = res[i].split('</td>\n<td>');
-			res[i].splice(1,1);
-			[res[i][0], res[i][1], res[i][2]] = [res[i][0].replace(reg, ''), res[i][1].replace(reg, ''), res[i][2].replace(reg, '')]
-			if(res[i][1] === ''){
-				res[i].splice(1,1);
-			}
-			if(res[i][2] === ''){
-				res[i].splice(2);
-			}
-			res[i][1] = res[i][1].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
-			
-			
-		
-			res[i][1] = res[i][1].split(', ');
-			
-			
-			if(res[i][2]){
-				res[i][2] = res[i][2].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
-				
-				res[i][2] = res[i][2].split(', ');
-				
-				
-				
-				
-				res[i] = [res[i][0], ...res[i][1], ...res[i][2]];
-			} else {
-				res[i] = [res[i][0], ...res[i][1]];
-			}
-			
-			
-			if(/(south )(?!(africa|korea|sudan))/gi.test(res[i][2])){
-				
-				
-				res[i][3] = res[i][2].slice(22).replace(/south/i, 'S');;
-				res[i][2] = res[i][2].slice(0,13);
-				
-				
-				// console.log(res[i]);
-			}
-			
-			if(/british/i.test(res[i][3])){
-				
-				function abbrev(match){
-					return match[0].toUpperCase();
-				}
-				
-				
-				res[i][3] = res[i][3].replace(/\w+ */gi, abbrev);
-				
-				// console.log(res[i]);
-			}
-			
-			if(/demo/i.test(res[i][5])){
-				
-				function abbrev(match, p1, p2, p3, p4, p5, string){
-					return p1[0].toUpperCase() + p2[0].toUpperCase() + ' ' + p5;
-				}
-				
-				
-				res[i][5] = res[i][5].replace(/(\w+)\s(\w+)\s(\w+)\s(\w+)\s(\w+)/gi, abbrev);
-				
-				// console.log(res[i]);
-			}
-			
-			
-			
-			// console.log(res[i]);
-			
-			
-		}
-		
-		
-		
-		// console.log(res);
-		
-		// let w = res.map(x => 
-			// x.split('</td>\n<td>')
-		// ).reduce((a,b) => {
-			// return a.concat(b);
-		// }).filter((x,i) => {
-			// return i % 4 != 1;
-		// }).map((b,i) => {
-			
-			// let reg = new RegExp(/\n*<([^>]*)>\n*/g);
-			
-			// return b.replace(reg, '');
-		// });
-		
-		// let e = [], sz = 3;
-		// while(w.length > 0){
-			// e.push(w.splice(0,sz).filter(function(x){
-				
-				// return x !== '';
-			// }).map(x => {
-				
-				
-				// return (/\[\d+\]/.test(x)) ? x.match(/[a-zA-Z ]+/)[0] : x;
-				
-			// }));
-		// }
-		
-		
-		
-		return res;
-	}
-	
-	// let cnt = 0;
-	function createOption(x){
-		
-		let nums = [];
-		
-		
-		y = new Set(x);
-		y = [...y];
-		
-		
-		if(y.length > 6){
-			nums = getRands(5, y.slice(1).length, true);
-			
+    xhr.onload = () => {
+		if(xhr.status === 200){
+			resolve(xhr.response);
 		} else {
+			reject(Error('error ' + xhr.statusText));
+		}
+		
+		
+	};
+    xhr.onerror = () => {
+		reject(Error('network error ' + xhr.statusText));
+		
+		
+	};
+    xhr.send();
+  });
+};
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+function callback(str){
+	
+	let reg = new RegExp(/\n*<([^>]*)>\n*/g);
+	
+	let res = str.substring(str.indexOf('<tr>'), str.lastIndexOf('</tr>')+5);
+	
+	res = res.split('</tr>\n<tr>');
+	let f = res.shift();
+	
+	for(let i = 0; i < res.length; i++){
+		res[i] = res[i].split('</td>\n<td>');
+		res[i].splice(1,1);
+		[res[i][0], res[i][1], res[i][2]] = [res[i][0].replace(reg, ''), res[i][1].replace(reg, ''), res[i][2].replace(reg, '')]
+		if(res[i][1] === ''){
+			res[i].splice(1,1);
+		}
+		if(res[i][2] === ''){
+			res[i].splice(2);
+		}
+		res[i][1] = res[i][1].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
+	
+		res[i][1] = res[i][1].split(', ');
+		
+		if(res[i][2]){
+			res[i][2] = res[i][2].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
 			
-			for(let j = 1; j < y.length; j++){
-				nums.push(j);
+			res[i][2] = res[i][2].split(', ');
+			
+			res[i] = [res[i][0], ...res[i][1], ...res[i][2]];
+		} else {
+			res[i] = [res[i][0], ...res[i][1]];
+		}
+		
+		if(/(south )(?!(africa|korea|sudan))/gi.test(res[i][2])){
+			
+			res[i][3] = res[i][2].slice(22).replace(/south/i, 'S');;
+			res[i][2] = res[i][2].slice(0,13);
+			
+		}
+		
+		if(/british/i.test(res[i][3])){
+			
+			function abbrev(match){
+				return match[0].toUpperCase();
 			}
 			
+			res[i][3] = res[i][3].replace(/\w+ */gi, abbrev);
+			
 		}
 		
-		// console.log(nums, y);
-		
-		for(let i = 0; i < nums.length; i++){
-			// let spaces;
-			let opt = document.createElement('option');
-			opt.value = y[0] + ' ' + y[nums[i]];
+		if(/demo/i.test(res[i][5])){
 			
+			function abbrev(match, p1, p2, p3, p4, p5, string){
+				return p1[0].toUpperCase() + p2[0].toUpperCase() + ' ' + p5;
+			}
 			
-			// let spacesCount = 32 - (y[0].length + y[nums[i]].length);
+			res[i][5] = res[i][5].replace(/(\w+)\s(\w+)\s(\w+)\s(\w+)\s(\w+)/gi, abbrev);
 			
-			// if((y[0].length + y[nums[i]].length) < 32){
-				// spaces = '\u00A0\u00A0';
-			// } else {
-				// spaces = '\u00A0';
-			// }
-			
-			// spaces = '\u00A0'.repeat(spacesCount);
-			
-			let textAndValue = y[0] + '\u00A0\u00A0' + y[nums[i]];
-			// console.log(textAndValue.length);
-			opt.textContent = textAndValue;
-			// opt.style.textAlign = 'right';
-			timezoneSelect.appendChild(opt);
-		
-			// cnt++;
 		}
+	}
+	return res;
+}
 	
+	
+function createOption(x, element){
+	
+	let nums = [];
+	
+	y = new Set(x);
+	y = [...y];
+	
+	if(y.length > 6){
+		nums = getRands(5, y.slice(1).length, true);
+		
+	} else {
+		for(let j = 1; j < y.length; j++){
+			nums.push(j);
+		}
 	}
 	
-	
-	
-	function loadOptions(obj){
+	for(let i = 0; i < nums.length; i++){
+		let opt = document.createElement('option');
+		opt.value = y[0] + ' ' + y[nums[i]];
 		
-		// console.log(obj);
-		
-		obj.forEach(x => {
-			
-			createOption(x);
-			
-			
-		});
-		
-		// console.log(cnt);
-		
-		// timezoneSelect.addEventListener('change', function(e){
-			// this.style.background = 'none';
-		// });
-		
-		
+		let textAndValue = y[0] + '\u00A0\u00A0' + y[nums[i]];
+		opt.textContent = textAndValue;
+		element.appendChild(opt);
 	}
+}
 	
+function loadOptions(obj, timezoneSelect){
+	
+	obj.forEach(x => {
+		createOption(x, timezoneSelect);
+	});
+	
+	timezoneSelect.addEventListener('change', function(e){
+		console.log(this.selectedIndex, this.selectedOptions[0].textContent);
+	});
+}
+	
+// console.log(timezoneSelect.selectedIndex, timezoneSelect.selectedOptions[0].textContent);
 
 
-})();
+
+
+
+
+
 
 function getRands(element, element2, plusOne){
 	let len = element.length || element;
@@ -1411,17 +1314,9 @@ function makeClick(target){
 
 function restoreSettings(){
 	
-	
-	// console.log('run');
-	
-	
 	switches.forEach(switchDiv => {
 		
 		let settingValue = localStorage.getItem(switchDiv.dataset.setting);
-		
-		// if(!['on', 'off'].includes(settingValue)){
-			// timeValue = settingValue;
-		// }
 		
 		let isOnChecked = switchDiv.querySelectorAll('input')[0].checked === true;
 		
@@ -1441,7 +1336,72 @@ function restoreSettings(){
 	
 	degCount = 0;
 	
+	// console.log(timezoneSelect);
 	
+	let timezoneSelect = document.querySelector('.timezone select');
+	
+	
+	if(timezoneSelect.children.length < 2){
+	
+		
+		
+		m().then((response) => {
+		
+			let ppqq;
+			
+		
+		
+			ppqq = JSON.parse(response).parse.text['*'];
+		
+			let rfrf = callback(ppqq);
+		
+			loadOptions(rfrf, timezoneSelect);
+		
+		
+		
+			if(localStorage.length > 0){
+			
+			
+				let tz = localStorage.getItem('timezone');
+				
+				let tzI = parseInt(localStorage.getItem('tzIndex'), 10);
+				let tzs = timezoneSelect.children;
+				console.log(tz, tzI);
+				
+				if(tzs[tzI].textContent === tz){
+					console.log('match ');
+					tzs[tzI].selected = true;
+					
+					
+				} else {
+					for(let i = tzI - 5; i < tzI + 6; i++){
+						
+						if(tzs[i].textContent === tz){
+							console.log('match ');
+							tzs[i].selected = true;
+					
+					
+						}
+						
+						
+					}
+					
+					// add option here
+					
+					
+					
+					
+					
+					console.log('no match ', tzs[tzI]);
+				}
+			
+			}
+		
+		}, (Error) => {
+			console.log(Error);
+		});
+	
+	}
 	
 	
 	if(localStorage.length > 0){
@@ -1452,6 +1412,9 @@ function restoreSettings(){
 			makeClick(lineChartDial);
 			
 		}
+		
+		
+		
 	}
 	
 };
@@ -1476,6 +1439,15 @@ saveButton.addEventListener('click', function(e){
 		}
 		
 	});
+	
+	if(timezoneSelect.selectedIndex !== 0){
+		localStorage.setItem('timezone', timezoneSelect.selectedOptions[0].textContent);
+		
+		localStorage.setItem('tzIndex', timezoneSelect.selectedIndex.toString(10));
+	}
+	
+	
+	
 	
 	cancelButton.style.backgroundColor = '#B2B2B2';
 	cancelButton.disabled = true;
