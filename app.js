@@ -236,6 +236,13 @@ function loadOptions(obj, timezoneSelect){
 	
 	timezoneSelect.addEventListener('change', function(e){
 		console.log(this.selectedIndex, this.selectedOptions[0].textContent);
+		
+		cancelButton.disabled = false;
+		
+		cancelButton.style.backgroundColor = '#7377bf';
+		
+		
+		
 	});
 }
 	
@@ -1368,29 +1375,26 @@ function restoreSettings(){
 				let tzs = timezoneSelect.children;
 				console.log(tz, tzI);
 				
-				if(tzs[tzI].textContent === tz){
+				let tzarr = [...tzs].map(x => {
+					return x.textContent;
+				});
+				
+				if(tzarr.includes(tz)){
 					console.log('match ');
-					tzs[tzI].selected = true;
+					let thisInd = tzarr.indexOf(tz);
+					
+					tzs[thisInd].selected = true;
 					
 					
 				} else {
-					for(let i = tzI - 5; i < tzI + 6; i++){
-						
-						if(tzs[i].textContent === tz){
-							console.log('match ');
-							tzs[i].selected = true;
 					
-					
-						}
-						
-						
-					}
-					
-					// add option here
-					
-					
-					
-					
+					let opt = document.createElement('option');
+					opt.value = tz.replace(/\s(?=\s)/g, '');
+		
+					let textAndValue = tz;
+					opt.textContent = textAndValue;
+					timezoneSelect.insertBefore(opt, tzs[tzI]);
+					tzs[tzI].selected = true;
 					
 					console.log('no match ', tzs[tzI]);
 				}
@@ -1401,6 +1405,32 @@ function restoreSettings(){
 			console.log(Error);
 		});
 	
+	} else {
+		if(localStorage.length > 0){
+		
+			let tz = localStorage.getItem('timezone');
+			let tzI = parseInt(localStorage.getItem('tzIndex'), 10);
+			let tzs = timezoneSelect.children;
+			for(let i = tzI - 5; i < tzI + 6; i++){
+				if(i < 1){
+					i = 1;
+				}
+				if(i > tzs.length - 1){
+					i = tzs.length - 1;
+					
+				}
+				if(tzs[i].textContent === tz){
+					tzs[i].selected = true;
+					break;
+				}
+				
+			}
+		} else {
+			let tzs = timezoneSelect.children;
+			tzs[0].selected = true;
+			
+		}
+		
 	}
 	
 	
@@ -1419,7 +1449,7 @@ function restoreSettings(){
 	
 };
 
-
+let timezoneSelect = document.querySelector('.timezone select');
 
 saveButton.addEventListener('click', function(e){
 	
