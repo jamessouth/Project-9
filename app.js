@@ -315,6 +315,7 @@ function getRands(element, element2, plusOne){
 				} else {
 					console.log('problem 2');
 					whenDoneError();
+					listEventSetup();
 				}
 			}
 			
@@ -322,6 +323,7 @@ function getRands(element, element2, plusOne){
 		catch(e){
 			console.log('caught exception: ' + e.description);
 			whenDoneError();
+			listEventSetup();
 		}
 		
 	}
@@ -351,7 +353,7 @@ function getRands(element, element2, plusOne){
 				let firstName = ob[index].name.first.trim();
 				let lastName = ob[index].name.last.trim();
 				
-				// if(new RegExp(/æ/igm).test(firstName)){
+				// if(new RegExp(/^mac/igm).test(lastName)){
 					// console.log(firstName, lastName, index);
 				// }
 				
@@ -470,9 +472,22 @@ function getRands(element, element2, plusOne){
 			
 			recActivityDivs[i].querySelector('div > div > p:first-child').textContent = names[i];
 			
+			let listItem = document.createElement('li');
+			
+			listItem.textContent = names[i];	
+			
+			
+			userList.appendChild(listItem);
+			
 			newMembersDivs[i].querySelector('div > div > p:last-child').textContent = emails[i];
 			
 		}
+		
+		userListItems = document.querySelectorAll('.messages fieldset ul li');
+		
+		fff = userListItems;
+		numUsers = 4;
+		
 	}
 	
 // ----------------------------------------
@@ -784,7 +799,7 @@ function getRands(element, element2, plusOne){
 		if(this.value != ''){
 			this.setSelectionRange(0, this.value.length);
 			letters = [];
-			console.log(e);
+			// console.log(e);
 		}
 		
 		
@@ -844,7 +859,7 @@ function getRands(element, element2, plusOne){
 		
 		if(!mmm){
 		
-		
+		console.log(fff);
 		
 			// console.log(numUsers);
 		
@@ -872,7 +887,7 @@ function getRands(element, element2, plusOne){
 							i=theOne;
 							
 							
-							// console.log(fff[g], theOne, i);
+							
 						}
 					}
 					
@@ -1159,7 +1174,7 @@ function getRands(element, element2, plusOne){
 	});
 	
 	function listEventSetup(){
-	
+		
 		userListItems.forEach(li => {
 		
 			// nameArray.push(li.textContent.split(' '));
@@ -1373,14 +1388,14 @@ function restoreSettings(){
 				
 				let tzI = parseInt(localStorage.getItem('tzIndex'), 10);
 				let tzs = timezoneSelect.children;
-				console.log(tz, tzI);
+				// console.log(tz, tzI);
 				
 				let tzarr = [...tzs].map(x => {
 					return x.textContent;
 				});
 				
 				if(tzarr.includes(tz)){
-					console.log('match ');
+					// console.log('match ');
 					let thisInd = tzarr.indexOf(tz);
 					
 					tzs[thisInd].selected = true;
@@ -1396,7 +1411,7 @@ function restoreSettings(){
 					timezoneSelect.insertBefore(opt, tzs[tzI]);
 					tzs[tzI].selected = true;
 					
-					console.log('no match ', tzs[tzI]);
+					// console.log('no match ', tzs[tzI]);
 				}
 			
 			}
@@ -1415,10 +1430,10 @@ function restoreSettings(){
 				if(i < 1){
 					i = 1;
 				}
-				if(i > tzs.length - 1){
-					i = tzs.length - 1;
+				// if(i > tzs.length - 1){
+					// i = tzs.length - 1;
 					
-				}
+				// }
 				if(tzs[i].textContent === tz){
 					tzs[i].selected = true;
 					break;
