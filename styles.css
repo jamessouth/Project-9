@@ -291,7 +291,8 @@ div > header > nav ul li a:focus:not(.selected){
 	/* background-color: pink; */
 	display: flex;
 	justify-content: center;
-	
+	align-items: center;
+	margin-left: 0.5em;
 }
 
 .line-legend > ul li{
@@ -312,8 +313,8 @@ div > header > nav ul li a:focus:not(.selected){
 	margin-top: 1em;
 	position: relative;
 	display: flex;
-	justify-content: flex-end;
-	padding-right: 3%;
+	justify-content: space-around;
+	
 }
 
 .line-buttons > p{
@@ -1258,6 +1259,11 @@ body > div:last-of-type{
 		left: 14px;
 		top: 50%;
 		transform: translateY(-50%);
+	}
+	
+	.line-buttons{
+		justify-content: flex-end;
+		padding-right: 3%;
 	}
 
 }
