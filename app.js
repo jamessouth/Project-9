@@ -645,7 +645,14 @@ let degCount = 0;
 		let remPost;
 		let dateTime = '';
 		let postText = '';
-		let acts = ['commented', 'posted', 'liked a post', 'shared a post', 'tweeted a post', 'retweeted a post'];
+		let acts = [
+			'commented', 
+			'posted', 
+			'liked a post', 
+			'shared a post', 
+			'tweeted a post', 
+			'retweeted a post'
+		];
 		let posts = [
 			'SEO Tips',
 			'Facebook\'s Changes for 2017',
@@ -710,8 +717,8 @@ let degCount = 0;
 		let hidden = sb.parentNode.querySelector('.hidden');
 		sb.addEventListener('click', function(){
 			if(!flag){
-				actout.children[0].style.marginLeft = '0.5em';
-				actout.children[1].style.marginLeft = '0.5em';
+				// actout.children[0].style.marginLeft = '0.5em';
+				// actout.children[1].style.marginLeft = '0.5em';
 				actout.style.transform = 'translateX(-150%)';
 				actout.style.opacity = '0';
 				hidden.style.transform = 'translateX(25%)';
@@ -728,8 +735,8 @@ let degCount = 0;
 				hidden.style.transform = 'translateX(500%)';
 				hidden.style.opacity = '0';
 				window.setTimeout(function(){
-					actout.children[0].style.marginLeft = '0';
-					actout.children[1].style.marginLeft = '0';
+					// actout.children[0].style.marginLeft = '0';
+					// actout.children[1].style.marginLeft = '0';
 					sb.style.position = 'static';
 					sb.style.color = '#7377bf';
 					sb.style.left = 'auto';
