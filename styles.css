@@ -605,7 +605,7 @@ div > header > nav ul li a:focus:not(.selected){
 
 .new-members > div:first-of-type,
 .rec-activity > div:first-of-type{
-	padding-top: 1.5em;
+	margin-top: 1.5em;
 }
 
 .new-members > p,
@@ -629,7 +629,8 @@ div > header > nav ul li a:focus:not(.selected){
 
 .member,
 .activity{
-	margin: 1em 0;
+	margin: 1em 0 0 0;
+	height: 75px;
 	position: relative;
 	overflow: hidden;
 	display: flex;
@@ -637,11 +638,11 @@ div > header > nav ul li a:focus:not(.selected){
 	justify-content: flex-start;
 	align-items: center;
 	border-bottom: 1px solid #cecece;
-	padding-bottom: 1em;
+	/* padding-bottom: 1em; */
 }
 
 .activity{
-	padding-top: 1em;
+	/* padding-top: 1em; */
 }
 
 .mem-out,
@@ -660,6 +661,17 @@ div > header > nav ul li a:focus:not(.selected){
 	display: block;
 }
 
+.mem-out{
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.mem-out > div{
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: space-between;
+}
 
 
 .hidden{
@@ -699,48 +711,57 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: all 0.5s;
 }
 
-
-.mem-out > div > p:nth-of-type(2),
-.act-out > p:nth-of-type(2){
+div.mem-out > p{
 	color: #7377bf;
 	font-family: 'Josefin Slab', serif;
 	font-weight: 600;
 }
 
 .act-out > p:nth-of-type(2){
-	/* margin-left: 0.5em; */
 	color: #676666;
+	font-family: 'Josefin Slab', serif;
+	font-weight: 600;
 	transition: all 0.5s;
 }
 
-.mem-out > div > p:nth-of-type(2):hover{
+
+
+div.mem-out > p:hover{
 	text-decoration: underline;
 	cursor: pointer;
 }
 
 
-.mem-out > p{
+.mem-out > div > p:last-of-type{
 	font-family: 'Alegreya Sans', sans-serif;
 }
 
 
 
 .message_settings{
-	
-	
-	margin: 2em 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 2em;
+	/* padding-top: 2em; */
 	
 }
 
 .messages{
-	padding-bottom: 1em;
-	border-bottom: 1px solid #cecece;
+	
+	/* border-bottom: 1px solid #cecece; */
 	margin-bottom: 1em;
 	position: relative;
 	
 }
 
-
+.messages,
+.settings{
+	width: 100%;
+	padding-bottom: 1em;
+	padding-top: 1.5em;
+	border-bottom: 1px solid #cecece;
+}
 
 
 
@@ -773,12 +794,14 @@ div > header > nav ul li a:focus:not(.selected){
 .messages fieldset,
 .settings fieldset{
 	border: none;
-	margin-bottom: 5em;
+	max-width: 492px;
+	margin: 0 auto 5em;
 	
 }
 
 .messages fieldset{
-	margin-bottom: 1em;
+	margin: 0 auto 1em;
+	
 	position: relative;
 }
 
@@ -826,16 +849,17 @@ div > header > nav ul li a:focus:not(.selected){
 
 .messages legend,
 .settings legend{
+	margin: auto;
 	text-transform: uppercase;
 	font-family: 'Alegreya Sans', sans-serif;
-	padding-top: 1em;
+	padding-bottom: 1em;
 }
 
 .messages form,
 .settings form{
 	width: 90%;
 	margin: auto;
-	border-top: 1px solid #cecece;
+	/* border-top: 1px solid #cecece; */
 }
 
 .messages input[name="search"]{
@@ -846,7 +870,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans', sans-serif;
 	height: 45px;
 	width: 100%;
-	max-width: 492px;
+	
 	box-shadow: 0 0 0 1px #cecece;
 	background-color: #fbfbfb;
 	border: 3px solid transparent;
@@ -881,7 +905,7 @@ div > header > nav ul li a:focus:not(.selected){
 	outline: none;
 	resize: none;
 	width: 100%;
-	max-width: 492px;
+	/* max-width: 492px; */
 	color: #676666;
 	font-size: 18px;
 	font-family: 'Alegreya Sans', sans-serif;
@@ -924,7 +948,8 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 .messages button{
-	margin-top: 16px;
+	margin: 4.25em auto 0;
+	display: block;
 	max-width: 492px;
 }
 
@@ -1175,6 +1200,8 @@ div > header > nav ul li a:focus:not(.selected){
 .settings form > div{
 	position: relative;
 	display: flex;
+	max-width: 492px;
+	margin: auto;
 	justify-content: space-between;
 }
 
@@ -1218,7 +1245,7 @@ div > header > nav ul li a:focus:not(.selected){
 .timezone select{
 	outline: none;
 	width: 100%;
-	max-width: 492px;
+	/* max-width: 492px; */
 	background: url(downArrow.jpg) no-repeat 100%;
 	font-size: 17px;
 	font-family: 'Alegreya Sans', sans-serif;
@@ -1357,7 +1384,7 @@ body > div:last-of-type{
 		border-bottom: 1px solid #dfdfdf;
 		border-left: 1px solid #dfdfdf;
 	}
-	input[type="search"]{
+	.main-title input[type="search"]{
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
@@ -1385,21 +1412,26 @@ body > div:last-of-type{
 		width: 94%;
 	}
 	
-	.members_activity{
+	.members_activity,
+	.message_settings{
 	/* border-top: 1px solid #cecece; */
 	/* border-bottom: 1px solid #cecece; */
 	/* margin: 1em 0 0; */
 	/* display: flex; */
 		flex-direction: row;
-	/* align-items: center; */
+		align-items: flex-start;
 	}
 	
 	
-	.rec-activity{
+	.rec-activity,
+	.settings{
 		border-left: 1px solid #cecece;
 	
 	}
 	
+	.member{
+		/* padding-top: 1em; */
+	}
 	
 }
 
