@@ -629,7 +629,7 @@ let degCount = 0;
 
 (function(){   //recent activity section slide panels and mock content
 
-	const newMemberDates = document.querySelectorAll('.new-members .mem-out > p');
+	const newMemberDates = document.querySelectorAll('.new-members .mem-out > div > p:last-of-type');
 	const recentActivityTimes = document.querySelectorAll('.rec-activity .act-out > p:nth-of-type(2)');
 	const slideButtons = document.querySelectorAll('.rec-activity .activity > button');
 	const hiddenText = document.querySelectorAll('.hidden');
@@ -860,7 +860,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 (function(){   //get users via randomuser api, process and format, search, autocomplete and custom select menu functionality
 	let userListItems;
 	let fff;
-	let numUsers = 5;   // 5000 max
+	let numUsers = 500;   // 5000 max
 	let httpRequest;
 	let users;
 	let i = numUsers;
@@ -943,7 +943,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				recActNames.style.lineHeight = '21px';
 				recActNames.style.fontSize = '21px';
 			}
-			newMembersDivs[i].querySelector('div > div > p:last-child').textContent = userObs[i].email;
+			newMembersDivs[i].querySelector('div.mem-out > p').textContent = userObs[i].email;
 		}
 		userObs.forEach((u,i) => {
 			let listItem = document.createElement('li');
@@ -972,7 +972,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			let listItem = document.createElement('li');
 			listItem.textContent = names[i];	
 			userList.appendChild(listItem);
-			newMembersDivs[i].querySelector('div > div > p:last-child').textContent = emails[i];
+			newMembersDivs[i].querySelector('div.mem-out > p').textContent = emails[i];
 		}
 		userListItems = document.querySelectorAll('.messages fieldset ul li');
 		fff = userListItems;
