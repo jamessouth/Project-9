@@ -367,7 +367,7 @@ div > header > nav ul li a:focus:not(.selected){
 .bar-chart{
 	position: relative;
 	width: 96%;
-	margin: 1em auto;
+	margin: 3em auto;
 }
 
 .donut-chart{
@@ -385,7 +385,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans', sans-serif;
 	text-transform: uppercase;
 	left: 50%;
-	top: 2px;
+	top: 15px;
 	transform: translateX(-50%);
 	
 }
@@ -408,6 +408,7 @@ div > header > nav ul li a:focus:not(.selected){
 	width: 297px;
 	height: 297px;
 	margin: auto;
+	margin-top: 20px;
 	opacity: 0;
 	background: url("shadow2.jpg") no-repeat;
 	transition: opacity 0.5s linear;
@@ -454,7 +455,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans', sans-serif;
 	text-transform: uppercase;
 	left: 50%;
-	top: 2px;
+	top: 15px;
 	transform: translateX(-50%);
 }
 
@@ -463,7 +464,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-size: 16px;
 	position: absolute;
 	width: 40px;
-	top: 2px;
+	top: 15px;
 	right: 3%;
 	border: none;
 	background-color: transparent;
@@ -552,12 +553,12 @@ div > header > nav ul li a:focus:not(.selected){
 	justify-content: space-around;
 	align-items: center;
 	flex-wrap: wrap;
-	margin: 1em 0;
+	margin: 2em 0;
 }
 
 .social > p{
 	position: absolute;
-	top: -10px;
+	top: -20px;
 	left: 50%;
 	transform: translateX(-50%);
 	font-family: 'Alegreya Sans', sans-serif;
@@ -573,7 +574,7 @@ div > header > nav ul li a:focus:not(.selected){
 
 .members_activity{
 	border-top: 1px solid #cecece;
-	/* border-bottom: 1px solid #cecece; */
+	border-bottom: 1px solid #cecece;
 	margin: 1em 0 0;
 	display: flex;
 	flex-direction: column;
@@ -591,10 +592,14 @@ div > header > nav ul li a:focus:not(.selected){
 	align-items: center;
 	flex-direction: column;
 	padding-top: 1em;
-	border-bottom: 1px solid #cecece;
+	
 	padding-bottom: 1em;
 	width: 100%;
 	max-width: 554px;
+}
+
+.new-members{
+	border-bottom: 1px solid #cecece;
 }
 
 .new-members > div:last-child,
@@ -749,7 +754,7 @@ div.mem-out > p:hover{
 
 .messages{
 	
-	/* border-bottom: 1px solid #cecece; */
+	border-bottom: 1px solid #cecece;
 	margin-bottom: 1em;
 	position: relative;
 	
@@ -758,9 +763,9 @@ div.mem-out > p:hover{
 .messages,
 .settings{
 	width: 100%;
-	padding-bottom: 1em;
-	padding-top: 1.5em;
-	border-bottom: 1px solid #cecece;
+	padding: 1.5em 0 3em;
+	/* padding-top: 1.5em; */
+	/* border-bottom: 1px solid #cecece; */
 }
 
 
@@ -948,7 +953,7 @@ div.mem-out > p:hover{
 }
 
 .messages button{
-	margin: 4.25em auto 0;
+	margin: 2em auto 0;
 	display: block;
 	max-width: 492px;
 }
@@ -1290,7 +1295,7 @@ div.mem-out > p:hover{
 
 
 body > div:last-of-type{
-	padding-bottom: 20em;
+	/* padding-bottom: 20em; */
 }
 
 
@@ -1412,6 +1417,12 @@ body > div:last-of-type{
 		width: 94%;
 	}
 	
+	
+	
+	
+	
+	
+	
 	.members_activity,
 	.message_settings{
 	/* border-top: 1px solid #cecece; */
@@ -1419,6 +1430,7 @@ body > div:last-of-type{
 	/* margin: 1em 0 0; */
 	/* display: flex; */
 		flex-direction: row;
+		justify-content: center;
 		align-items: flex-start;
 	}
 	
@@ -1429,12 +1441,86 @@ body > div:last-of-type{
 	
 	}
 	
-	.member{
-		/* padding-top: 1em; */
+	.messages button{
+		margin-top: 4.22em;
 	}
+	
+	.new-members,
+	.messages{
+		border-bottom: none;
+		/* max-width: 50%; */
+	}
+	
+	
 	
 }
 
+@media screen and (min-width: 1024px){
+	
+	
+	.bar-chart,
+	.donut-chart{
+		margin-bottom: 0;
+		padding-bottom: 1em;
+	}
+	
+	.bar_donut{
+		flex-direction: row;
+	}
+	
+	.bar_donut > button{
+		left: 45%;
+	}
+	
+	.bar_donut > p:first-of-type{
+		left: 8%;
+	}
+	
+	.donut-chart > span{
+		left: 25%;
+		
+	}
+	
+	.social > p{
 
+		left: 7%;
+		
+	
+	}
+	
+	
+	
+	
+	
+	.donut-chart{
+		border-left: 1px solid #cecece;
+		border-top: none;
+	}
+	
+	.dough{
+		display: flex;
+		flex-direction: row;
+	}
+	
+	.dough,
+	.bar-chart{
+		width: 50%;
+	}
+	
+	.donut-legend > ul{
+		flex-direction: column;
+		justify-content: space-evenly;
+		height: 100%;
+		margin-right: 50px;
+		/* width: 180px; */
+	}
+	
+	.bar-chart{
+		margin-left: 3px;
+		margin-right: -3px;
+	}
+	
+	
+}
 
 
