@@ -395,6 +395,7 @@ let degCount = 0;
 					}]
 				},
 				options: {
+					// responsive: false,
 					tooltips: {
 						displayColors: false,
 						callbacks: {

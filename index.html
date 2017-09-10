@@ -61,9 +61,9 @@
 			<nav>
 				<ul>
 					<li><a class="selected" href="#"><img src="icons/icon-dashboard.svg" alt="dashboard link"></a></li>
-					<li><a href="#"><img src="icons/icon-members.svg" alt="members link"></a></li>
-					<li><a href="#"><img src="icons/icon-visits.svg" alt="visits link"></a></li>
-					<li><a href="#"><img src="icons/icon-settings.svg" alt="settings link"></a></li>
+					<li><a href="#members"><img src="icons/icon-members.svg" alt="members link"></a></li>
+					<li><a href="#visits"><img src="icons/icon-visits.svg" alt="visits link"></a></li>
+					<li><a href="#settings"><img src="icons/icon-settings.svg" alt="settings link"></a></li>
 				</ul>
 			</nav>
 		</header>
@@ -79,7 +79,7 @@
 			
 			<div class="alert-div"><p><span>Alert</span>&nbsp;&nbsp;&nbsp;area not initially displayed. click here to eat a burger and fries tomorrow morning for dinner.</p><button>x</button></div>
 			
-			<div class="line-buttons">
+			<div id="visits" class="line-buttons">
 				<p>traffic</p>
 				<button class="line-selected">Hourly</button>
 				<button>Daily</button>
@@ -104,13 +104,15 @@
 					<canvas></canvas>
 				</div>
 				
-				<div class="donut-chart">
-					<span>mobile users</span>
-					<p></p>
-					<canvas></canvas>
-				</div>
+				<div class="dough">
+					<div class="donut-chart">
+						<span>mobile users</span>
+						<p></p>
+						<canvas></canvas>
+					</div>
 				
-				<div class="donut-legend"></div>
+					<div class="donut-legend"></div>
+				</div>
 				
 			</div>
 			
@@ -176,7 +178,7 @@
 			
 			
 			
-			<div class="members_activity">
+			<div id="members" class="members_activity">
 			
 			
 				<div class="new-members">
@@ -283,7 +285,7 @@
 				
 			</div>
 			
-			<div class="message_settings">
+			<div id="settings" class="message_settings">
 			
 				<div class="messages">
 				
@@ -477,7 +479,7 @@
 		</main>
 	
 	</div>
-	<div></div>
+	<!-- <div></div> -->
 	<script src="app.js"></script>
   </body>
 </html>
