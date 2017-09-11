@@ -60,10 +60,10 @@
 		<header>
 			<nav>
 				<ul>
-					<li><a class="selected" href="#"><img src="icons/icon-dashboard.svg" alt="dashboard link"></a></li>
-					<li><a href="#members"><img src="icons/icon-members.svg" alt="members link"></a></li>
-					<li><a href="#visits"><img src="icons/icon-visits.svg" alt="visits link"></a></li>
-					<li><a href="#settings"><img src="icons/icon-settings.svg" alt="settings link"></a></li>
+					<li data-tip="Dashboard" class="tooltip"><a class="selected" href="#"><img src="icons/icon-dashboard.svg" alt="dashboard link"></a></li>
+					<li data-tip="Members" class="tooltip"><a href="#members"><img src="icons/icon-members.svg" alt="members link"></a></li>
+					<li data-tip="Visits" class="tooltip"><a href="#visits"><img src="icons/icon-visits.svg" alt="visits link"></a></li>
+					<li data-tip="Settings" class="tooltip"><a href="#settings"><img src="icons/icon-settings.svg" alt="settings link"></a></li>
 				</ul>
 			</nav>
 		</header>
@@ -285,7 +285,7 @@
 				
 			</div>
 			
-			<div id="settings" class="message_settings">
+			<div class="message_settings">
 			
 				<div class="messages">
 				
@@ -325,7 +325,7 @@
 				
 				
 				
-				<div class="settings">
+				<div id="settings" class="settings">
 					<form>
 						<fieldset>
 							<legend>settings</legend>
