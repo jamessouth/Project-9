@@ -2,6 +2,11 @@ if(window.performance.navigation.type === 2){  //navigation from the browser's b
 	window.location.reload();
 };
 
+
+
+
+
+
 const cancelButton = document.querySelector('.settings form > div button:last-of-type');
 const settingsDiv = document.getElementsByClassName('settings')[0];
 const switches = settingsDiv.querySelectorAll('[data-setting]');
