@@ -54,7 +54,7 @@ let degCount = 0;
 			let app = this.childNodes[0].getAttribute('alt').split(' ')[0];
 			app = app[0].toUpperCase() + app.substring(1);
 			appName.textContent = app;
-		});
+		});		
 	});
 })();
 
@@ -866,7 +866,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 (function(){   //get users via randomuser api, process and format, search, autocomplete and custom select menu functionality
 	let userListItems;
 	let fff;
-	let numUsers = 500;   // 5000 max
+	let numUsers = 5;   // 5000 max
 	let httpRequest;
 	let users;
 	let i = numUsers;

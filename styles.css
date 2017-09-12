@@ -155,13 +155,15 @@ div > header{
 	z-index: 111;
 }
 
-.tooltip{
+.tooltip, .tooltip2{
 	position: relative;
 	
 }
 
 .tooltip:before,
-.tooltip:after{
+.tooltip:after,
+.tooltip2:before,
+.tooltip2:after{
 	position: absolute;
 	left: 50%;
 	opacity: 0;
@@ -171,40 +173,43 @@ div > header{
 .tooltip:hover:before,
 .tooltip:focus:before,
 .tooltip:hover:after,
-.tooltip:focus:after{
+.tooltip:focus:after,
+.tooltip2:hover:before,
+.tooltip2:focus:before,
+.tooltip2:hover:after,
+.tooltip2:focus:after{
 	opacity: 1;
 	z-index: 100;
 	
 }
 
 
-.tooltip:before{
+.tooltip:before,
+.tooltip2:before{
 	border-style: solid;
 	border-width: 0 5px 10px 5px;
-	border-color: transparent transparent #fcf76a transparent;
-	right: 42px;
-	left: 42px;
+	border-color: transparent transparent #81c98f transparent;
+	/* right: 42px; */
+	/* left: 33px; */
 	bottom: -6px;
 	/* margin-right: -1.75em; */
 	content: "";
 }
 
-.tooltip:after{
-	background: #fcf76a;
+.tooltip:after,
+.tooltip2:after{
+	background: #81c98f;
+	font-family: 'Alegreya Sans SC', sans-serif;
 	border-radius: .25em;
-	left: 7px;
-	color: black;
-	width: 4.5em;
-	bottom: -26px;
-	padding: .25em;
+	left: 0;
+	color: #fff;
+	width: 89px;
+	bottom: -32px;
+	padding: .25em 0;
 	/* margin-right: -11em; */
 	content: attr(data-tip);
 	text-align: center;
 }
-
-
-
-
 
 div > header > nav > ul{
 	height: 39px;
@@ -1352,6 +1357,15 @@ div.mem-out > p:hover{
 
 body > div:last-of-type{
 	/* padding-bottom: 20em; */
+}
+
+
+@media screen and (max-width: 400px){
+	
+	.tooltip2:after{
+		left: -18px;
+	}
+	
 }
 
 
