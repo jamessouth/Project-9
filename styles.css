@@ -166,8 +166,9 @@ div > header{
 .tooltip2:after{
 	position: absolute;
 	left: 50%;
-	opacity: 0;
-	z-index: -100;
+	/* opacity: 0; */
+	/* z-index: -100; */
+	display: none;
 }
 
 .tooltip:hover:before,
@@ -178,8 +179,9 @@ div > header{
 .tooltip2:focus:before,
 .tooltip2:hover:after,
 .tooltip2:focus:after{
-	opacity: 1;
-	z-index: 100;
+	/* opacity: 1; */
+	/* z-index: 100; */
+	display: block;
 	
 }
 
@@ -188,7 +190,7 @@ div > header{
 .tooltip2:before{
 	border-style: solid;
 	border-width: 0 5px 10px 5px;
-	border-color: transparent transparent #81c98f transparent;
+	border-color: transparent transparent #fff176 transparent;
 	/* right: 42px; */
 	/* left: 33px; */
 	bottom: -6px;
@@ -198,18 +200,21 @@ div > header{
 
 .tooltip:after,
 .tooltip2:after{
-	background: #81c98f;
+	background: #fff176;
 	font-family: 'Alegreya Sans SC', sans-serif;
+	border: 1px dashed #7377bf;
 	border-radius: .25em;
 	left: 0;
-	color: #fff;
-	width: 89px;
+	color: #7377bf;
+	width: 87px;
 	bottom: -32px;
 	padding: .25em 0;
 	/* margin-right: -11em; */
 	content: attr(data-tip);
 	text-align: center;
 }
+
+
 
 div > header > nav > ul{
 	height: 39px;
@@ -647,7 +652,7 @@ div > header > nav ul li a:focus:not(.selected){
 
 .new-members,
 .rec-activity{
-	position: relative;
+	/* position: relative; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -656,7 +661,7 @@ div > header > nav ul li a:focus:not(.selected){
 	
 	padding-bottom: 1em;
 	width: 100%;
-	max-width: 554px;
+	
 }
 
 .new-members{
@@ -676,10 +681,10 @@ div > header > nav ul li a:focus:not(.selected){
 
 .new-members > p,
 .rec-activity > p{
-	position: absolute;
-	top: 20px;
-	left: 50%;
-	transform: translateX(-50%);
+	/* position: absolute; */
+	/* top: 20px; */
+	/* left: 50%; */
+	/* transform: translateX(-50%); */
 	font-family: 'Alegreya Sans', sans-serif;
 	text-transform: uppercase;
 	
@@ -704,6 +709,7 @@ div > header > nav ul li a:focus:not(.selected){
 	justify-content: flex-start;
 	align-items: center;
 	border-bottom: 1px solid #cecece;
+	max-width: 492px;
 	/* padding-bottom: 1em; */
 }
 
@@ -1360,10 +1366,15 @@ body > div:last-of-type{
 }
 
 
-@media screen and (max-width: 400px){
+
+@media screen and (max-width: 399px){
 	
 	.tooltip2:after{
 		left: -18px;
+	}
+	
+	#visits:target > p{
+		top: 67px;
 	}
 	
 }
@@ -1396,6 +1407,35 @@ body > div:last-of-type{
 	}
 
 }
+
+@media screen and (min-width: 400px) and (max-width: 767px){
+	#visits:target > p{
+		top: 54px;
+	}
+	
+}
+
+@media screen and (max-width: 767px){
+
+
+
+	#members:target{
+		padding-top: 20px;
+	}
+
+	#settings:target{
+		padding-top: 41px;
+	}
+	
+	#visits:target{
+		padding-top: 41px;
+	}
+
+	
+	
+}
+
+
 
 @media screen and (min-width: 768px){
 
@@ -1510,7 +1550,7 @@ body > div:last-of-type{
 	/* margin: 1em 0 0; */
 	/* display: flex; */
 		flex-direction: row;
-		justify-content: center;
+		justify-content: space-around;
 		align-items: flex-start;
 	}
 	
@@ -1599,6 +1639,23 @@ body > div:last-of-type{
 		margin-left: 3px;
 		margin-right: -3px;
 	}
+	
+	
+	.new-members > p,
+	.rec-activity > p{
+	
+		width: 88.8%;
+		max-width: 492px;
+	
+	
+	}
+	
+	.messages legend,
+	.settings legend{
+		margin: 0;
+	
+	}
+	
 	
 	
 }
