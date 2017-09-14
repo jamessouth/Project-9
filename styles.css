@@ -13,6 +13,11 @@
 	text-decoration: none;
 }
 
+body > header > div > button:focus,
+.alert-div > button:focus{
+	outline-color: yellow;
+}
+
 body > header{
 	height: 70px;
 	background-color: #7477BF;
@@ -462,7 +467,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Josefin Slab', serif;
 	font-size: 22px;
 	white-space: pre;
-	bottom: 50%;
+	bottom: 45%;
 	left: 50%;
 	transform: translateY(50%) translateX(-50%);
 
@@ -510,7 +515,12 @@ div > header > nav ul li a:focus:not(.selected){
 }
 
 
-
+.donut-legend > ul li:focus{
+	padding: 0 10px;
+	display: flex;
+	align-items: center;
+	font-family: 'Alegreya Sans', sans-serif;
+}
 
 
 
@@ -549,7 +559,7 @@ div > header > nav ul li a:focus:not(.selected){
 	border-radius: 4px;
 	/* width: 100%; */
 	width: 329px;
-	margin: 1em auto;
+	margin: 1em 0;
 }
 
 
@@ -619,12 +629,12 @@ div > header > nav ul li a:focus:not(.selected){
 	justify-content: space-around;
 	align-items: center;
 	flex-wrap: wrap;
-	margin: 2em 0;
+	margin: 3em 0 2em;
 }
 
 .social > p{
 	position: absolute;
-	top: -20px;
+	top: -26px;
 	left: 50%;
 	transform: translateX(-50%);
 	font-family: 'Alegreya Sans', sans-serif;
@@ -676,7 +686,7 @@ div > header > nav ul li a:focus:not(.selected){
 
 .new-members > div:first-of-type,
 .rec-activity > div:first-of-type{
-	margin-top: 1.5em;
+	/* margin-top: 1.5em; */
 }
 
 .new-members > p,
@@ -685,6 +695,7 @@ div > header > nav ul li a:focus:not(.selected){
 	/* top: 20px; */
 	/* left: 50%; */
 	/* transform: translateX(-50%); */
+	padding-top: 0.5em;
 	font-family: 'Alegreya Sans', sans-serif;
 	text-transform: uppercase;
 	
@@ -1420,16 +1431,17 @@ body > div:last-of-type{
 
 
 	#members:target{
-		padding-top: 20px;
+		padding-top: 16px;
 	}
 
-	#settings:target{
-		padding-top: 41px;
-	}
-	
+	#settings:target,
 	#visits:target{
 		padding-top: 41px;
 	}
+	
+	/* #visits:target{ */
+		/* padding-top: 41px; */
+	/* } */
 
 	
 	
@@ -1608,6 +1620,9 @@ body > div:last-of-type{
 	
 	}
 	
+	.donut-chart > p{
+		bottom: 50%;
+	}
 	
 	
 	
