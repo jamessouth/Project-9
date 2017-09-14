@@ -110,6 +110,7 @@ let degCount = 0;
 	donutChart = new Chart(donutChartCtx, donut);
 	
 	let swappedColor;
+	let swappedColor2;
 
 	window.setTimeout(function(){
 		donutChartCanvas.style.opacity = '1';
@@ -521,6 +522,9 @@ let degCount = 0;
 							let miniDiv = document.createElement('div');
 							let color = colors[i];
 							let li = document.createElement('li');
+							
+							li.setAttribute("tabindex", "0");
+							
 							let p = document.createElement('p');
 							miniDiv.style.width = '26px';
 							miniDiv.style.height = '26px';
@@ -571,13 +575,32 @@ let degCount = 0;
 			let toolTipText = donut.data.labels[liIndex] + ':\n' + dataPoint + '\n' + `(${(Math.round((dataSet[liIndex] / sum)*10000))/100}%)`;
 			donutChartP.textContent = toolTipText;
 			donutChart.update();
-		}),
+		});
 		li.addEventListener('mouseleave', (e) => {
 			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
 			donut.data.datasets[0].backgroundColor[liIndex] = swappedColor;
 			donutChartP.textContent = '';
 			donutChart.update();
-		})
+		});
+		
+		li.addEventListener('focus', (e) => {
+			console.log(e.hasOwnProperty('originalEvent'));
+			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
+			swappedColor2 = donut.data.datasets[0].backgroundColor[liIndex];
+			donut.data.datasets[0].backgroundColor[liIndex] = donut.data.datasets[0].hoverBackgroundColor[liIndex];
+			let dataSet = donut.data.datasets[0].data;
+			let dataPoint = dataSet[liIndex].toLocaleString();
+			let sum = dataSet.reduce((a,b) => {return a+b;},0);
+			let toolTipText = donut.data.labels[liIndex] + ':\n' + dataPoint + '\n' + `(${(Math.round((dataSet[liIndex] / sum)*10000))/100}%)`;
+			donutChartP.textContent = toolTipText;
+			donutChart.update();
+		});
+		li.addEventListener('blur', (e) => {
+			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
+			donut.data.datasets[0].backgroundColor[liIndex] = swappedColor2;
+			donutChartP.textContent = '';
+			donutChart.update();
+		});
 	});
 	
 	let lineChartDefault;
