@@ -109,9 +109,6 @@ let degCount = 0;
 	let donut = chartFactory('doughnut', 'days', 3, 'dddd', 24);
 	donutChart = new Chart(donutChartCtx, donut);
 	
-	let swappedColor;
-	let swappedColor2;
-
 	window.setTimeout(function(){
 		donutChartCanvas.style.opacity = '1';
 	}, 500);
@@ -149,6 +146,10 @@ let degCount = 0;
 	donut.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
 	donutChart.update();
 	makeLegend(donutChart, donutLegendDiv);
+	
+	let donutLightColors = [donut.data.datasets[0].backgroundColor[0], donut.data.datasets[0].backgroundColor[1], donut.data.datasets[0].backgroundColor[2]];
+	
+	let donutDarkColors = [donut.data.datasets[0].hoverBackgroundColor[0], donut.data.datasets[0].hoverBackgroundColor[1], donut.data.datasets[0].hoverBackgroundColor[2]];
 	
 	const legItems = donutLegendDiv.querySelectorAll('ul li');
 	
@@ -567,8 +568,7 @@ let degCount = 0;
 	legItems.forEach(li => {
 		li.addEventListener('mouseenter', (e) => {
 			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
-			swappedColor = donut.data.datasets[0].backgroundColor[liIndex];
-			donut.data.datasets[0].backgroundColor[liIndex] = donut.data.datasets[0].hoverBackgroundColor[liIndex];
+			donut.data.datasets[0].backgroundColor[liIndex] = donutDarkColors[liIndex];
 			let dataSet = donut.data.datasets[0].data;
 			let dataPoint = dataSet[liIndex].toLocaleString();
 			let sum = dataSet.reduce((a,b) => {return a+b;},0);
@@ -578,16 +578,13 @@ let degCount = 0;
 		});
 		li.addEventListener('mouseleave', (e) => {
 			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
-			donut.data.datasets[0].backgroundColor[liIndex] = swappedColor;
+			donut.data.datasets[0].backgroundColor[liIndex] = donutLightColors[liIndex];
 			donutChartP.textContent = '';
 			donutChart.update();
 		});
-		
 		li.addEventListener('focus', (e) => {
-			console.log(e.hasOwnProperty('originalEvent'));
 			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
-			swappedColor2 = donut.data.datasets[0].backgroundColor[liIndex];
-			donut.data.datasets[0].backgroundColor[liIndex] = donut.data.datasets[0].hoverBackgroundColor[liIndex];
+			donut.data.datasets[0].backgroundColor[liIndex] = donutDarkColors[liIndex];
 			let dataSet = donut.data.datasets[0].data;
 			let dataPoint = dataSet[liIndex].toLocaleString();
 			let sum = dataSet.reduce((a,b) => {return a+b;},0);
@@ -597,7 +594,7 @@ let degCount = 0;
 		});
 		li.addEventListener('blur', (e) => {
 			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
-			donut.data.datasets[0].backgroundColor[liIndex] = swappedColor2;
+			donut.data.datasets[0].backgroundColor[liIndex] = donutLightColors[liIndex];
 			donutChartP.textContent = '';
 			donutChart.update();
 		});
@@ -899,6 +896,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 	const userSearchBox = document.querySelector('.messages input');
 	const userList = document.querySelector('.messages fieldset ul');
 	const sendButton = document.querySelector('.messages button');
+	const messagesSection = document.querySelector('.messages');
 	const userMessageBox = document.querySelector('.messages textarea');
 	const errorMessage = document.querySelector('.messages form > p');
 	document.addEventListener('DOMContentLoaded', makeRequest);
@@ -1297,6 +1295,8 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		});
 	}
 	sendButton.addEventListener('click', function(e){
+		messagesSection.scrollIntoView();
+		window.scrollBy(0,-39);
 		errorMessage.style.display = 'block';
 		if(userSearchBox.value === ''){
 			errorMessage.textContent = 'Both fields required';
