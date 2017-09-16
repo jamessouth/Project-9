@@ -98,7 +98,7 @@ body > header > div > span{
 	width: 250px;
 	top: 55px;
 	left: -136px;
-	z-index: 11;
+	z-index: 200;
 	border-radius: 4px;
 	/* border: 2px solid #4d4c72; */
 	box-shadow: 12px 14px 15px 3px #1c0000;
@@ -889,7 +889,7 @@ div.mem-out > p:hover{
 }
 
 .messages fieldset ul{
-	max-height: 350px;
+	max-height: 250px;
 	overflow: auto;
 	z-index: 55;
 	display: none;
