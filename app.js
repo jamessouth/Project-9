@@ -1165,7 +1165,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 						}
 					}
 				};
-				if(window.scrollY + window.innerHeight/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
+				if(window.scrollY + 39 + (window.innerHeight - 39)/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 					userList.style.top = '100px';
 					userList.style.bottom = '';
 				} else {
@@ -1296,14 +1296,16 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 	}
 	sendButton.addEventListener('click', function(e){
 		messagesSection.scrollIntoView();
-		window.scrollBy(0,-39);
+		if(window.innerWidth < 768){
+			window.scrollBy(0,-39);
+		}
 		errorMessage.style.display = 'block';
 		if(userSearchBox.value === ''){
 			errorMessage.textContent = 'Both fields required';
 			userSearchBox.focus();
 		} else if(userMessageBox.value === ''){
 			errorMessage.textContent = 'Both fields required';
-			userMessageBox.focus();
+			// userMessageBox.focus();
 		} else {
 			errorMessage.style.top = '35px';
 			errorMessage.textContent = 'Your message has been sent!';
