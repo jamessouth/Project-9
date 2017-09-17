@@ -76,7 +76,7 @@ body > header > div > button:hover{
 }
 
 body > header > div > span{
-	display: none;
+	/* display: none; */
 	position: absolute;
 	color: #85DB81;
 	font-size: 55px;
@@ -867,7 +867,7 @@ div.mem-out > p:hover{
 	font-family: 'uppereastsideregular';
 	font-size: 90px;
 	color: #fff;
-	
+	z-index: 56;
 	
 	transition: all 1.5s;
 	
@@ -907,7 +907,7 @@ div.mem-out > p:hover{
 }
 
 .messages fieldset ul li{
-	padding: 0.1em 0.2em;
+	padding: 2px 4px;
 	/* margin: 0.15em 0; */
 	color: #000;
 	/* background-color: #fbfbfb; */
