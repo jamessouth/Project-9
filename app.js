@@ -18,6 +18,7 @@ let degCount = 0;
 
 (function(){    //alert bell icon
 	const alertBell = document.querySelector('body > header > div > button');
+	const alertLight = document.querySelector('body > header > div > span');
 	const triangle = document.querySelector('.triangle');
 	const dropdown = document.querySelector('.dropdown');
 	alertBell.addEventListener('click', showAlerts);
@@ -33,7 +34,7 @@ let degCount = 0;
 
 	function hideAlerts(e){
 		if(!dropdown.contains(e.target)){
-			
+			alertLight.style.display = 'none';
 			triangle.style.display = 'none';
 			dropdown.style.display = 'none';
 			alertBell.addEventListener('click', showAlerts);
@@ -76,10 +77,10 @@ let degCount = 0;
 	const lineTypes = document.querySelectorAll('.line-buttons button');
 	const lineChartCtx = document.querySelector('.line-chart > canvas:nth-of-type(1)').getContext('2d');
 	const lineLegendDiv = document.querySelector('.line-legend');
-	let hourLine = chartFactory('line', 'hours', 23, `H:00  MMM D`, 1);
+	let hourLine = chartFactory('line', 'hours', 22, `H:00  MMM D`, 1);
 	let dayLine = chartFactory('line', 'days', 21, `MMM D`, 24);
 	let weekLine = chartFactory('line', 'weeks', 21, `MMM D`, 24*7);
-	let monthLine = chartFactory('line', 'months', 23, `MMM YYYY`, 24*7*4.34);
+	let monthLine = chartFactory('line', 'months', 21, `MMM YYYY`, 24*7*4.34);
 	lineTypesArray.push(hourLine);
 	lineTypesArray.push(dayLine);
 	lineTypesArray.push(weekLine);
@@ -174,7 +175,7 @@ let degCount = 0;
 
 	function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultiplier){
 
-		let ptRadius = 3;
+		let ptRadius = 4;
 		let easingStyles = ['linear', 'easeOutBounce','easeOutBack', 'easeInOutElastic', 'easeOutCirc', 'easeOutSine', 'easeOutQuint', 'easeOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutExpo'];
 	
 		let info = function labelAndDataFactory(){
@@ -610,11 +611,11 @@ let degCount = 0;
 	makeLegend(lineChart, lineLegendDiv);
 	makeClick(lineTypes[lineChartDefault]);
 	
-	let barChartAutoplayTurnedOn = localStorage.autoplay === 'on';
-	if(barChartAutoplayTurnedOn){
-		dailyTrafficButton.innerHTML = 'pause';
-	} else {
+	let barChartAutoplayTurnedOff = localStorage.autoplay === 'off';
+	if(barChartAutoplayTurnedOff){
 		dailyTrafficButton.innerHTML = 'play';
+	} else {
+		dailyTrafficButton.innerHTML = 'pause';
 	};
 	
 	let timer = null;
@@ -630,7 +631,7 @@ let degCount = 0;
 	};
 	
 	function start(){
-		timer = setTimeout(nextChart, 1500);
+		timer = setTimeout(nextChart, 3000);
 	};
 	
 	function stop(){
@@ -647,9 +648,11 @@ let degCount = 0;
 		}
 	});
 	
-	// if(barChartAutoplayTurnedOn){
-		// start();
-	// }
+	start();
+	
+	if(barChartAutoplayTurnedOff){
+		stop();
+	}
 	
 })();
 
@@ -1349,7 +1352,7 @@ function restoreSettings(){   //restore settings from localStorage on load, relo
 			ppqq = JSON.parse(response).parse.text['*'];
 			let rfrf = callback(ppqq);
 			loadOptions(rfrf, timezoneSelect);
-			if(localStorage.length > 0){
+			if(localStorage.length > 0 && localStorage.timezone){
 				let tz = localStorage.getItem('timezone');
 				let tzI = parseInt(localStorage.getItem('tzIndex'), 10);
 				let tzs = timezoneSelect.children;
@@ -1522,118 +1525,4 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 document.addEventListener('DOMContentLoaded', function(){
 	restoreSettings();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// roy lichtenstein
-// function drawErrorMsg(){
-	// errorCanvasCtx.beginPath();
-	// errorCanvasCtx.moveTo(10,40);
-	// errorCanvasCtx.bezierCurveTo(30,40, 40,30, 40,10);
-	// errorCanvasCtx.bezierCurveTo(60,40, 80,30, 80,10);
-	// errorCanvasCtx.bezierCurveTo(85,30, 80,20, 90,10);
-	// errorCanvasCtx.bezierCurveTo(110,40, 140,30, 130,10);
-	// errorCanvasCtx.bezierCurveTo(150,30, 160,20, 190,8);
-	// errorCanvasCtx.bezierCurveTo(170,40, 170,70, 190,80);
-	// errorCanvasCtx.bezierCurveTo(170,80, 165,90, 185,100);
-	// errorCanvasCtx.bezierCurveTo(160,90, 150,100, 155,118);
-	// errorCanvasCtx.bezierCurveTo(150,100, 140,110, 135,120);
-	// errorCanvasCtx.bezierCurveTo(125,110, 120,125, 130,130);
-	// errorCanvasCtx.bezierCurveTo(110,120, 115,130, 120,140);
-	// errorCanvasCtx.bezierCurveTo(110,130, 100,110, 95,148);
-	// errorCanvasCtx.bezierCurveTo(80,120, 90,130, 75,143);
-	// errorCanvasCtx.bezierCurveTo(70,110, 50,130, 45,135);
-	// errorCanvasCtx.bezierCurveTo(40,120, 20,110, 25,140);
-	// errorCanvasCtx.bezierCurveTo(20,130, 18,120, 8,145);
-	// errorCanvasCtx.bezierCurveTo(15,120, 10,100, 5,110);
-	// errorCanvasCtx.bezierCurveTo(16,90, 15,80, 10,65);
-	// errorCanvasCtx.bezierCurveTo(22,40, 18,60, 10,40);
-	// errorCanvasCtx.fillStyle = '#81C98F';
-	// errorCanvasCtx.fill();
-	// errorCanvasCtx.lineWidth = '3';
-	// errorCanvasCtx.strokeStyle = '#28252E';
-	// errorCanvasCtx.stroke();
-	
-	
-	// errorCanvasCtx.beginPath();
-	// errorCanvasCtx.moveTo(40,65);
-	// errorCanvasCtx.bezierCurveTo(50,60, 60,50, -8,-30);
-	// errorCanvasCtx.bezierCurveTo(70,40, 70,50, 98,50);
-	// errorCanvasCtx.bezierCurveTo(140,60, 150,50, 178,-80);
-	// errorCanvasCtx.bezierCurveTo(150,60, 150,75, 218,60);
-	// errorCanvasCtx.bezierCurveTo(140,90, 130,110, 168,150);
-	// errorCanvasCtx.bezierCurveTo(80,80, 100,70, 40,190);
-	// errorCanvasCtx.bezierCurveTo(90,85, 60,75, -28,130);
-	// errorCanvasCtx.bezierCurveTo(50,70, 60,70, -28,100);
-	// errorCanvasCtx.bezierCurveTo(30,70, 30,80, 40,65);
-	// errorCanvasCtx.fillStyle = '#cecece';
-	// errorCanvasCtx.fill();
-	// errorCanvasCtx.lineWidth = '2';
-	// errorCanvasCtx.strokeStyle = '#2C2821';
-	// errorCanvasCtx.stroke();
-	
-	
-	// errorCanvasCtx.beginPath();
-	// errorCanvasCtx.moveTo(35,45);
-	// errorCanvasCtx.lineTo(42,25);
-	// errorCanvasCtx.lineTo(50,30);
-	// errorCanvasCtx.lineTo(48,10);
-	// errorCanvasCtx.lineTo(71,45);
-	// errorCanvasCtx.lineTo(73,10);
-	// errorCanvasCtx.lineTo(98,43);
-	// errorCanvasCtx.lineTo(120,8);
-	// errorCanvasCtx.lineTo(125,40);
-	// errorCanvasCtx.lineTo(148,2);
-	// errorCanvasCtx.lineTo(155,32);
-	// errorCanvasCtx.lineTo(190,40);
-	// errorCanvasCtx.lineTo(158,90);
-	// errorCanvasCtx.lineTo(170,120);
-	// errorCanvasCtx.lineTo(158,110);
-	// errorCanvasCtx.lineTo(153,147);
-	// errorCanvasCtx.lineTo(143,100);
-	// errorCanvasCtx.lineTo(128,160);
-	// errorCanvasCtx.lineTo(130,115);
-	// errorCanvasCtx.lineTo(118,110);
-	// errorCanvasCtx.lineTo(105,150);
-	// errorCanvasCtx.lineTo(90,110);
-	// errorCanvasCtx.lineTo(80,150);
-	// errorCanvasCtx.lineTo(70,106);
-	// errorCanvasCtx.lineTo(50,140);
-	// errorCanvasCtx.lineTo(43,110);
-	// errorCanvasCtx.lineTo(38,146);
-	// errorCanvasCtx.lineTo(28,120);
-	// errorCanvasCtx.lineTo(16,140);
-	// errorCanvasCtx.lineTo(17,120);
-	// errorCanvasCtx.lineTo(8,124);
-	// errorCanvasCtx.lineTo(24,80);
-	// errorCanvasCtx.lineTo(4,72);
-	// errorCanvasCtx.lineTo(26,60);
-	// errorCanvasCtx.lineTo(20,30);
-	// errorCanvasCtx.closePath();
-	// errorCanvasCtx.fillStyle = '#7377bf';
-	// errorCanvasCtx.fill();
-	
-	// errorCanvasCtx.lineWidth = '3';
-	// errorCanvasCtx.strokeStyle = '#28252E';
-	// errorCanvasCtx.stroke();
-	
-// };
-
 
