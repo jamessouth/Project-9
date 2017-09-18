@@ -14,7 +14,8 @@
 }
 
 body > header > div > button:focus,
-.alert-div > button:focus{
+.alert-div > button:focus,
+.alert-div a:focus{
 	outline-color: yellow;
 }
 
@@ -329,6 +330,21 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans SC', sans-serif;
 	letter-spacing: 0.1em;
 }
+
+.alert-div a:link{
+	color: #fff176;
+}
+.alert-div a:visited{
+	color: #272b73;
+}
+.alert-div a:hover{
+	color: yellow;
+	text-decoration: underline;
+}
+.alert-div a:active{
+	color: transparent;
+}
+
 
 .line-chart{
 	position: relative;
