@@ -68,6 +68,10 @@ let degCount = 0;
 			alertDiv.style.lineHeight = '0px';
 			alertButton.style.height = '0px';
 		}, 1501);
+		window.setTimeout(() => {
+			alertDiv.children[0].style.display = 'none';
+			alertButton.style.display = 'none';
+		}, 3005);
 	});
 })();
 	
@@ -1375,7 +1379,7 @@ function restoreSettings(){   //restore settings from localStorage on load, relo
 			console.log(Error);
 		});
 	} else {
-		if(localStorage.length > 0){
+		if(localStorage.length > 0 && localStorage.timezone){
 			let tz = localStorage.getItem('timezone');
 			let tzI = parseInt(localStorage.getItem('tzIndex'), 10);
 			let tzs = timezoneSelect.children;
