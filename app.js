@@ -340,7 +340,7 @@ let degCount = 0;
 								callback: function(value){
 									if(value > 0){
 										if(value >= 1000000){
-											return value / 1000000 + 'MM';
+											return '   ' + value / 1000000 + 'm';
 										} else if(value >= 1000){
 											return value / 1000 + 'k';
 										} else{
@@ -360,7 +360,7 @@ let degCount = 0;
 								callback: function(value){
 									if(value > 0){
 										if(value >= 1000000){
-											return value / 1000000 + 'MM';
+											return value / 1000000 + 'm';
 										} else if(value >= 1000){
 											return value / 1000 + 'k';
 										} else{
@@ -453,7 +453,7 @@ let degCount = 0;
 								callback: function(value){
 									if(value > 0){
 										if(value >= 1000000){
-											return value / 1000000 + 'MM';
+											return '   ' + value / 1000000 + 'm';
 										} else if(value >= 1000){
 											return value / 1000 + 'k';
 										} else{
