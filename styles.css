@@ -13,8 +13,16 @@
 }
 body > header > div > button:focus,
 .alert-div > button:focus,
-.alert-div a:focus{
-	outline-color: yellow;
+.alert-div a:focus,
+div > header > nav ul li a:focus{
+	outline: 2px solid yellow;
+}
+.line-buttons > button:focus,
+.bar_donut > button:focus,
+.donut-legend > ul li:focus,
+div.mem-out > p:focus,
+.rec-activity .activity > button:focus{
+	outline: 2px solid blue;
 }
 body > header{
 	height: 70px;
@@ -593,7 +601,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans SC', sans-serif;
 	color: #7377bf;
 	font-size: 33px;
-	transition: all 1s initial 0.5s;
+	transition: all 1s ease-out 0.5s, color 0.4s ease;
 }
 .rec-activity .activity > button:hover{
 	color: #ff0000;
@@ -890,7 +898,7 @@ div.mem-out > p:hover{
 .email_notify input[name="email_notify"]:after,
 .public_profile input[name="public_profile"]:after,
 .barchart_autoplay input[name="barchart_autoplay"]:after{
-	content: " ";
+	content: "4";
 	position: absolute;
 	top: -12px;
 	right: -10px;
@@ -1214,6 +1222,9 @@ div.mem-out > p:hover{
 	}
 	.bar-chart{
 		margin-left: 3px;
+		
+		/* 5 */
+		
 		margin-right: -3px;
 	}
 	.new-members > p,
