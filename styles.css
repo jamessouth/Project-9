@@ -15,14 +15,14 @@ body > header > div > button:focus,
 .alert-div > button:focus,
 .alert-div a:focus,
 div > header > nav ul li a:focus{
-	outline: 2px solid yellow;
+	outline: 2px solid #fff176;
 }
 .line-buttons > button:focus,
 .bar_donut > button:focus,
 .donut-legend > ul li:focus,
 div.mem-out > p:focus,
 .rec-activity .activity > button:focus{
-	outline: 2px solid blue;
+	outline: 2px solid #7377bf;
 }
 body > header{
 	height: 70px;
@@ -595,13 +595,22 @@ div > header > nav ul li a:focus:not(.selected){
 	transition: transform 0.7s cubic-bezier(0.68,-0.02, 0.79, 0.75) 0.05s, opacity 0.3s ease-in-out 0.5s;
 }
 .rec-activity .activity > button{
+	margin-right: 2px;
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
 	font-family: 'Alegreya Sans SC', sans-serif;
 	color: #7377bf;
 	font-size: 33px;
-	transition: all 1s ease-out 0.5s, color 0.4s ease;
+	transition: position 1s ease-out 0.5s, left 1s ease-out 0.5s, color 0.25s ease;
+}
+.leftside{
+	position: absolute;
+	left: 45px;
+}
+.rightside{
+	position: static;
+	left: auto;
 }
 .rec-activity .activity > button:hover{
 	color: #ff0000;
@@ -829,6 +838,14 @@ div.mem-out > p:hover{
 	border-radius: 50%;
 	border: 1px solid #969ae2;
 }
+
+.email_notify input[name="email_notify"],
+.public_profile input[name="public_profile"],
+.barchart_autoplay input[name="barchart_autoplay"],
+.linechart_default input[name="linechart_default"]{
+	-moz-appearance: none;
+}
+
 .email_notify input[name="email_notify"],
 .public_profile input[name="public_profile"],
 .barchart_autoplay input[name="barchart_autoplay"],
@@ -898,7 +915,7 @@ div.mem-out > p:hover{
 .email_notify input[name="email_notify"]:after,
 .public_profile input[name="public_profile"]:after,
 .barchart_autoplay input[name="barchart_autoplay"]:after{
-	content: "4";
+	content: " ";
 	position: absolute;
 	top: -12px;
 	right: -10px;
@@ -1221,11 +1238,8 @@ div.mem-out > p:hover{
 		margin-right: 50px;
 	}
 	.bar-chart{
-		margin-left: 3px;
-		
-		/* 5 */
-		
-		margin-right: -3px;
+		margin-left: 5px;
+		margin-right: -5px;
 	}
 	.new-members > p,
 	.rec-activity > p{
