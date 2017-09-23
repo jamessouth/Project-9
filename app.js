@@ -1,9 +1,51 @@
 if(window.performance.navigation.type === 2){  //navigation from the browser's back button, reload allows the settings saved in localStorage to load properly
 	window.location.reload();
 };
+// if(window.NodeList && !NodeList.prototype.forEach){  //polyfill from the MDN for NodeList.forEach(), which is not supported in MS Edge
+    // NodeList.prototype.forEach = function(callback, thisArg){
+        // thisArg = thisArg || window;
+        // for (var i = 0; i < this.length; i++) {
+            // callback.call(thisArg, this[i], i, this);
+        // }
+    // };
+// }
 
 
-console.log(window.InputEvent.prototype.hasOwnProperty('data'));
+
+// console.log(window.InputEvent.prototype.hasOwnProperty('data'));
+
+
+if(window.InputEvent && !window.InputEvent.prototype.hasOwnProperty('data')){
+	console.log('nope');
+	
+	window.InputEvent.prototype.data = null;
+	
+	// (function(){
+		
+		
+		
+		// return 'a';
+		
+	// })();
+	
+	
+	
+	
+	
+	
+} else {
+	console.log('got it');
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -46,7 +88,7 @@ let degCount = 0;
 (function(){   //nav links
 	const links = document.querySelectorAll('div > header li a');
 	const appName = document.querySelector('div > main > div:first-child > h1');
-	Array.from(links).forEach(li => {
+	links.forEach(li => {
 		li.addEventListener('click', function(){
 			for(let i = 0; i < links.length; i++){
 				links[i].classList.remove('selected');
@@ -158,7 +200,7 @@ let degCount = 0;
 	
 	const legItems = donutLegendDiv.querySelectorAll('ul li');
 	
-	Array.from(lineTypes).forEach(li => {
+	lineTypes.forEach(li => {
 		li.addEventListener('click', function(){
 			for(let i = 0; i < lineTypes.length; i++){
 				lineTypes[i].classList.remove('line-selected');
@@ -570,7 +612,7 @@ let degCount = 0;
 		}
 	}
 
-	Array.from(legItems).forEach(li => {
+	legItems.forEach(li => {
 		li.addEventListener('mouseenter', (e) => {
 			let liIndex = Array.from(e.target.parentNode.children).indexOf(e.target);
 			donut.data.datasets[0].backgroundColor[liIndex] = donutDarkColors[liIndex];
@@ -744,7 +786,7 @@ let degCount = 0;
 
 	makeDatesAndTimes(newMemberDates, recentActivityTimes, hiddenText);
 
-	Array.from(slideButtons).forEach(sb => {
+	slideButtons.forEach(sb => {
 		let flag = false;
 		let actout = sb.parentNode.querySelector('.act-out');
 		let hidden = sb.parentNode.querySelector('.hidden');
@@ -859,7 +901,7 @@ function createOption(x, element){   //create options for select menu
 }
 	
 function loadOptions(obj, timezoneSelect){  //load time zone options in select menu
-	Array.from(obj).forEach(x => {
+	obj.forEach(x => {
 		createOption(x, timezoneSelect);
 	});
 	timezoneSelect.addEventListener('change', function(e){
@@ -888,7 +930,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 (function(){   //get users via randomuser api, process and format, search, autocomplete and custom select menu functionality
 	let userListItems;
 	let fff;
-	let numUsers = 5;   // 5000 max
+	let numUsers = 500;   // 5000 max
 	let httpRequest;
 	let users;
 	let i = numUsers;
@@ -974,7 +1016,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			}
 			newMembersDivs[i].querySelector('div.mem-out > p').textContent = userObs[i].email;
 		}
-		Array.from(userObs).forEach((u,i) => {
+		userObs.forEach((u,i) => {
 			let listItem = document.createElement('li');
 			let listItemName = getName(userObs,false,i);
 			listItem.textContent = listItemName();
@@ -1036,7 +1078,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 	let hideUserListNoFocus = hideUserList(false);
 	let hideUserListChangeFocus = hideUserList(true);
 	function selectUser(){
-		Array.from(userListItems).forEach(li => {
+		userListItems.forEach(li => {
 			if(li.hasAttribute('id')){
 				userSearchBox.value = li.textContent;
 				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(li.textContent)){
@@ -1054,14 +1096,26 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		});
 	};
 	let mmm = false;
-	let letterEntered;
 	let letters = [];
 	userSearchBox.addEventListener('keydown', function(e){
 		
-		// if(new RegExp(/^\w$/).test(e.key)){
-			// letterEntered = e.key;
-		// }
-		// console.log(letterEntered);
+		
+		
+		
+		if(new RegExp(/^[A-Za-z ]$/).test(e.key)){
+			window.InputEvent.prototype.data = e.key.toLowerCase();
+		} else {
+			window.InputEvent.prototype.data = null;
+		}
+		
+		
+		
+		// console.log(e);
+		
+		
+		
+		
+		
 		
 		if(e.keyCode == 37 || e.keyCode == 39){
 			e.preventDefault();
@@ -1070,15 +1124,13 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			mmm = true;
 			letters = [];
 			userList.scrollTop = 0;
-			// console.log(this, e.keyCode);
-			
 			this.value = '';
 		}
 		if(e.keyCode == 8){
 			letters.pop();
 			if(letters.length == 0){
 				this.value = '';
-				Array.from(userListItems).forEach(na => {
+				userListItems.forEach(na => {
 					na.style.display = 'list-item';
 					na.classList.remove('hid');
 					na.removeAttribute('id');
@@ -1122,11 +1174,16 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 	});
 	let rest, thisName;
 	userSearchBox.addEventListener('input', function(e){
+		// console.log('input');
 		if(e.data){
 			letters.push(e.data.toLowerCase());
 		}
+		
+		console.log(e.data, letters);
+		
+		
 		userList.scrollTop = 0;
-		Array.from(userListItems).forEach(na => {
+		userListItems.forEach(na => {
 			na.removeAttribute('id');
 			if(!na.textContent.toLowerCase().startsWith(letters.join('').toLowerCase())){
 				na.style.display = 'none';
@@ -1152,9 +1209,10 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		letters = [];
 	});
 	userSearchBox.addEventListener('keyup', function(e){
+		// console.log('up');
 		if(e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27){
 			if(e.keyCode == 27){
-				Array.from(userListItems).forEach(na => {
+				userListItems.forEach(na => {
 					na.style.display = 'list-item';
 					na.classList.remove('hid');
 					na.innerHTML = na.textContent;
@@ -1179,7 +1237,6 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 					}
 				};
 				if(window.scrollY + 39 + (window.innerHeight - 39)/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
-					// userList.style.top = '100px';
 					userList.style.bottom = '';
 				} else {
 					userList.style.bottom = '213px';
@@ -1280,9 +1337,9 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		}
 	});
 	function listEventSetup(){
-		Array.from(userListItems).forEach(li => {
+		userListItems.forEach(li => {
 			li.addEventListener('mouseenter', function(e){
-				Array.from(fff).forEach(li => {
+				fff.forEach(li => {
 					li.removeAttribute('id');
 				});
 				i = Array.from(fff).indexOf(this) + numUsers;
@@ -1324,7 +1381,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		messagesSection.focus();
 		errorMessage.style.textShadow = '1px 1px #000, 2px 2px #000, 3px 2px 1px #0d0d0d, 5px 3px 1px #1a1a1a, 7px 4px 1px #262626, 9px 5px 1px #333333, 11px 6px 1px #404040, 13px 7px 1px #4d4d4d, 15px 8px 1px #595959, 17px 9px 1px #666666, 19px 10px 1px #737373, 21px 11px 1px #808080, 23px 12px 1px #8c8c8c, 25px 13px 1px #999999, 27px 14px 1px #a6a6a6, 29px 15px 1px #b3b3b3, 31px 16px 1px #bfbfbf, 33px 17px 1px #cccccc, 35px 18px 1px #d9d9d9, 37px 19px 1px #e6e6e6, 39px 20px 1px #f2f2f2';
 		letters = [];
-		Array.from(userListItems).forEach(na => {
+		userListItems.forEach(na => {
 			na.style.display = 'list-item';
 			na.classList.remove('hid');
 			na.innerHTML = na.textContent;
@@ -1342,7 +1399,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 })();
 
 function restoreSettings(){   //restore settings from localStorage on load, reload or back button from another website
-	Array.from(switches).forEach(switchDiv => {
+	switches.forEach(switchDiv => {
 		let settingValue = localStorage.getItem(switchDiv.dataset.setting);
 		let isOnChecked = switchDiv.querySelectorAll('input')[0].checked === true;
 		if(!isOnChecked){
@@ -1462,7 +1519,7 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 	dialSwitch(lineChartDial, pointer, lineChartDialRadios);
 	let timezoneSelect = document.querySelector('.timezone select');
 	saveButton.addEventListener('click', function(e){
-		Array.from(switches).forEach(div => {
+		switches.forEach(div => {
 			let locStoKey = div.dataset.setting;
 			let locStoVal = div.querySelector('input:checked').value;
 			localStorage.setItem(locStoKey, locStoVal);
