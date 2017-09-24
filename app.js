@@ -1,54 +1,11 @@
 if(window.performance.navigation.type === 2){  //navigation from the browser's back button, reload allows the settings saved in localStorage to load properly
 	window.location.reload();
 };
-// if(window.NodeList && !NodeList.prototype.forEach){  //polyfill from the MDN for NodeList.forEach(), which is not supported in MS Edge
-    // NodeList.prototype.forEach = function(callback, thisArg){
-        // thisArg = thisArg || window;
-        // for (var i = 0; i < this.length; i++) {
-            // callback.call(thisArg, this[i], i, this);
-        // }
-    // };
-// }
-
-
-
-// console.log(window.InputEvent.prototype.hasOwnProperty('data'));
-
-
-if(window.InputEvent && !window.InputEvent.prototype.hasOwnProperty('data')){
-	console.log('nope');
-	
+let ffx = false;
+if(!window.InputEvent.prototype.hasOwnProperty('data')){  //this check along with the first if block in the keydown listener at line 1055 are a polyfill i wrote to enable the data feature of the InputEvent in Firefox
+	ffx = true;
 	window.InputEvent.prototype.data = null;
-	
-	// (function(){
-		
-		
-		
-		// return 'a';
-		
-	// })();
-	
-	
-	
-	
-	
-	
-} else {
-	console.log('got it');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 const cancelButton = document.querySelector('.settings form > div button:last-of-type');
 const settingsDiv = document.getElementsByClassName('settings')[0];
 const switches = settingsDiv.querySelectorAll('[data-setting]');
@@ -930,7 +887,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 (function(){   //get users via randomuser api, process and format, search, autocomplete and custom select menu functionality
 	let userListItems;
 	let fff;
-	let numUsers = 500;   // 5000 max
+	let numUsers = 5;   // 5000 max
 	let httpRequest;
 	let users;
 	let i = numUsers;
@@ -1098,25 +1055,11 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 	let mmm = false;
 	let letters = [];
 	userSearchBox.addEventListener('keydown', function(e){
-		
-		
-		
-		
 		if(new RegExp(/^[A-Za-z ]$/).test(e.key)){
 			window.InputEvent.prototype.data = e.key.toLowerCase();
 		} else {
 			window.InputEvent.prototype.data = null;
 		}
-		
-		
-		
-		// console.log(e);
-		
-		
-		
-		
-		
-		
 		if(e.keyCode == 37 || e.keyCode == 39){
 			e.preventDefault();
 		}
@@ -1174,14 +1117,9 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 	});
 	let rest, thisName;
 	userSearchBox.addEventListener('input', function(e){
-		// console.log('input');
 		if(e.data){
 			letters.push(e.data.toLowerCase());
 		}
-		
-		console.log(e.data, letters);
-		
-		
 		userList.scrollTop = 0;
 		userListItems.forEach(na => {
 			na.removeAttribute('id');
@@ -1399,6 +1337,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 })();
 
 function restoreSettings(){   //restore settings from localStorage on load, reload or back button from another website
+console.log('called');
 	switches.forEach(switchDiv => {
 		let settingValue = localStorage.getItem(switchDiv.dataset.setting);
 		let isOnChecked = switchDiv.querySelectorAll('input')[0].checked === true;
@@ -1558,9 +1497,6 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 			if(e.target.tagName === 'LABEL'){
 				e.preventDefault();
 			}
-			
-			// safari?????????????
-			
 			if(e.isTrusted){
 				cancelButton.disabled = false;
 				cancelButton.style.backgroundColor = '#7377bf';
@@ -1589,7 +1525,8 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 
 })();
 
-document.addEventListener('DOMContentLoaded', function(){
-	restoreSettings();
-});
+restoreSettings();
 
+if(ffx){  //for some unknown reason in Firefox the on/off switches don't load properly in every other page load....???  so calling it again to make it consistent with chrome/opera
+	restoreSettings();
+}
