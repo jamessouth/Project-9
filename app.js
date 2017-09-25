@@ -1,4 +1,4 @@
-if(window.performance.navigation.type === 2){  //navigation from the browser's back button, reload allows the settings saved in localStorage to load properly
+if(window.performance.navigation.type === 2){  //navigation from the browser's back button, reload allows the settings saved in localStorage to load properly when loading from local files in chrome/opera, but not firefox. could be my settings.
 	window.location.reload();
 };
 let ffx = false;
@@ -256,7 +256,7 @@ let degCount = 0;
 						pointDiv.style.borderRadius = '6px';
 						let li = document.createElement('li');
 						let p = document.createElement('p');
-						p.textContent = 'Users per ' + timeUnits.substring(0, timeUnits.length - 1);
+						p.textContent = 'Users per ' + timeUnits.substring(0, timeUnits.length - 1) + ' (lhs)';
 						li.appendChild(pointDiv);
 						li.appendChild(p);
 						ul.appendChild(li);
@@ -1337,7 +1337,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 })();
 
 function restoreSettings(){   //restore settings from localStorage on load, reload or back button from another website
-console.log('called');
+
 	switches.forEach(switchDiv => {
 		let settingValue = localStorage.getItem(switchDiv.dataset.setting);
 		let isOnChecked = switchDiv.querySelectorAll('input')[0].checked === true;

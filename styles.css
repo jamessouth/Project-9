@@ -714,10 +714,15 @@ div.mem-out > p:hover{
 }
 .messages legend,
 .settings legend{
-	margin: auto;
+	width: 100%;
+	padding-bottom: 1em;
+}
+.messages legend div,
+.settings legend div{
 	text-transform: uppercase;
 	font-family: 'Alegreya Sans', sans-serif;
-	padding-bottom: 1em;
+	display: flex;
+	justify-content: center;
 }
 .messages form,
 .settings form{
@@ -838,14 +843,12 @@ div.mem-out > p:hover{
 	border-radius: 50%;
 	border: 1px solid #969ae2;
 }
-
 .email_notify input[name="email_notify"],
 .public_profile input[name="public_profile"],
 .barchart_autoplay input[name="barchart_autoplay"],
 .linechart_default input[name="linechart_default"]{
 	-moz-appearance: none;
 }
-
 .email_notify input[name="email_notify"],
 .public_profile input[name="public_profile"],
 .barchart_autoplay input[name="barchart_autoplay"],
@@ -1190,6 +1193,11 @@ div.mem-out > p:hover{
 	.messages button{
 		margin-top: 4.22em;
 	}
+	@-moz-document url-prefix(){
+		.messages button{
+			margin-top: 4.33em;
+		}
+	}
 	.new-members,
 	.messages{
 		border-bottom: none;
@@ -1246,8 +1254,8 @@ div.mem-out > p:hover{
 		width: 88.8%;
 		max-width: 492px;
 	}
-	.messages legend,
-	.settings legend{
-		margin: 0;
+	.messages legend div,
+	.settings legend div{
+		justify-content: flex-start;
 	}
 }
