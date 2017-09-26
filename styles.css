@@ -83,7 +83,7 @@ body > header > div > span{
 }
 @keyframes blink{
 	0%{color: #85db81;}
-	100%{color: #64ff5c;}
+	100%{color: #ff005c;}
 }
 .dropdown{
 	display: none;
@@ -714,15 +714,10 @@ div.mem-out > p:hover{
 }
 .messages legend,
 .settings legend{
-	width: 100%;
-	padding-bottom: 1em;
-}
-.messages legend div,
-.settings legend div{
 	text-transform: uppercase;
 	font-family: 'Alegreya Sans', sans-serif;
-	display: flex;
-	justify-content: center;
+	margin: auto;
+	padding-bottom: 1em;
 }
 .messages form,
 .settings form{
@@ -848,11 +843,6 @@ div.mem-out > p:hover{
 .barchart_autoplay input[name="barchart_autoplay"],
 .linechart_default input[name="linechart_default"]{
 	-moz-appearance: none;
-}
-.email_notify input[name="email_notify"],
-.public_profile input[name="public_profile"],
-.barchart_autoplay input[name="barchart_autoplay"],
-.linechart_default input[name="linechart_default"]{
 	position: absolute;
 	right: 14px;
 	top: 16px;
@@ -1254,8 +1244,8 @@ div.mem-out > p:hover{
 		width: 88.8%;
 		max-width: 492px;
 	}
-	.messages legend div,
-	.settings legend div{
-		justify-content: flex-start;
+	.messages legend,
+	.settings legend{
+		margin: 0;
 	}
 }

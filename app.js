@@ -1,8 +1,8 @@
 if(window.performance.navigation.type === 2){  //navigation from the browser's back button, reload allows the settings saved in localStorage to load properly when loading from local files in chrome/opera, but not firefox. could be my settings.
 	window.location.reload();
-};
+}
 let ffx = false;
-if(!window.InputEvent.prototype.hasOwnProperty('data')){  //this check along with the first if block in the keydown listener at line 1055 are a polyfill i wrote to enable the data feature of the InputEvent in Firefox
+if(!window.InputEvent.prototype.hasOwnProperty('data')){  //this check along with the first if block in the keydown listener at line 1055 are a 'polyfill' i wrote to enable the data feature of the InputEvent in Firefox
 	ffx = true;
 	window.InputEvent.prototype.data = null;
 }
@@ -29,7 +29,7 @@ let degCount = 0;
 			document.addEventListener('click', hideAlerts);
 			alertBell.removeEventListener('click', showAlerts);
 		}, 1);
-	};
+	}
 
 	function hideAlerts(e){
 		if(!dropdown.contains(e.target)){
@@ -38,8 +38,8 @@ let degCount = 0;
 			dropdown.style.display = 'none';
 			alertBell.addEventListener('click', showAlerts);
 			document.removeEventListener('click', hideAlerts);
-		};
-	};
+		}
+	}
 })();
 
 (function(){   //nav links
@@ -99,19 +99,18 @@ let degCount = 0;
 	barTypesArray.push(dayBar);
 	barTypesArray.push(weekBar);
 	barTypesArray.push(monthBar);
-	barChart = new Chart(barChartCtx, dayBar);
+	let barChart = new Chart(barChartCtx, dayBar);
 	
 	let donutCtrX;
 	let donutCtrY;
 	let donutInnerRadius;
-	let donutOuterRadius;
-	let gradientGreen;	
+	let donutOuterRadius;	
 	const donutChartCanvas = document.querySelector('.donut-chart > canvas');
 	const donutChartCtx = donutChartCanvas.getContext('2d');
 	const donutChartP = document.querySelector('.donut-chart > p');
 	const donutLegendDiv = document.querySelector('.donut-legend');
 	let donut = chartFactory('doughnut', 'days', 3, 'dddd', 24);
-	donutChart = new Chart(donutChartCtx, donut);
+	let donutChart = new Chart(donutChartCtx, donut);
 	
 	window.setTimeout(function(){
 		donutChartCanvas.style.opacity = '1';
@@ -121,28 +120,28 @@ let degCount = 0;
 	donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2)-7;
 	donutInnerRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.4879725)/2);
 	donutOuterRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.8797251)/2)+5;
-	gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+	let gradientBlue = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 	gradientBlue.addColorStop(0, '#286573');
 	gradientBlue.addColorStop(0.45, 'white');
 	gradientBlue.addColorStop(1, '#286573');
-	gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+	let gradientGreen = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 	gradientGreen.addColorStop(0, '#357D43');
 	gradientGreen.addColorStop(0.45, 'white');
 	gradientGreen.addColorStop(1, '#357D43');
-	gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+	let gradientPurple = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 	gradientPurple.addColorStop(0, '#272b73');
 	gradientPurple.addColorStop(0.45, 'white');
 	gradientPurple.addColorStop(1, '#272b73');
 	//-----------------------------------------------------------------------------
-	gradientBlue2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+	let gradientBlue2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 	gradientBlue2.addColorStop(0, '#286573');
 	gradientBlue2.addColorStop(0.45, '#e6e6e6');
 	gradientBlue2.addColorStop(1, '#0f4c5a');
-	gradientGreen2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+	let gradientGreen2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 	gradientGreen2.addColorStop(0, '#357d43');
 	gradientGreen2.addColorStop(0.45, '#e6e6e6');
 	gradientGreen2.addColorStop(1, '#1c642a');
-	gradientPurple2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
+	let gradientPurple2 = donutChartCtx.createRadialGradient(donutCtrX,donutCtrY,donutOuterRadius,donutCtrX,donutCtrY,donutInnerRadius);
 	gradientPurple2.addColorStop(0, '#272b73');
 	gradientPurple2.addColorStop(0.45, '#e6e6e6');
 	gradientPurple2.addColorStop(1, '#0e125a');
@@ -174,7 +173,7 @@ let degCount = 0;
 	function makeLegend(chart, div){
 		let chartLegend = chart.generateLegend();
 		div.appendChild(chartLegend);
-	};
+	}
 
 	function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultiplier){
 
@@ -527,9 +526,7 @@ let degCount = 0;
 							let miniDiv = document.createElement('div');
 							let color = colors[i];
 							let li = document.createElement('li');
-							
 							li.setAttribute("tabindex", "0");
-							
 							let p = document.createElement('p');
 							miniDiv.style.width = '26px';
 							miniDiv.style.height = '26px';
@@ -619,7 +616,7 @@ let degCount = 0;
 		dailyTrafficButton.innerHTML = 'play';
 	} else {
 		dailyTrafficButton.innerHTML = 'pause';
-	};
+	}
 	
 	let timer = null;
 	let cnt = 1;
@@ -631,15 +628,15 @@ let degCount = 0;
 		dailyTraffic.textContent = times[cnt % 3] + ' traffic';
 		cnt++;
 		start();
-	};
+	}
 	
 	function start(){
 		timer = setTimeout(nextChart, 3000);
-	};
+	}
 	
 	function stop(){
 		clearTimeout(timer);
-	};
+	}
 	
 	dailyTrafficButton.addEventListener('click', function(){
 		if(this.innerHTML === 'pause'){
@@ -678,11 +675,11 @@ let degCount = 0;
 		let dateTime = '';
 		let postText = '';
 		let acts = [
-			// 'commented', 
-			// 'posted', 
-			// 'liked a post', 
-			// 'shared a post', 
-			// 'tweeted a post', 
+			'commented', 
+			'posted', 
+			'liked a post', 
+			'shared a post', 
+			'tweeted a post', 
 			'retweeted a post'
 		];
 		let posts = [
@@ -713,7 +710,7 @@ let degCount = 0;
 			dateTime = '<p><span>' + newTi.format('M/D/YY') + ' at ' + newTi.format('HH:mm') + ' -> </span>';
 			if(action == 1){
 				remPost = post;
-			};
+			}
 			switch(action){
 				case 0: postText =  dateTime + 'commented on the post <span>' + posts[post] + '</span>: ' + comments[Math.round(rand * rand2 / 7) % comments.length] + '</p>';
 				break;
@@ -738,8 +735,8 @@ let degCount = 0;
 			hidText[i].lastChild.children[0].style.letterSpacing = '1px';
 			hidText[i].lastChild.children[1].style.textDecoration = 'underline';
 			hidText[i].lastChild.children[1].style.fontSize = '15px';
-		};
-	};
+		}
+	}
 
 	makeDatesAndTimes(newMemberDates, recentActivityTimes, hiddenText);
 
@@ -769,7 +766,7 @@ let degCount = 0;
 					
 				}, 1100);
 				flag = false;
-			};
+			}
 		});
 	});
 
@@ -791,9 +788,15 @@ function getTimeZones() {   //get time zones via wikipedia api
 	};
     xhr.send();
   });
-};
+}
 
 function callback(str){   //process time zone data
+	function abbrev(match){
+		return match[0].toUpperCase();
+	}
+	function abbrev2(match, p1, p2, p3, p4, p5, string){
+		return p1[0].toUpperCase() + p2[0].toUpperCase() + ' ' + p5;
+	}
 	let reg = new RegExp(/\n*<([^>]*)>\n*/g);
 	let res = str.substring(str.indexOf('<tr>'), str.lastIndexOf('</tr>')+5);
 	res = res.split('</tr>\n<tr>');
@@ -801,7 +804,7 @@ function callback(str){   //process time zone data
 	for(let i = 0; i < res.length; i++){
 		res[i] = res[i].split('</td>\n<td>');
 		res[i].splice(1,1);
-		[res[i][0], res[i][1], res[i][2]] = [res[i][0].replace(reg, ''), res[i][1].replace(reg, ''), res[i][2].replace(reg, '')]
+		[res[i][0], res[i][1], res[i][2]] = [res[i][0].replace(reg, ''), res[i][1].replace(reg, ''), res[i][2].replace(reg, '')];
 		if(res[i][1] === ''){
 			res[i].splice(1,1);
 		}
@@ -818,20 +821,14 @@ function callback(str){   //process time zone data
 			res[i] = [res[i][0], ...res[i][1]];
 		}
 		if(/(south )(?!(africa|korea|sudan))/gi.test(res[i][2])){
-			res[i][3] = res[i][2].slice(22).replace(/south/i, 'S');;
+			res[i][3] = res[i][2].slice(22).replace(/south/i, 'S');
 			res[i][2] = res[i][2].slice(0,13);
 		}
 		if(/british/i.test(res[i][3])){
-			function abbrev(match){
-				return match[0].toUpperCase();
-			}
 			res[i][3] = res[i][3].replace(/\w+ */gi, abbrev);
 		}
 		if(/demo/i.test(res[i][5])){
-			function abbrev(match, p1, p2, p3, p4, p5, string){
-				return p1[0].toUpperCase() + p2[0].toUpperCase() + ' ' + p5;
-			}
-			res[i][5] = res[i][5].replace(/(\w+)\s(\w+)\s(\w+)\s(\w+)\s(\w+)/gi, abbrev);
+			res[i][5] = res[i][5].replace(/(\w+)\s(\w+)\s(\w+)\s(\w+)\s(\w+)/gi, abbrev2);
 		}
 	}
 	return res;
@@ -839,7 +836,7 @@ function callback(str){   //process time zone data
 	
 function createOption(x, element){   //create options for select menu
 	let nums = [];
-	y = new Set(x);
+	let y = new Set(x);
 	y = [...y];
 	if(y.length > 6){
 		nums = getRands(5, y.slice(1).length, true);
@@ -887,7 +884,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 (function(){   //get users via randomuser api, process and format, search, autocomplete and custom select menu functionality
 	let userListItems;
 	let fff;
-	let numUsers = 5;   // 5000 max
+	let numUsers = 500;   // 5000 max
 	let httpRequest;
 	let users;
 	let i = numUsers;
@@ -955,12 +952,12 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 					flag = true;
 				}
 				return userName;
-			}
+			};
 		}
 		for(let i = 0; i < newMembersDivs.length; i++){
 			let nameForNewMembers = getName(userObs,false,i);
 			let nameForRecActivity = getName(userObs,true,i);
-			let recActNames = recActivityDivs[i].querySelector('div > div > p:first-child')
+			let recActNames = recActivityDivs[i].querySelector('div > div > p:first-child');
 			newMembersDivs[i].querySelector('img').src = userObs[i].picture.thumbnail;
 			recActivityDivs[i].querySelector('img').src = userObs[nums[i]].picture.thumbnail;
 			newMembersDivs[i].querySelector('div > div > p:first-child').textContent = nameForNewMembers();
@@ -1012,15 +1009,15 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		window.setTimeout(() => {
 			document.addEventListener('click', hideUserListOnClick);
 		}, 1);
-	};
+	}
 	function hideUserListOnClick(e){
 		if(!userList.contains(e.target)){
 			listShowing = false;
 			userList.style.display = 'none';
 			i=numUsers;
 			document.removeEventListener('click', hideUserListOnClick);
-		};
-	};
+		}
+	}
 	function hideUserList(cF){
 		return function(){
 			listShowing = false;
@@ -1031,7 +1028,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				userMessageBox.focus();
 			}
 		};
-	};
+	}
 	let hideUserListNoFocus = hideUserList(false);
 	let hideUserListChangeFocus = hideUserList(true);
 	function selectUser(){
@@ -1049,9 +1046,9 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 					userSearchBox.style.lineHeight = '24px';
 					userSearchBox.style.fontSize = '21px';
 				}
-			};
+			}
 		});
-	};
+	}
 	let mmm = false;
 	let letters = [];
 	userSearchBox.addEventListener('keydown', function(e){
@@ -1086,10 +1083,10 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		if(!listShowing){
 			if(e.shiftKey || e.keyCode == 9 || e.keyCode == 27){
 				return;
-			}; 
+			}
 			if([13,32,38,40].includes(e.keyCode)){
 				e.preventDefault();
-			};
+			}
 			if(userSearchBox.style.fontFamily === 'Amiri, serif'){
 				userSearchBox.style.fontFamily = '"Alegreya Sans", sans-serif';
 				userSearchBox.style.letterSpacing = '';
@@ -1102,17 +1099,17 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				hideUserListNoFocus();
 				letters = [];
 				return;
-			};
+			}
 			if(e.keyCode == 13){
 				e.preventDefault();
 				selectUser();
 				hideUserListChangeFocus();
 				letters = [];
 				return;
-			};
+			}
 			if([38,40].includes(e.keyCode)){
 				e.preventDefault();
-			};
+			}
 		}
 	});
 	let rest, thisName;
@@ -1147,7 +1144,9 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 		letters = [];
 	});
 	userSearchBox.addEventListener('keyup', function(e){
-		// console.log('up');
+		function caps(match){
+			return ' ' + match[1].toUpperCase();
+		}
 		if(e.keyCode == 16 || e.keyCode == 9 || e.keyCode == 27){
 			if(e.keyCode == 27){
 				userListItems.forEach(na => {
@@ -1161,7 +1160,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				this.value = '';
 			}
 			return;
-		}; 
+		}
 		if(!mmm){
 			if(!listShowing){
 				if([13,32,37,38,39,40].includes(e.keyCode)){
@@ -1173,7 +1172,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 							i=theOne;
 						}
 					}
-				};
+				}
 				if(window.scrollY + 39 + (window.innerHeight - 39)/2 > userSearchBox.offsetParent.offsetParent.offsetTop + userSearchBox.offsetParent.offsetTop + userSearchBox.offsetTop + userSearchBox.offsetHeight){
 					userList.style.bottom = '';
 				} else {
@@ -1194,27 +1193,24 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 						i--;
 					} else {
 						i++;
-					};
-				};
+					}
+				}
 				if(e.keyCode == 13){
 					e.preventDefault();
 					selectUser();
 					hideUserListChangeFocus();
 					return;
-				};
-			};
+				}
+			}
 			if(i < 1 || i > (numUsers * 2) - 1){
 				i=numUsers;
-			};
+			}
 			if(numUsers > 0){
 				fff[(i-1) % numUsers].removeAttribute('id');
 				fff[(i+1) % numUsers].removeAttribute('id');
 				if(!(e.keyCode == 8 && letters.length == 0)){
 					fff[i % numUsers].setAttribute('id', 'userselect');
 				}
-			}
-			function caps(match){
-				return ' ' + match[1].toUpperCase();
 			}
 			if(e.keyCode != 8){
 				if(fff.length > 0){
@@ -1268,7 +1264,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			if([38,40].includes(e.keyCode)){
 				let distFromTop = ((i % fff.length) * 28);
 				userList.scrollTop = distFromTop;
-			};
+			}
 		}
 		if(e.keyCode === 8 && this.value === ''){
 			userList.scrollTop = 0;
@@ -1315,7 +1311,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			errorMessage.textContent = 'Your message has been sent!';
 			userSearchBox.value = '';
 			userMessageBox.value = '';
-		};
+		}
 		messagesSection.focus();
 		errorMessage.style.textShadow = '1px 1px #000, 2px 2px #000, 3px 2px 1px #0d0d0d, 5px 3px 1px #1a1a1a, 7px 4px 1px #262626, 9px 5px 1px #333333, 11px 6px 1px #404040, 13px 7px 1px #4d4d4d, 15px 8px 1px #595959, 17px 9px 1px #666666, 19px 10px 1px #737373, 21px 11px 1px #808080, 23px 12px 1px #8c8c8c, 25px 13px 1px #999999, 27px 14px 1px #a6a6a6, 29px 15px 1px #b3b3b3, 31px 16px 1px #bfbfbf, 33px 17px 1px #cccccc, 35px 18px 1px #d9d9d9, 37px 19px 1px #e6e6e6, 39px 20px 1px #f2f2f2';
 		letters = [];
@@ -1405,29 +1401,29 @@ function restoreSettings(){   //restore settings from localStorage on load, relo
 			makeClick(lineChartDial);
 		}
 	}
-};
+}
 
 function makeClick(target){  //simulate a click to restore saved settings, there is also HTMLElement.click()
 	let clickEvent = new Event('click');
 	target.dispatchEvent(clickEvent);
-};
+}
 
 (function(){  //settings switches, save and cancel buttons
 	const emailOnLabel = document.querySelector('.email_notify label:first-of-type');
 	const emailOffLabel = document.querySelector('.email_notify label:last-of-type');
 	const emailSwitchDiv = document.querySelector('.email_notify div');
-	const emailRadioOn = document.querySelector('.email_notify input[id="on"]');
-	const emailRadioOff = document.querySelector('.email_notify input[id="off"]');
+	const emailRadioOn = document.querySelector('.email_notify input[id="on-email"]');
+	const emailRadioOff = document.querySelector('.email_notify input[id="off-email"]');
 	const profileOnLabel = document.querySelector('.public_profile label:first-of-type');
 	const profileOffLabel = document.querySelector('.public_profile label:last-of-type');
 	const profileSwitchDiv = document.querySelector('.public_profile div');
-	const profileRadioOn = document.querySelector('.public_profile input[id="on"]');
-	const profileRadioOff = document.querySelector('.public_profile input[id="off"]');
+	const profileRadioOn = document.querySelector('.public_profile input[id="on-profile"]');
+	const profileRadioOff = document.querySelector('.public_profile input[id="off-profile"]');
 	const autoplayOnLabel = document.querySelector('.barchart_autoplay label:first-of-type');
 	const autoplayOffLabel = document.querySelector('.barchart_autoplay label:last-of-type');
 	const autoplaySwitchDiv = document.querySelector('.barchart_autoplay div');
-	const autoplayRadioOn = document.querySelector('.barchart_autoplay input[id="on"]');
-	const autoplayRadioOff = document.querySelector('.barchart_autoplay input[id="off"]');
+	const autoplayRadioOn = document.querySelector('.barchart_autoplay input[id="on-autoplay"]');
+	const autoplayRadioOff = document.querySelector('.barchart_autoplay input[id="off-autoplay"]');
 	const saveMessage = document.querySelector('.settings form > div > p');
 	const saveButton = document.querySelector('.settings form > div button:first-of-type');
 	
@@ -1448,13 +1444,13 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 			if(e.isTrusted){
 				cancelButton.disabled = false;
 				cancelButton.style.backgroundColor = '#7377bf';
-			};
+			}
 			degCount += 1;
 			dir = degCount % degs.length;
 			ptr.style.transform = 'translateX(-50%) rotate(' + degs[dir] + 'deg)';
 			radios[dir].checked = true;
 		});
-	};
+	}
 	dialSwitch(lineChartDial, pointer, lineChartDialRadios);
 	let timezoneSelect = document.querySelector('.timezone select');
 	saveButton.addEventListener('click', function(e){
@@ -1500,7 +1496,7 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 			if(e.isTrusted){
 				cancelButton.disabled = false;
 				cancelButton.style.backgroundColor = '#7377bf';
-			};
+			}
 			if(switchFlag){
 				onLabel.style.display = 'none';
 				offLabel.style.display = 'block';
@@ -1517,7 +1513,7 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 				switchFlag = true;
 			}
 		});
-	};
+	}
 
 	switchClick(emailSwitchDiv, emailOnLabel, emailOffLabel, emailRadioOn, emailRadioOff);
 	switchClick(profileSwitchDiv, profileOnLabel, profileOffLabel, profileRadioOn, profileRadioOff);
@@ -1527,6 +1523,6 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 
 restoreSettings();
 
-if(ffx){  //for some unknown reason in Firefox the on/off switches don't load properly in every other page load....???  so calling it again to make it consistent with chrome/opera
+if(ffx){  //for some reason in Firefox the on/off switches don't load properly in every other page load....???  so calling it again to make it consistent with chrome/opera
 	restoreSettings();
 }
