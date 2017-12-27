@@ -842,13 +842,16 @@ div.mem-out > p:hover{
 .public_profile input[name="public_profile"],
 .barchart_autoplay input[name="barchart_autoplay"],
 .linechart_default input[name="linechart_default"]{
+	-webkit-appearance: none;
 	-moz-appearance: none;
+	appearance: none;
 	position: absolute;
 	right: 14px;
 	top: 16px;
 	width: 1px;
 	height: 1px;
 	outline: none;
+	border: none;
 }
 .linechart_default input[name="linechart_default"]:after{
 	font-family: 'Alegreya Sans SC', sans-serif;
