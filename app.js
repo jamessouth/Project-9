@@ -2,7 +2,7 @@ if(window.performance.navigation.type === 2){  //navigation from the browser's b
 	window.location.reload();
 }
 let ffx = false;
-if(!window.InputEvent.prototype.hasOwnProperty('data')){  //this check along with the first if block in the keydown listener at line 1055 are a 'polyfill' i wrote to enable the data feature of the InputEvent in Firefox
+if(!window.InputEvent.prototype.hasOwnProperty('data')){  //this check along with the first if block in the keydown listener at line 1047 are a 'polyfill' i wrote to enable the data feature of the InputEvent in Firefox
 	ffx = true;
 	window.InputEvent.prototype.data = null;
 }
@@ -54,7 +54,7 @@ let degCount = 0;
 			let app = this.childNodes[0].getAttribute('alt').split(' ')[0];
 			app = app[0].toUpperCase() + app.substring(1);
 			appName.textContent = app;
-		});		
+		});
 	});
 })();
 
@@ -73,7 +73,7 @@ let degCount = 0;
 		}, 3005);
 	});
 })();
-	
+
 (function(){   //charts
 	let lineChart;
 	let lineTypesArray = [];
@@ -88,7 +88,6 @@ let degCount = 0;
 	lineTypesArray.push(dayLine);
 	lineTypesArray.push(weekLine);
 	lineTypesArray.push(monthLine);
-
 	let barTypesArray = [];
 	const barChartCtx = document.querySelector('.bar-chart > canvas').getContext('2d');
 	const dailyTraffic = document.querySelector('.bar_donut > p:first-of-type');
@@ -100,22 +99,19 @@ let degCount = 0;
 	barTypesArray.push(weekBar);
 	barTypesArray.push(monthBar);
 	let barChart = new Chart(barChartCtx, dayBar);
-	
 	let donutCtrX;
 	let donutCtrY;
 	let donutInnerRadius;
-	let donutOuterRadius;	
+	let donutOuterRadius;
 	const donutChartCanvas = document.querySelector('.donut-chart > canvas');
 	const donutChartCtx = donutChartCanvas.getContext('2d');
 	const donutChartP = document.querySelector('.donut-chart > p');
 	const donutLegendDiv = document.querySelector('.donut-legend');
 	let donut = chartFactory('doughnut', 'days', 3, 'dddd', 24);
 	let donutChart = new Chart(donutChartCtx, donut);
-	
 	window.setTimeout(function(){
 		donutChartCanvas.style.opacity = '1';
 	}, 500);
-
 	donutCtrX = Math.round(donutChartCtx.canvas.clientWidth/2)-8;
 	donutCtrY = Math.round(donutChartCtx.canvas.clientHeight/2)-7;
 	donutInnerRadius = Math.round((donutChartCtx.canvas.clientWidth * 0.4879725)/2);
@@ -149,13 +145,13 @@ let degCount = 0;
 	donut.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
 	donutChart.update();
 	makeLegend(donutChart, donutLegendDiv);
-	
+
 	let donutLightColors = [donut.data.datasets[0].backgroundColor[0], donut.data.datasets[0].backgroundColor[1], donut.data.datasets[0].backgroundColor[2]];
-	
+
 	let donutDarkColors = [donut.data.datasets[0].hoverBackgroundColor[0], donut.data.datasets[0].hoverBackgroundColor[1], donut.data.datasets[0].hoverBackgroundColor[2]];
-	
+
 	const legItems = donutLegendDiv.querySelectorAll('ul li');
-	
+
 	lineTypes.forEach(li => {
 		li.addEventListener('click', function(){
 			for(let i = 0; i < lineTypes.length; i++){
@@ -179,7 +175,7 @@ let degCount = 0;
 
 		let ptRadius = 4;
 		let easingStyles = ['linear', 'easeOutBounce','easeOutBack', 'easeInOutElastic', 'easeOutCirc', 'easeOutSine', 'easeOutQuint', 'easeOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutExpo'];
-	
+
 		let info = function labelAndDataFactory(){
 			let lineLabels = [];
 			let datArray = [];
@@ -190,7 +186,7 @@ let degCount = 0;
 				let datum = Math.floor(Math.random() * 6000) + 50;
 				datum *= dataMultiplier;
 				datum = Math.round(datum);
-				lineLabels.push(moment('2017-01-01 00').add(i, timeUnits));
+				lineLabels.push(moment('2016-10-01 00').add(i, timeUnits));
 				datArray.push(datum);
 				totals += datum;
 				averages.push(Math.round(totals/(i+1)));
@@ -600,7 +596,7 @@ let degCount = 0;
 			donutChart.update();
 		});
 	});
-	
+
 	let lineChartDefault;
 	if(localStorage.length > 0){
 		lineChartDefault = parseInt(localStorage.dirIndex, 10);
@@ -610,18 +606,18 @@ let degCount = 0;
 	lineChart = new Chart(lineChartCtx, lineTypesArray[lineChartDefault]);
 	makeLegend(lineChart, lineLegendDiv);
 	makeClick(lineTypes[lineChartDefault]);
-	
+
 	let barChartAutoplayTurnedOff = localStorage.autoplay === 'off';
 	if(barChartAutoplayTurnedOff){
 		dailyTrafficButton.innerHTML = 'play';
 	} else {
 		dailyTrafficButton.innerHTML = 'pause';
 	}
-	
+
 	let timer = null;
 	let cnt = 1;
 	let times = ['daily', 'weekly', 'monthly'];
-	
+
 	function nextChart(){
 		barChart.destroy();
 		barChart = new Chart(barChartCtx, barTypesArray[cnt % 3]);
@@ -629,15 +625,15 @@ let degCount = 0;
 		cnt++;
 		start();
 	}
-	
+
 	function start(){
 		timer = setTimeout(nextChart, 3000);
 	}
-	
+
 	function stop(){
 		clearTimeout(timer);
 	}
-	
+
 	dailyTrafficButton.addEventListener('click', function(){
 		if(this.innerHTML === 'pause'){
 			this.innerHTML = 'play';
@@ -647,13 +643,13 @@ let degCount = 0;
 			start();
 		}
 	});
-	
+
 	start();
-	
+
 	if(barChartAutoplayTurnedOff){
 		stop();
 	}
-	
+
 })();
 
 (function(){   //recent activity section slide panels and mock content
@@ -675,16 +671,16 @@ let degCount = 0;
 		let dateTime = '';
 		let postText = '';
 		let acts = [
-			'commented', 
-			'posted', 
-			'liked a post', 
-			'shared a post', 
-			'tweeted a post', 
+			'commented',
+			'posted',
+			'liked a post',
+			'shared a post',
+			'tweeted a post',
 			'retweeted a post'
 		];
 		let posts = [
 			'SEO Tips',
-			'Facebook\'s Changes for 2017',
+			'Facebook\'s Changes for 2018',
 			'Moving to AWS',
 			'Mobile Web Update'
 		];
@@ -693,7 +689,7 @@ let degCount = 0;
 			'Excellent!',
 			'Wow! This is great!',
 			'Nice work!',
-			'Sweet!'	
+			'Sweet!'
 		];
 		let dt = moment();
 		let ti = moment();
@@ -763,13 +759,11 @@ let degCount = 0;
 				window.setTimeout(function(){
 					sb.classList.remove("leftside");
 					sb.classList.add("rightside");
-					
 				}, 1100);
 				flag = false;
 			}
 		});
 	});
-
 })();
 
 function getTimeZones() {   //get time zones via wikipedia api
@@ -805,17 +799,17 @@ function callback(str){   //process time zone data
 		res[i] = res[i].split('</td>\n<td>');
 		res[i].splice(1,1);
 		[res[i][0], res[i][1], res[i][2]] = [res[i][0].replace(reg, ''), res[i][1].replace(reg, ''), res[i][2].replace(reg, '')];
-		if(res[i][1] === ''){
+		if(!res[i][1] || !res[i][1].trim()){
 			res[i].splice(1,1);
 		}
-		if(res[i][2] === ''){
+		if(!res[i][2] || !res[i][2].trim()){
 			res[i].splice(2);
 		}
-		res[i][1] = res[i][1].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
-		res[i][1] = res[i][1].split(', ');
+		res[i][1] = res[i][1].replace(/ *\(([^\)]*)\)/g, '');
+		res[i][1] = res[i][1].split(', ').map(x => x.trim().replace(/[&#\d;]/g, ''));
 		if(res[i][2]){
-			res[i][2] = res[i][2].replace(/\[\d+\]/, '').replace(/ *\(([^\)]*)\)/g, '');
-			res[i][2] = res[i][2].split(', ');
+			res[i][2] = res[i][2].replace(/ *\(([^\)]*)\)/g, '');
+			res[i][2] = res[i][2].split(', ').map(x => x.trim().replace(/[&#\d;]/g, ''));
 			res[i] = [res[i][0], ...res[i][1], ...res[i][2]];
 		} else {
 			res[i] = [res[i][0], ...res[i][1]];
@@ -833,7 +827,7 @@ function callback(str){   //process time zone data
 	}
 	return res;
 }
-	
+
 function createOption(x, element){   //create options for select menu
 	let nums = [];
 	let y = new Set(x);
@@ -847,13 +841,12 @@ function createOption(x, element){   //create options for select menu
 	}
 	for(let i = 0; i < nums.length; i++){
 		let opt = document.createElement('option');
-		opt.value = y[0] + ' ' + y[nums[i]];
-		let textAndValue = y[0] + '\u00A0\u00A0' + y[nums[i]];
-		opt.textContent = textAndValue;
+		opt.value = `${y[0]} ${y[nums[i]]}`;
+		opt.textContent = y[0] + '\u00A0\u00A0' + y[nums[i]];
 		element.appendChild(opt);
 	}
 }
-	
+
 function loadOptions(obj, timezoneSelect){  //load time zone options in select menu
 	obj.forEach(x => {
 		createOption(x, timezoneSelect);
@@ -883,7 +876,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 
 (function(){   //get users via randomuser api, process and format, search, autocomplete and custom select menu functionality
 	let userListItems;
-	let fff;
+	let userNames;
 	let numUsers = 500;   // 5000 max
 	let httpRequest;
 	let users;
@@ -943,7 +936,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				function caps(match){
 					return match[0].toUpperCase() + match.substring(1);
 				}
-				firstName = firstName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/jean-/, 'Jean-').replace(/anne-/, 'Anne-');
+				firstName = firstName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/jean-/, 'Jean-').replace(/hans-/, 'Hans-').replace(/anne-/, 'Anne-').replace(/franz-/, 'Franz-');
 				lastName = lastName.replace(/([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$/gi, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/brien/, "'Brien").replace(/donoghue/, "'Donoghue").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1').replace(/jean-/, 'Jean-').replace(/^mccoy/i, 'McCoy').replace(/^mck\w+/i, 'McKinney');
 				let userName = firstName + ' ' + lastName;
 				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(userName)){
@@ -983,7 +976,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			}
 		});
 		userListItems = document.querySelectorAll('.messages fieldset ul li');
-		fff = userListItems;
+		userNames = userListItems;
 	}
 	function whenDoneError(){
 		let names = ['Jean-Baptiste Say', 'Ludwig von Mises', 'Frédéric Bastiat', 'John Cowperthwaite'];
@@ -995,12 +988,12 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			newMembersDivs[i].querySelector('div > div > p:first-child').textContent = names[i];
 			recActivityDivs[i].querySelector('div > div > p:first-child').textContent = names[i];
 			let listItem = document.createElement('li');
-			listItem.textContent = names[i];	
+			listItem.textContent = names[i];
 			userList.appendChild(listItem);
 			newMembersDivs[i].querySelector('div.mem-out > p').textContent = emails[i];
 		}
 		userListItems = document.querySelectorAll('.messages fieldset ul li');
-		fff = userListItems;
+		userNames = userListItems;
 		numUsers = 4;
 	}
 	function showUserList(e){
@@ -1049,7 +1042,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			}
 		});
 	}
-	let mmm = false;
+	let searchFlag = false;
 	let letters = [];
 	userSearchBox.addEventListener('keydown', function(e){
 		if(new RegExp(/^[A-Za-z ]$/).test(e.key)){
@@ -1061,7 +1054,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			e.preventDefault();
 		}
 		if(e.keyCode == 27){
-			mmm = true;
+			searchFlag = true;
 			letters = [];
 			userList.scrollTop = 0;
 			this.value = '';
@@ -1076,8 +1069,8 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 					na.removeAttribute('id');
 					na.innerHTML = na.textContent;
 				});
-				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
-				numUsers = fff.length;
+				userNames = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+				numUsers = userNames.length;
 			}
 		}
 		if(!listShowing){
@@ -1128,10 +1121,10 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				na.classList.remove('hid');
 			}
 		});
-		fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
-		numUsers = fff.length;
-		i = fff.length;
-		let distFromTop = ((i % fff.length) * 28);
+		userNames = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+		numUsers = userNames.length;
+		i = userNames.length;
+		let distFromTop = ((i % userNames.length) * 28);
 		userList.scrollTop = distFromTop;
 	});
 	userSearchBox.addEventListener('click', function(e){
@@ -1154,21 +1147,21 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 					na.classList.remove('hid');
 					na.innerHTML = na.textContent;
 				});
-				fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
-				numUsers = fff.length;
-				mmm = false;
+				userNames = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+				numUsers = userNames.length;
+				searchFlag = false;
 				this.value = '';
 			}
 			return;
 		}
-		if(!mmm){
+		if(!searchFlag){
 			if(!listShowing){
 				if([13,32,37,38,39,40].includes(e.keyCode)){
 					e.preventDefault();
 					let theOne;
-					for(let g = 0; g < fff.length; g++){
-						if(fff[g].hasAttribute('id')){
-							theOne = [...fff].indexOf(fff[g]);
+					for(let g = 0; g < userNames.length; g++){
+						if(userNames[g].hasAttribute('id')){
+							theOne = [...userNames].indexOf(userNames[g]);
 							i=theOne;
 						}
 					}
@@ -1183,7 +1176,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				if(e.keyCode == 8 && this.value == ''){
 					userList.scrollTop = 0;
 				} else {
-					let distFromTop = ((i % fff.length) * 28);
+					let distFromTop = ((i % userNames.length) * 28);
 					userList.scrollTop = distFromTop;
 				}
 			} else {
@@ -1206,15 +1199,15 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				i=numUsers;
 			}
 			if(numUsers > 0){
-				fff[(i-1) % numUsers].removeAttribute('id');
-				fff[(i+1) % numUsers].removeAttribute('id');
+				userNames[(i-1) % numUsers].removeAttribute('id');
+				userNames[(i+1) % numUsers].removeAttribute('id');
 				if(!(e.keyCode == 8 && letters.length == 0)){
-					fff[i % numUsers].setAttribute('id', 'userselect');
+					userNames[i % numUsers].setAttribute('id', 'userselect');
 				}
 			}
 			if(e.keyCode != 8){
-				if(fff.length > 0){
-					rest = fff[i % numUsers].textContent.substring(letters.length);
+				if(userNames.length > 0){
+					rest = userNames[i % numUsers].textContent.substring(letters.length);
 					if(letters.length > 0){
 						thisName = letters[0].toUpperCase() + letters.slice(1).join('') + rest;
 					} else {
@@ -1238,12 +1231,12 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			} else {
 				if(letters.length == 0){
 					i=numUsers;
-					fff[i % numUsers].setAttribute('id', 'userselect');
+					userNames[i % numUsers].setAttribute('id', 'userselect');
 					userList.scrollTop = 0;
 					return;
 				}
-				if(fff.length > 0){
-					rest = fff[i % numUsers].textContent.substring(letters.length);
+				if(userNames.length > 0){
+					rest = userNames[i % numUsers].textContent.substring(letters.length);
 					thisName = letters[0].toUpperCase() + letters.slice(1).join('') + rest;
 					thisName = thisName.replace(/\s{1}\b[A-zÀ-ÿğŞı]{1}'?(?=([A-zÀ-ÿğŞı]+|\w+[A-zÀ-ÿğŞı]*)\w*$)/gim, caps).replace(/cdonal/, 'cDonal').replace(/toole/, "'Toole").replace(/brien/, "'Brien").replace(/donoghue/, "'Donoghue").replace(/mahony/, "'Mahony").replace(/(\w)\1{2}/g, '$1$1').replace(/jean-/, 'Jean-').replace(/^mccoy/i, 'McCoy').replace(/^mck\w+/i, 'McKinney');
 					userSearchBox.value = thisName;
@@ -1262,7 +1255,7 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 				}
 			}
 			if([38,40].includes(e.keyCode)){
-				let distFromTop = ((i % fff.length) * 28);
+				let distFromTop = ((i % userNames.length) * 28);
 				userList.scrollTop = distFromTop;
 			}
 		}
@@ -1273,10 +1266,10 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 	function listEventSetup(){
 		userListItems.forEach(li => {
 			li.addEventListener('mouseenter', function(e){
-				fff.forEach(li => {
+				userNames.forEach(li => {
 					li.removeAttribute('id');
 				});
-				i = Array.from(fff).indexOf(this) + numUsers;
+				i = Array.from(userNames).indexOf(this) + numUsers;
 				li.setAttribute('id', 'userselect');
 				userSearchBox.value = li.textContent;
 				if(new RegExp(/[A-zÀ-ÿğŞı]+/gim).test(li.textContent)){
@@ -1320,8 +1313,8 @@ function getRands(element, element2, plusOne){  //returns array of non-repeating
 			na.classList.remove('hid');
 			na.innerHTML = na.textContent;
 		});
-		fff = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
-		numUsers = fff.length;
+		userNames = document.querySelectorAll('.messages fieldset ul li:not([class="hid"])');
+		numUsers = userNames.length;
 		window.setTimeout(function(){
 			errorMessage.style.textShadow = 'none';
 		}, 3500);
@@ -1350,10 +1343,10 @@ function restoreSettings(){   //restore settings from localStorage on load, relo
 	let timezoneSelect = document.querySelector('.timezone select');
 	if(timezoneSelect.children.length < 2){
 		getTimeZones().then((response) => {
-			let ppqq;
-			ppqq = JSON.parse(response).parse.text['*'];
-			let rfrf = callback(ppqq);
-			loadOptions(rfrf, timezoneSelect);
+			let parsedTZData;
+			parsedTZData = JSON.parse(response).parse.text['*'];
+			let processedTZData = callback(parsedTZData);
+			loadOptions(processedTZData, timezoneSelect);
 			if(localStorage.length > 0 && localStorage.timezone){
 				let tz = localStorage.getItem('timezone');
 				let tzI = parseInt(localStorage.getItem('tzIndex'), 10);
@@ -1373,9 +1366,7 @@ function restoreSettings(){   //restore settings from localStorage on load, relo
 					tzs[tzI].selected = true;
 				}
 			}
-		}, (Error) => {
-			console.log(Error);
-		});
+		}, Error => console.log(Error));
 	} else {
 		if(localStorage.length > 0 && localStorage.timezone){
 			let tz = localStorage.getItem('timezone');
@@ -1426,7 +1417,7 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 	const autoplayRadioOff = document.querySelector('.barchart_autoplay input[id="off-autoplay"]');
 	const saveMessage = document.querySelector('.settings form > div > p');
 	const saveButton = document.querySelector('.settings form > div button:first-of-type');
-	
+
 	let dir = 0;
 	function dialSwitch(dial, ptr, radios){
 		Array.from(radios).forEach(rb => {
