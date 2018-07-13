@@ -230,6 +230,7 @@ div > header > nav ul li a:focus:not(.selected){
 	border: 1px solid #dbdbdb;
 	border-radius: 5px;
 	padding-left: 1em;
+  pointer-events: none;
 }
 .main-title > div > img{
 	position: absolute;
@@ -241,12 +242,12 @@ div > header > nav ul li a:focus:not(.selected){
 	border-color: #4D4C72;
 	color: #676666;
 }
-.main-title input[type="search"]::-webkit-input-placeholder { 
+.main-title input[type="search"]::-webkit-input-placeholder {
 	color: #b9b9b9;
 	letter-spacing: 0.02em;
 	font-size: 14px;
 }
-.main-title input[type="search"]::-moz-placeholder { 
+.main-title input[type="search"]::-moz-placeholder {
 	color: #b9b9b9;
 	letter-spacing: 0.02em;
 	font-size: 14px;
@@ -260,7 +261,7 @@ div > header > nav ul li a:focus:not(.selected){
 	line-height: 42px;
 	border-radius: 3px;
 	position: relative;
-	transition: opacity 1.5s cubic-bezier(.36, .33, 1, .68), line-height 1.5s;	
+	transition: opacity 1.5s cubic-bezier(.36, .33, 1, .68), line-height 1.5s;
 }
 .alert-div > p{
 	font-family: 'Alegreya Sans', sans-serif;
@@ -273,11 +274,8 @@ div > header > nav ul li a:focus:not(.selected){
 	font-family: 'Alegreya Sans SC', sans-serif;
 	letter-spacing: 0.1em;
 }
-.alert-div a:link{
+.alert-div a:link, .alert-div a:visited{
 	color: #fff176;
-}
-.alert-div a:visited{
-	color: #272b73;
 }
 .alert-div a:hover{
 	color: yellow;
@@ -326,7 +324,7 @@ div > header > nav ul li a:focus:not(.selected){
 	margin-top: 1em;
 	position: relative;
 	display: flex;
-	justify-content: space-around;	
+	justify-content: space-around;
 }
 .line-buttons > p{
 	position: absolute;
@@ -334,7 +332,7 @@ div > header > nav ul li a:focus:not(.selected){
 	text-transform: uppercase;
 	left: 50%;
 	top: 30px;
-	transform: translateX(-50%);	
+	transform: translateX(-50%);
 }
 .line-buttons > button{
 	font-family: 'Alegreya Sans SC', sans-serif;
@@ -373,7 +371,7 @@ div > header > nav ul li a:focus:not(.selected){
 	border-top: 1px solid #cecece;
 	width: 96%;
 	padding-top: 1em;
-	margin: 0 auto 1em;	
+	margin: 0 auto 1em;
 }
 .donut-chart > span{
 	position: absolute;
@@ -381,7 +379,7 @@ div > header > nav ul li a:focus:not(.selected){
 	text-transform: uppercase;
 	left: 50%;
 	top: 15px;
-	transform: translateX(-50%);	
+	transform: translateX(-50%);
 }
 .donut-chart > p{
 	position: absolute;
@@ -493,7 +491,7 @@ div > header > nav ul li a:focus:not(.selected){
 	font-size: 50px;
 	color: #676666;
 }
-.soc-svg{	
+.soc-svg{
 	fill: #fefefe;
 }
 .social{
@@ -510,7 +508,7 @@ div > header > nav ul li a:focus:not(.selected){
 	left: 50%;
 	transform: translateX(-50%);
 	font-family: 'Alegreya Sans', sans-serif;
-	text-transform: uppercase;	
+	text-transform: uppercase;
 }
 .members_activity{
 	border-top: 1px solid #cecece;
@@ -645,9 +643,9 @@ div.mem-out > p:hover{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 2em;	
+	margin-bottom: 2em;
 }
-.messages{	
+.messages{
 	border-bottom: 1px solid #cecece;
 	margin-bottom: 1em;
 	position: relative;
@@ -680,10 +678,10 @@ div.mem-out > p:hover{
 .settings fieldset{
 	border: none;
 	max-width: 492px;
-	margin: 0 auto 5em;	
+	margin: 0 auto 5em;
 }
 .messages fieldset{
-	margin: 0 auto 1em;	
+	margin: 0 auto 1em;
 	position: relative;
 }
 .messages fieldset ul{
@@ -746,7 +744,7 @@ div.mem-out > p:hover{
 .messages input[name="search"]::-moz-placeholder{
 	color: #b9b9b9;
 	font-size: 17px;
-	font-family: 'Alegreya Sans', sans-serif;	
+	font-family: 'Alegreya Sans', sans-serif;
 }
 .messages label{
 	color: transparent;
@@ -811,7 +809,7 @@ div.mem-out > p:hover{
 .email_notify,
 .public_profile,
 .barchart_autoplay,
-.linechart_default{	
+.linechart_default{
 	height: 50px;
 	display: flex;
 	align-items: center;
@@ -924,12 +922,12 @@ div.mem-out > p:hover{
 }
 .email_notify input[value="off"],
 .public_profile input[value="off"],
-.barchart_autoplay input[value="off"]{	
+.barchart_autoplay input[value="off"]{
 	left: 14px;
 }
 .email_notify input[value="off"]:after,
 .public_profile input[value="off"]:after,
-.barchart_autoplay input[value="off"]:after{	
+.barchart_autoplay input[value="off"]:after{
 	top: -12px;
 	left: -10px;
 }
@@ -937,7 +935,7 @@ div.mem-out > p:hover{
 .public_profile > p,
 .barchart_autoplay > p,
 .linechart_default > p{
-	font-family: 'Alegreya Sans', sans-serif;	
+	font-family: 'Alegreya Sans', sans-serif;
 }
 .linechart_default > p{
 	width: 125px;
@@ -973,7 +971,7 @@ div.mem-out > p:hover{
 	transform-origin: 2px 18px;
 	left: 50%;
 	border-radius: 2px;
-	border: 2px solid #fff;	
+	border: 2px solid #fff;
 }
 .linechart_default label{
 	color: #221122;
@@ -1052,7 +1050,7 @@ div.mem-out > p:hover{
 .timezone select option{
 	color: #676666;
 }
-@media screen and (max-width: 399px){	
+@media screen and (max-width: 399px){
 	.tooltip2:after{
 		left: -18px;
 	}
@@ -1060,7 +1058,7 @@ div.mem-out > p:hover{
 		top: 67px;
 	}
 }
-@media screen and (min-width: 400px){	
+@media screen and (min-width: 400px){
 	body > header > h1{
 		padding-left: 0.4em;
 	}
@@ -1084,7 +1082,7 @@ div.mem-out > p:hover{
 @media screen and (min-width: 400px) and (max-width: 767px){
 	#visits:target > p{
 		top: 54px;
-	}	
+	}
 }
 @media screen and (max-width: 767px){
 	#members:target{
@@ -1101,7 +1099,7 @@ div.mem-out > p:hover{
 	}
 	div > header{
 		margin-bottom: 0;
-		flex-shrink: 0;	
+		flex-shrink: 0;
 	}
 	div > header > nav{
 		position: -webkit-sticky;
@@ -1168,7 +1166,7 @@ div.mem-out > p:hover{
 		transform: translateY(-50%);
 	}
 	.alert-div{
-		width: 96%;	
+		width: 96%;
 	}
 	.line-chart{
 		width: 94%;
@@ -1196,7 +1194,7 @@ div.mem-out > p:hover{
 		border-bottom: none;
 	}
 }
-@media screen and (min-width: 1024px){	
+@media screen and (min-width: 1024px){
 	.bar-chart,
 	.donut-chart{
 		margin-bottom: 0;
@@ -1212,7 +1210,7 @@ div.mem-out > p:hover{
 		left: 8%;
 	}
 	.donut-chart > span{
-		left: 25%;	
+		left: 25%;
 	}
 	.social > p{
 		left: 7%;

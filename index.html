@@ -2,15 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-	<title>James South - Project-9</title>
+	  <title>James South - Project-9</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <link href="styles.css" rel="stylesheet" type="text/css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" integrity="sha256-SiHXR50l06UwJvHhFY4e5vzwq75vEHH+8fFNpkXePr0=" crossorigin="anonymous"></script>
-	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:800i" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:300" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Josefin+Slab:400,600" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Amiri:700i&amp;subset=arabic" rel="stylesheet">
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" integrity="sha256-CutOzxCRucUsn6C6TcEYsauvvYilEniTXldPa6/wu0k=" crossorigin="anonymous"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
+  	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:800i" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:300" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Josefin+Slab:400,600" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Amiri:700i&amp;subset=arabic" rel="stylesheet">
+    <noscript>
+			<style>
+				p{
+					color: #b10000;
+					font-size: 20px;
+				}
+			</style>
+			<p>This app requires JavaScript to run properly. Please enable JavaScript in your browser's settings.</p>
+		</noscript>
   </head>
   <body>
     <header>
@@ -30,7 +39,7 @@
 			</div>
 			<span>.</span>
 			<p>|</p>
-			<img src="face1.png" alt="user face or avatar">
+			<img src="face1.jpg" alt="user face or avatar">
 			<p>James South</p>
 		</div>
 	</header>
@@ -53,7 +62,7 @@
 					<img src="mag2.jpg" alt="magnifying glass icon">
 				</div>
 			</div>
-			<div class="alert-div"><p><span>Alert</span>&nbsp;&nbsp;&nbsp;Featuring: <a href="http://www.chartjs.org/">Chart.js</a>, <a href="http://momentjs.com/">Moment.js</a>, two APIs (<a href="https://www.mediawiki.org/wiki/API:Main_page">Wikipedia</a> and <a href="https://randomuser.me/">randomuser.me</a>), a homemade dropdown menu and homemade switches! You can use the keyboard as well, no mouse required!</p><button>x</button></div>
+			<div class="alert-div"><p><span>Alert</span>&nbsp;&nbsp;&nbsp;Featuring: <a href="http://www.chartjs.org/">Chart.js</a>, <a href="http://momentjs.com/">Moment.js</a>, two API calls (<a href="https://www.mediawiki.org/wiki/API:Main_page">Wikipedia</a> and <a href="https://randomuser.me/">randomuser.me</a>), a homemade dropdown menu and homemade switches! You can use the keyboard as well, no mouse required!</p><button>x</button></div>
 			<div id="visits" class="line-buttons">
 				<p>traffic</p>
 				<button class="line-selected">Hourly</button>
@@ -75,7 +84,7 @@
 					<div class="donut-chart">
 						<span>mobile users</span>
 						<p></p>
-						<canvas></canvas>
+						<canvas width="297" height="297"></canvas>
 					</div>
 					<div class="donut-legend"></div>
 				</div>
