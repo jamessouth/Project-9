@@ -1,36 +1,90 @@
+if(window.performance.navigation.type === 2){  //navigation from the browser's back button, reload allows the settings saved in localStorage to load properly when loading from local files in chrome/opera, but not firefox. could be my settings.
+	window.location.reload();
+}
+let ffx = false;
+if(!window.InputEvent.prototype.hasOwnProperty('data')){  //this check along with the first if block in the keydown listener at line 1047 are a 'polyfill' i wrote to enable the data feature of the InputEvent in Firefox
+	ffx = true;
+	window.InputEvent.prototype.data = null;
+}
+const cancelButton = document.querySelector('.settings form > div button:last-of-type');
+const settingsDiv = document.getElementsByClassName('settings')[0];
+const switches = settingsDiv.querySelectorAll('[data-setting]');
+const pointer = document.querySelector('.settings .linechart_default .pointer');
+const lineChartDial = document.querySelector('.settings .linechart_default > div');
+const lineChartDialRadios = lineChartDial.querySelectorAll('input');
+let degs = [-71, -28, 28, 71];
+let degCount = 0;
 
+(function(){    //alert bell icon
+	const alertBell = document.querySelector('body > header > div > button');
+	const alertLight = document.querySelector('body > header > div > span');
+	const triangle = document.querySelector('.triangle');
+	const dropdown = document.querySelector('.dropdown');
+	alertBell.addEventListener('click', showAlerts);
 
+	function showAlerts(){
+		triangle.style.display = 'block';
+		dropdown.style.display = 'block';
+		window.setTimeout(() => {
+			document.addEventListener('click', hideAlerts);
+			alertBell.removeEventListener('click', showAlerts);
+		}, 1);
+	}
 
+	function hideAlerts(e){
+		if(!dropdown.contains(e.target)){
+			alertLight.style.display = 'none';
+			triangle.style.display = 'none';
+			dropdown.style.display = 'none';
+			alertBell.addEventListener('click', showAlerts);
+			document.removeEventListener('click', hideAlerts);
+		}
+	}
+})();
+
+(function(){   //nav links
+	const links = document.querySelectorAll('div > header li a');
+	const appName = document.querySelector('div > main > div:first-child > h1');
+	links.forEach(li => {
+		li.addEventListener('click', function(){
+			for(let i = 0; i < links.length; i++){
+				links[i].classList.remove('selected');
+			}
+			this.className = 'selected';
+			let app = this.childNodes[0].getAttribute('alt').split(' ')[0];
+			app = app[0].toUpperCase() + app.substring(1);
+			appName.textContent = app;
+		});
+	});
+})();
+
+(function(){   //alert box
+	const alertButton = document.querySelector('.alert-div > button');
+	const alertDiv = document.querySelector('.alert-div');
+	alertButton.addEventListener('click', () => {
+		alertDiv.style.opacity = '0';
+		window.setTimeout(() => {
+			alertDiv.style.lineHeight = '0px';
+			alertButton.style.height = '0px';
+		}, 1501);
+		window.setTimeout(() => {
+			alertDiv.children[0].style.display = 'none';
+			alertButton.style.display = 'none';
+		}, 3005);
+	});
+})();
 
 (function(){   //charts
-	// let info = ['g', [2,3,4]];
-
-
-
-	let chartFactory = function(chartType, countryCode, indicator){
-		// console.log(countries[44]);
-
-
-
-
-
-
-	};
-
-
-
-
-
 	let lineChart;
 	let lineTypesArray = [];
-
-
+	const lineTypes = document.querySelectorAll('.line-buttons button');
+	const lineChartCtx = document.querySelector('.line-chart > canvas:nth-of-type(1)').getContext('2d');
 	const lineLegendDiv = document.querySelector('.line-legend');
-	let GDPLine = chartFactory('line', '1w', 'NY.GDP.PCAP.KD');
-	let dayLine = chartFactory('line', '1w', 'SP.POP.TOTL');
-	let weekLine = chartFactory('line', '1w', 'IC.REG.DURS');
-	let monthLine = chartFactory('line', '1w', 'FR.INR.RINR');
-	lineTypesArray.push(GDPLine);
+	let hourLine = chartFactory('line', 'hours', 22, `H:00  MMM D`, 1);
+	let dayLine = chartFactory('line', 'days', 21, `MMM D`, 24);
+	let weekLine = chartFactory('line', 'weeks', 21, `MMM D`, 24*7);
+	let monthLine = chartFactory('line', 'months', 21, `MMM YYYY`, 24*7*4.34);
+	lineTypesArray.push(hourLine);
 	lineTypesArray.push(dayLine);
 	lineTypesArray.push(weekLine);
 	lineTypesArray.push(monthLine);
@@ -38,13 +92,13 @@
 	const barChartCtx = document.querySelector('.bar-chart > canvas').getContext('2d');
 	const dailyTraffic = document.querySelector('.bar_donut > p:first-of-type');
 	const dailyTrafficButton = document.querySelector('.bar_donut > button');
-	// let dayBar = chartFactory('bar');
-	// let weekBar = chartFactory('bar');
-	// let monthBar = chartFactory('bar');
-	// barTypesArray.push(dayBar);
-	// barTypesArray.push(weekBar);
-	// barTypesArray.push(monthBar);
-	// let barChart = new Chart(barChartCtx, dayBar);
+	let dayBar = chartFactory('bar', 'days', 7, `dddd`, 24);
+	let weekBar = chartFactory('bar', 'weeks', 8, `MMM D`, 24*7);
+	let monthBar = chartFactory('bar', 'months', 6, `MMM 'YY`, 24*7*4.34);
+	barTypesArray.push(dayBar);
+	barTypesArray.push(weekBar);
+	barTypesArray.push(monthBar);
+	let barChart = new Chart(barChartCtx, dayBar);
 	let donutCtrX;
 	let donutCtrY;
 	let donutInnerRadius;
@@ -53,8 +107,8 @@
 	const donutChartCtx = donutChartCanvas.getContext('2d');
 	const donutChartP = document.querySelector('.donut-chart > p');
 	const donutLegendDiv = document.querySelector('.donut-legend');
-	// let donut = chartFactory('doughnut');
-	// let donutChart = new Chart(donutChartCtx, donut);
+	let donut = chartFactory('doughnut', 'days', 3, 'dddd', 24);
+	let donutChart = new Chart(donutChartCtx, donut);
 	window.setTimeout(function(){
 		donutChartCanvas.style.opacity = '1';
 	}, 500);
@@ -87,32 +141,254 @@
 	gradientPurple2.addColorStop(0, '#272b73');
 	gradientPurple2.addColorStop(0.45, '#e6e6e6');
 	gradientPurple2.addColorStop(1, '#0e125a');
-	// donut.data.datasets[0].backgroundColor = [gradientBlue, gradientGreen, gradientPurple];
-	// donut.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
-	// donutChart.update();
-	// makeLegend(donutChart, donutLegendDiv);
+	donut.data.datasets[0].backgroundColor = [gradientBlue, gradientGreen, gradientPurple];
+	donut.data.datasets[0].hoverBackgroundColor = [gradientBlue2, gradientGreen2, gradientPurple2];
+	donutChart.update();
+	makeLegend(donutChart, donutLegendDiv);
 
-	// let donutLightColors = [donut.data.datasets[0].backgroundColor[0], donut.data.datasets[0].backgroundColor[1], donut.data.datasets[0].backgroundColor[2]];
-	//
-	// let donutDarkColors = [donut.data.datasets[0].hoverBackgroundColor[0], donut.data.datasets[0].hoverBackgroundColor[1], donut.data.datasets[0].hoverBackgroundColor[2]];
+	let donutLightColors = [donut.data.datasets[0].backgroundColor[0], donut.data.datasets[0].backgroundColor[1], donut.data.datasets[0].backgroundColor[2]];
+
+	let donutDarkColors = [donut.data.datasets[0].hoverBackgroundColor[0], donut.data.datasets[0].hoverBackgroundColor[1], donut.data.datasets[0].hoverBackgroundColor[2]];
 
 	const legItems = donutLegendDiv.querySelectorAll('ul li');
 
-
+	lineTypes.forEach(li => {
+		li.addEventListener('click', function(){
+			for(let i = 0; i < lineTypes.length; i++){
+				lineTypes[i].classList.remove('line-selected');
+			}
+			this.className = 'line-selected';
+			lineChart.destroy();
+			lineLegendDiv.innerHTML = '';
+			let lineObjectIndex = Array.from(lineTypes).indexOf(this);
+			lineChart = new Chart(lineChartCtx, lineTypesArray[lineObjectIndex]);
+			makeLegend(lineChart, lineLegendDiv);
+		});
+	});
 
 	function makeLegend(chart, div){
 		let chartLegend = chart.generateLegend();
 		div.appendChild(chartLegend);
 	}
 
-	function mmmchartFactory(chartType, countryCode, indicator){
+	function chartFactory(chartType, timeUnits, duration, toolTipFormat, dataMultiplier){
 
+		let ptRadius = 4;
+		let easingStyles = ['linear', 'easeOutBounce','easeOutBack', 'easeInOutElastic', 'easeOutCirc', 'easeOutSine', 'easeOutQuint', 'easeOutCubic', 'easeInOutQuart', 'easeInQuad', 'easeInOutExpo'];
 
-
-
-
-
-
+		let info = function labelAndDataFactory(){
+			let lineLabels = [];
+			let datArray = [];
+			let cumuTotals = [];
+			let averages = [];
+			let totals = 0;
+			for(let i = 0; i < duration; i++){
+				let datum = Math.floor(Math.random() * 6000) + 50;
+				datum *= dataMultiplier;
+				datum = Math.round(datum);
+				lineLabels.push(moment('2016-10-01 00').add(i, timeUnits));
+				datArray.push(datum);
+				totals += datum;
+				averages.push(Math.round(totals/(i+1)));
+				cumuTotals.push(totals);
+			}
+			return [lineLabels, datArray, cumuTotals, averages];
+		}();
+		if(chartType === 'line'){
+			return {
+				type: 'line',
+				data: {
+					labels: info[0],
+					datasets: [{
+						label: '',
+						data: info[1],
+						backgroundColor: 'rgba(115,119,191,0.3)',
+						lineTension: 0,
+						borderColor: '#7377BF',
+						borderWidth: 1,
+						pointRadius: ptRadius,
+						pointBorderWidth: 2,
+						pointBorderColor: '#7377BF',
+						pointBackgroundColor: '#fbfbfb',
+						pointHoverRadius: ptRadius,
+						yAxisID: 'left'
+					},
+					{
+						label: '',
+						data: info[2],
+						fill: false,
+						lineTension: 0,
+						borderColor: '#ff0000',
+						borderWidth: 2,
+						pointRadius: 0,
+						pointBorderWidth: 0,
+						pointHoverRadius: 0,
+						yAxisID: 'right'
+					},
+					{
+						label: '',
+						data: info[3],
+						fill: false,
+						lineTension: 0,
+						borderColor: '#00ff00',
+						borderWidth: 2,
+						pointRadius: 0,
+						pointBorderWidth: 0,
+						pointHoverRadius: 0,
+						yAxisID: 'left'
+					}]
+				},
+				options: {
+					legendCallback: function(lineChart){
+						let ul = document.createElement('ul');
+						let selfConfig = lineChart.config.data.datasets;
+						let pointDiv = document.createElement('div');
+						let bgColor = selfConfig[0].pointBackgroundColor;
+						pointDiv.style.width = '12px';
+						pointDiv.style.height = '12px';
+						pointDiv.style.border = '2px solid #7377BF';
+						pointDiv.style.backgroundColor = bgColor;
+						pointDiv.style.borderRadius = '6px';
+						let li = document.createElement('li');
+						let p = document.createElement('p');
+						p.textContent = 'Users per ' + timeUnits.substring(0, timeUnits.length - 1) + ' (lhs)';
+						li.appendChild(pointDiv);
+						li.appendChild(p);
+						ul.appendChild(li);
+						let redLine = document.createElement('hr');
+						redLine.style.borderColor = '#ff0000';
+						redLine.style.width = '16px';
+						redLine.style.display = 'inline-block';
+						let li2 = document.createElement('li');
+						li2.style.display = 'flex';
+						li2.style.alignItems = 'center';
+						let p2 = document.createElement('p');
+						p2.textContent = 'Total users (rhs)';
+						p2.style.paddingLeft = '2px';
+						li2.appendChild(redLine);
+						li2.appendChild(p2);
+						ul.appendChild(li2);
+						let greenLine = document.createElement('hr');
+						greenLine.style.borderColor = '#00ff00';
+						greenLine.style.width = '16px';
+						greenLine.style.display = 'inline-block';
+						let li3 = document.createElement('li');
+						li3.style.display = 'flex';
+						li3.style.alignItems = 'center';
+						let p3 = document.createElement('p');
+						p3.textContent = 'Average users (lhs)';
+						p3.style.paddingLeft = '2px';
+						li3.appendChild(greenLine);
+						li3.appendChild(p3);
+						ul.appendChild(li3);
+						return ul;
+					},
+					tooltips: {
+						backgroundColor: '#000',
+						displayColors: false,
+						titleFontColor: '#7377BF',
+						titleFontSize: 13,
+						bodyFontColor: '#ff0000',
+						bodyFontStyle: 'bold',
+						bodyFontSize: 13,
+						titleMarginBottom: 2,
+						footerMarginTop: 2,
+						footerFontColor: '#00ff00',
+						callbacks: {
+							title: function(tooltipItem, data){
+								return [tooltipItem[0].xLabel, 'Users: ' + data.datasets[0].data[tooltipItem[0].index].toLocaleString()];
+							},
+							label: function(tooltipItem, data){
+								return 'Total: ' + data.datasets[1].data[tooltipItem.index].toLocaleString();
+							},
+							footer: function(tooltipItem, data){
+								return 'Average: ' + data.datasets[2].data[tooltipItem[0].index].toLocaleString();
+							}
+						}
+					},
+					animation: {
+						easing: easingStyles[Math.max(...info[1]) % easingStyles.length]
+					},
+					legend: {
+						display: false,
+						position: 'bottom'
+					},
+					title: {
+						display: false,
+						position: 'top',
+						padding: 0,
+						text: 'Traffic'
+					},
+					layout: {
+						padding: {
+							left: 0,
+							right: 0,
+							top: 0,
+							bottom: 0
+						}
+					},
+					scales: {
+						yAxes: [{
+							ticks: {
+								min: 0,
+								callback: function(value){
+									if(value > 0){
+										if(value >= 1000000){
+											return '   ' + value / 1000000 + 'm';
+										} else if(value >= 1000){
+											return value / 1000 + 'k';
+										} else{
+											return value;
+										}
+									} else{
+										return 0;
+									}
+								}
+							},
+							position: 'left',
+							id: 'left'
+						},
+						{
+							ticks: {
+								min: 0,
+								callback: function(value){
+									if(value > 0){
+										if(value >= 1000000){
+											return value / 1000000 + 'm';
+										} else if(value >= 1000){
+											return value / 1000 + 'k';
+										} else{
+											return value;
+										}
+									} else{
+										return 0;
+									}
+								}
+							},
+							position: 'right',
+							id: 'right',
+							gridLines:{
+								drawOnChartArea: false
+							}
+						}],
+						xAxes: [{
+							type: 'time',
+							time: {
+								displayFormats: {
+									hour: `H:00`,
+									day: 'MMM D',
+									week: 'MMM D',
+									month: 'MMM YYYY'
+								},
+								tooltipFormat: toolTipFormat,
+								max: info[0][duration - 1],
+								unit: timeUnits.substring(0, timeUnits.length - 1)
+							}
+						}]
+					}
+				}
+			};
+		}
 		if(chartType === 'bar'){
 			return{
 				type: 'bar',
@@ -130,9 +406,13 @@
 						displayColors: false,
 						callbacks: {
 							title: function(tooltipItem, data){
-
+								if(timeUnits === 'months'){
+									return data.labels[tooltipItem[0].index].format('MMMM YYYY');
+								} else if(timeUnits === 'weeks'){
+									return `Week of: ${data.labels[tooltipItem[0].index].format('MMMM D')}`;
+								} else {
 									return data.labels[tooltipItem[0].index].format(toolTipFormat);
-
+								}
 							},
 							label: function(tooltipItem, data){
 								return 'Users: ' + data.datasets[0].data[tooltipItem.index].toLocaleString();
@@ -197,9 +477,15 @@
 							ticks: {
 								callback: function(value){
 									let tickName = value.format(toolTipFormat);
-
+									if(timeUnits === 'days'){
+										if(tickName[1] === 'h'){
+											return tickName.substring(0,2);
+										} else {
+											return tickName[0];
+										}
+									} else {
 										return tickName;
-
+									}
 								}
 							}
 						}]
@@ -1163,7 +1449,7 @@ function makeClick(target){  //simulate a click to restore saved settings, there
 			let locStoKey = div.dataset.setting;
 			let locStoVal = div.querySelector('input:checked').value;
 			localStorage.setItem(locStoKey, locStoVal);
-			if(locStoKey === 'natevents'){
+			if(locStoKey === 'timeperiod'){
 				localStorage.setItem('dirIndex', dir);
 			}
 		});

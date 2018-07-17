@@ -79,7 +79,7 @@ body > header > div > span{
 	left: 15px;
 	bottom: 28px;
 	cursor: default;
-	/* animation: blink 0.75s linear infinite; */
+	animation: blink 0.75s linear infinite;
 }
 @keyframes blink{
 	0%{color: #85db81;}
@@ -287,7 +287,7 @@ div > header > nav ul li a:focus:not(.selected){
 .line-chart{
 	position: relative;
 	width: 96%;
-	margin: 3em auto 1em;
+	margin: 1.5em auto 1em;
 }
 .alert-div > button{
 	position: absolute;
@@ -320,30 +320,23 @@ div > header > nav ul li a:focus:not(.selected){
 	display: inline-block;
 	margin-right: 5px;
 }
-.line-controls{
-	margin-top: 5em;
+.line-buttons{
+	margin-top: 1em;
 	position: relative;
-	/* display: flex;
-	justify-content: center; */
+	display: flex;
+	justify-content: space-around;
 }
-.line-controls > p{
+.line-buttons > p{
 	position: absolute;
 	font-family: 'Alegreya Sans', sans-serif;
 	text-transform: uppercase;
-	left: 6px;
-	top: 110%;
-	/* transform: translateX(-50%); */
-}
-.line-controls > p a{
-  text-decoration: underline;
-}
-.line-buttons{
-  display: flex;
-  justify-content: center;
+	left: 50%;
+	top: 30px;
+	transform: translateX(-50%);
 }
 .line-buttons > button{
 	font-family: 'Alegreya Sans SC', sans-serif;
-	padding: 4px 10px;
+	padding: 4px 11px;
 	font-size: 16px;
 	border: none;
 }
@@ -353,13 +346,6 @@ div > header > nav ul li a:focus:not(.selected){
 .line-buttons > button:not(.line-selected){
 	color: #676666;
 	background-color: transparent;
-}
-.newwindow::after{
-  content: '';
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  background: url('./icons/newwindow.png') 0 0 no-repeat;
 }
 .line-selected{
 	color: #fff;
@@ -811,7 +797,7 @@ div.mem-out > p:hover{
 }
 .messages input[name="search"]:focus,
 .messages textarea:focus,
-select:focus{
+.timezone select:focus{
 	outline-offset: 0;
 	border: 3px solid #4D4C72;
 }
@@ -1040,7 +1026,7 @@ select:focus{
 	color: transparent;
 	display: block;
 }
-select{
+.timezone select{
 	outline: none;
 	width: 100%;
 	background: url(downArrow.jpg) no-repeat 100%;
@@ -1055,22 +1041,14 @@ select{
     -moz-appearance: none;
 	transition: border 0.7s ease-out;
 }
-select:required:invalid{
+.timezone select:required:invalid{
 	color: #b9b9b9;
 }
-select option[value=""][disabled]{
+.timezone select option[value=""][disabled]{
 	display: none;
 }
-select option{
+.timezone select option{
 	color: #676666;
-}
-#country{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -60px;
-  width: 250px;
-  height: 50px;
 }
 @media screen and (max-width: 399px){
 	.tooltip2:after{
@@ -1091,6 +1069,15 @@ select option{
 	div > header > nav ul li a{
 		padding: 19px 27px 0;
 	}
+	.line-buttons > p{
+		left: 14px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.line-buttons{
+		justify-content: flex-end;
+		padding-right: 3%;
+	}
 }
 @media screen and (min-width: 400px) and (max-width: 767px){
 	#visits:target > p{
@@ -1107,7 +1094,6 @@ select option{
 	}
 }
 @media screen and (min-width: 768px){
-
 	body > div:nth-of-type(1){
 		display: flex;
 	}
@@ -1209,15 +1195,6 @@ select option{
 	}
 }
 @media screen and (min-width: 1024px){
-  .line-controls > p{
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .line-buttons{
-    justify-content: flex-end;
-    padding-right: 3%;
-  }
 	.bar-chart,
 	.donut-chart{
 		margin-bottom: 0;
