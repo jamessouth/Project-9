@@ -63,12 +63,19 @@
 				</div>
 			</div>
 			<div class="alert-div"><p><span>Alert</span>&nbsp;&nbsp;&nbsp;Featuring: <a href="http://www.chartjs.org/">Chart.js</a>, <a href="http://momentjs.com/">Moment.js</a>, two API calls (<a href="https://www.mediawiki.org/wiki/API:Main_page">Wikipedia</a> and <a href="https://randomuser.me/">randomuser.me</a>), a homemade dropdown menu and homemade switches! You can use the keyboard as well, no mouse required!</p><button>x</button></div>
-			<div id="visits" class="line-buttons">
-				<p>traffic</p>
-				<button class="line-selected">Hourly</button>
-				<button>Daily</button>
-				<button>Weekly</button>
-				<button>Monthly</button>
+			<div id="visits" class="line-controls">
+
+        <select id="country">
+          <option selected disabled value="">Select Country</option>
+        </select>
+				<p><a class="newwindow" rel="noopener noreferrer" target="_blank" href="https://data.worldbank.org/">world bank data</a> - <span id="wbdata"></span></p>
+
+        <div class="line-buttons">
+  				<button class="line-selected">GDP</button>
+  				<button>Population</button>
+  				<button>Business</button>
+  				<button>Interest Rate</button>
+        </div>
 			</div>
 			<div class="line-chart">
 				<canvas></canvas>
@@ -254,12 +261,12 @@
 								</div>
 							</div>
 							<div class="linechart_default">
-								<p>Line Chart Default Time Period</p>
-								<div data-setting="timeperiod">
+								<p>Line Chart Default Event</p>
+								<div data-setting="natevents">
 									<div class="dial"></div>
 									<div class="pointer"></div>
-									<input checked id="hourly" name="linechart_default" type="radio" value="hourly"/>
-									<label for="hourly">hourly</label>
+									<input checked id="wildfires" name="linechart_default" type="radio" value="wildfires"/>
+									<label for="wildfires">wildfires</label>
 									<input id="daily" name="linechart_default" type="radio" value="daily"/>
 									<label for="daily">daily</label>
 									<input id="weekly" name="linechart_default" type="radio" value="weekly"/>
@@ -285,6 +292,7 @@
 			</div>
 		</main>
 	</div>
-	<script src="app.js"></script>
+  <script src="countries.js"></script>
+	<script src="app2.js"></script>
   </body>
 </html>
