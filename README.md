@@ -1,4 +1,4 @@
 # Project-9
 web app dashboard
 
-now refactoring with Vue.js at [here](https://github.com/jamessouth/Vue-Project-9)
+refactored with Vue.js [here](https://github.com/jamessouth/dashboard)
